@@ -59,3 +59,7 @@ To update the docs:
 jazzy --objc --umbrella-header Yuneec_SDK_iOS/Yuneec_SDK_iOS.h
 ```
 
+## License
+
+The source code in this repository which is just a  wrapper around the Yuneec-SDK (C++ library) is published under the [BSD 3-Clause license](LICENSE).
+
