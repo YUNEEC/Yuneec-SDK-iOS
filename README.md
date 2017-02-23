@@ -38,6 +38,13 @@ Open the project in XCode and do:
 3. Click Other, go one folder up and select `Carthage/Build/iOS/Yuneec_SDK_iOS.framework`.
 4. Do "Product Clean and "Product Build"
 
+### Use Carthage to check out a developer branch
+
+While developing, you might need a developer version of the iOS wrappers. They can be accessed by using a branch in the `Cartfile`:
+
+```
+github "YUNEEC/Yuneec-SDK-iOS" "branch-name"
+```
 
 ## Docs
 
