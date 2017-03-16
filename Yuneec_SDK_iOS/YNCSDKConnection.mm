@@ -52,6 +52,8 @@ void on_timeout(uint64_t uuid) {
 }
 
 - (BOOL)connect {
+    [self requestNetwork];
+    
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     DroneLink::ConnectionResult ret = dl->add_udp_connection();
     
@@ -68,6 +70,25 @@ void on_timeout(uint64_t uuid) {
 
 - (void)setDelegate:(id<YNCSDKConnectionDelegate>)delegate {
     _delegate = delegate;
+}
+
+//MARK:Since China's National Bank iPhone requires users to allow App to access cellular data and WiFi connection to the network, So, Add a network request to prompt the network for permission, to resolve the qustion of "no route to host"
+- (void)requestNetwork {
+    NSURL *url = [NSURL URLWithString:@"https://192.168.42.1/"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error == nil) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSLog(@"%@",dict);
+        } else {
+            NSLog(@"request network error:%@",error);
+        }
+    }];
+    
+    [dataTask resume];
 }
 
 @end
