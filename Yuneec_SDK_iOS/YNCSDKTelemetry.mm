@@ -23,6 +23,7 @@ static id <YNCSDKTelemetryRCStatusDelegate> _rcStatusDelegate;
 static id <YNCSDKTelemetryFlightModeDelegate> _flightModeDelegate;
 static id <YNCSDKTelemetryHealthDelegate> _healthDelegate;
 static id <YNCSDKTelemetryArmedDelegate> _armedDelegate;
+static id <YNCSDKTelemetryHealthAllOkDelegate> _healthAllOkDelegate;
 
 
 #pragma mark Receive battery data
@@ -165,25 +166,7 @@ void receive_RCStatus(Telemetry::RCStatus RCStatus) {
 
 #pragma mark Flight Mode information
 void receive_flightMode(Telemetry::FlightMode flightMode) {
-    YNCTelemetryFlightMode tmpFlightMode;
-    switch (flightMode) {
-        case Telemetry::FlightMode::READY:
-            tmpFlightMode = YNCREADY;
-        case Telemetry::FlightMode::TAKEOFF:
-            tmpFlightMode = YNCTAKEOFF;
-        case Telemetry::FlightMode::HOLD:
-            tmpFlightMode = YNCHOLD;
-        case Telemetry::FlightMode::MISSION:
-            tmpFlightMode = YNCMISSION;
-        case Telemetry::FlightMode::RETURN_TO_LAUNCH:
-            tmpFlightMode = YNCRETURN_TO_LAUNCH;
-        case Telemetry::FlightMode::LAND:
-            tmpFlightMode = YNCLAND;
-        case Telemetry::FlightMode::OFFBOARD:
-            tmpFlightMode = YNCOFFBOARD;
-        case Telemetry::FlightMode::UNKNOWN:
-            tmpFlightMode = YNCUNKNOWN;
-    }
+    YNCTelemetryFlightMode tmpFlightMode = (YNCTelemetryFlightMode)flightMode;
     
     if (_flightModeDelegate &&
         [_flightModeDelegate respondsToSelector:@selector(onFlightModeUpdate:)]) {
@@ -212,6 +195,13 @@ void receive_health(Telemetry::Health health) {
 void receive_armed(bool armed) {
     if (_armedDelegate && [_armedDelegate respondsToSelector:@selector(onArmedUpdate:)]) {
         [_armedDelegate onArmedUpdate:armed];
+    }
+}
+
+#pragma mark Receive health all information
+void receive_healthAllOk(bool healthAllOk) {
+    if (_healthAllOkDelegate && [_healthAllOkDelegate respondsToSelector:@selector(onHealthAllOkUpdate:)]) {
+        [_healthAllOkDelegate onHealthAllOkUpdate:healthAllOk];
     }
 }
 
@@ -375,6 +365,16 @@ void receive_armed(bool armed) {
     _armedDelegate = delegate;
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().telemetry().armed_async(&receive_armed);
+}
+
+@end
+
+@implementation YNCSDKTelemetryHealthAllOk
+
+- (void)subscribe:(id<YNCSDKTelemetryHealthAllOkDelegate>) delegate {
+    _healthAllOkDelegate = delegate;
+    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    dl->device().telemetry().health_all_ok_async(&receive_healthAllOk);
 }
 
 @end

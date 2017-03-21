@@ -585,3 +585,27 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
  */  
 - (void)subscribe:(id<YNCSDKTelemetryArmedDelegate>) delegate;
 @end
+
+/**
+ This delegate provides health All Ok status updates.
+ */
+@protocol YNCSDKTelemetryHealthAllOkDelegate <NSObject>
+/**
+ Receives health All Ok status updates.
+ 
+ @param healthAllOk the status of health all
+ */
+- (void)onHealthAllOkUpdate:(BOOL)healthAllOk;
+@end
+
+/**
+ This class provides a method to subscribe to armed status updates.
+ */
+@interface YNCSDKTelemetryHealthAllOk: NSObject
+/**
+ * Subscribes to health all ok status updates.
+ *
+ * @param delegate the delegate object
+ */
+- (void)subscribe:(id<YNCSDKTelemetryHealthAllOkDelegate>) delegate;
+@end
