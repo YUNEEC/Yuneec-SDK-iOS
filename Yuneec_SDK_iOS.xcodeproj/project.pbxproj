@@ -22,6 +22,8 @@
 		082C06881E157A1500BDD785 /* libdronelink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 082C06871E157A1500BDD785 /* libdronelink.a */; };
 		B9FFEDE41E1F658A008458AE /* YNCSDKMission.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9FFEDE51E1F658A008458AE /* YNCSDKMission.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */; };
+		F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = F4B49D731E81037100C44328 /* YNCSDKCamera.h */; };
+		F4B49D761E81037100C44328 /* YNCSDKCamera.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B49D741E81037100C44328 /* YNCSDKCamera.mm */; };
 		F4F34C9E1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4F34C9C1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		082C06871E157A1500BDD785 /* libdronelink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronelink.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronelink.a"; sourceTree = "<group>"; };
 		B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKMission.h; sourceTree = "<group>"; };
 		B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKMission.mm; sourceTree = "<group>"; };
+		F4B49D731E81037100C44328 /* YNCSDKCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKCamera.h; sourceTree = "<group>"; };
+		F4B49D741E81037100C44328 /* YNCSDKCamera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKCamera.mm; sourceTree = "<group>"; };
 		F4F34C9B1E2F4CBE0022D1B8 /* YNCSDKGimbal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKGimbal.h; sourceTree = "<group>"; };
 		F4F34C9C1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKGimbal.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +85,8 @@
 		082C06571E150EAB00BDD785 /* Yuneec_SDK_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F4B49D731E81037100C44328 /* YNCSDKCamera.h */,
+				F4B49D741E81037100C44328 /* YNCSDKCamera.mm */,
 				F4F34C9B1E2F4CBE0022D1B8 /* YNCSDKGimbal.h */,
 				F4F34C9C1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm */,
 				082C06601E150ED400BDD785 /* YNCSDKAction.h */,
@@ -120,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				082C066E1E150ED400BDD785 /* YNCSDKAction.h in Headers */,
+				F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */,
 				082C065A1E150EAB00BDD785 /* Yuneec_SDK_iOS.h in Headers */,
 				082C06781E150ED400BDD785 /* YNCSDKTelemetry.h in Headers */,
 				082C06701E150ED400BDD785 /* YNCSDKConnection.h in Headers */,
@@ -205,6 +212,7 @@
 				080E8C441E56EDE600E48132 /* YNCSDKMissionItem.mm in Sources */,
 				B9FFEDE51E1F658A008458AE /* YNCSDKMission.mm in Sources */,
 				082C06791E150ED400BDD785 /* YNCSDKTelemetry.mm in Sources */,
+				F4B49D761E81037100C44328 /* YNCSDKCamera.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
