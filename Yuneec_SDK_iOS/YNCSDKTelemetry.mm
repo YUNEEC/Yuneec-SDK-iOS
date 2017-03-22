@@ -166,7 +166,25 @@ void receive_RCStatus(Telemetry::RCStatus RCStatus) {
 
 #pragma mark Flight Mode information
 void receive_flightMode(Telemetry::FlightMode flightMode) {
-    YNCTelemetryFlightMode tmpFlightMode = (YNCTelemetryFlightMode)flightMode;
+    YNCTelemetryFlightMode tmpFlightMode;
+    switch (flightMode) {
+        case Telemetry::FlightMode::READY:
+            tmpFlightMode = YNCREADY;
+        case Telemetry::FlightMode::TAKEOFF:
+            tmpFlightMode = YNCTAKEOFF;
+        case Telemetry::FlightMode::HOLD:
+            tmpFlightMode = YNCHOLD;
+        case Telemetry::FlightMode::MISSION:
+            tmpFlightMode = YNCMISSION;
+        case Telemetry::FlightMode::RETURN_TO_LAUNCH:
+            tmpFlightMode = YNCRETURN_TO_LAUNCH;
+        case Telemetry::FlightMode::LAND:
+            tmpFlightMode = YNCLAND;
+        case Telemetry::FlightMode::OFFBOARD:
+            tmpFlightMode = YNCOFFBOARD;
+        case Telemetry::FlightMode::UNKNOWN:
+            tmpFlightMode = YNCUNKNOWN;
+    }
     
     if (_flightModeDelegate &&
         [_flightModeDelegate respondsToSelector:@selector(onFlightModeUpdate:)]) {
