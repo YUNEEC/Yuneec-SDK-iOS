@@ -19,25 +19,7 @@
  @param receiveData the camera setting data
  @param error the error object if an error occurred during the get operation, or nil if no error occurred.
  */
-typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData,NSError *error);
-
-/**
- Data type for specifying error types for camera operation.
- */
-typedef NS_ENUM (NSInteger, YNCCameraOperateError) {
-	/** Operation successful */
-    YNC_CAMERA_OPERATE_SUCCESS = 0,
-	/** Operation denied */    
-    YNC_CAMERA_OPERATE_DENIED,
-	/** Operation error */    
-    YNC_CAMERA_OPERATE_ERROR,
-	/** Operation timeout */
-    YNC_CAMERA_OPERATE_TIMEOUT,
-	/** Operation wrong argument */
-    YNC_CAMERA_OPERATE_WRONG_ARGUMENT,
- 	/** Operation unknown error */   
-    YNC_CAMERA_OPERATE_UNKNOWN
-};
+typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NSError *error);
 
 /**
  This class manages the camera settings of the drone.
