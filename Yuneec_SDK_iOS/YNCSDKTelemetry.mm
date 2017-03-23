@@ -197,11 +197,8 @@ void receive_flightMode(Telemetry::FlightMode flightMode) {
             tmpFlightMode = YNCOFFBOARD;
             break;
             
-        case Telemetry::FlightMode::UNKNOWN:
-            tmpFlightMode = YNCUNKNOWN;
-            break;
-            
         default:
+            tmpFlightMode = YNCUNKNOWN;
             break;
     }
     
