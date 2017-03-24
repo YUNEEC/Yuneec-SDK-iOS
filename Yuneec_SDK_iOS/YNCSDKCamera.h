@@ -9,9 +9,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "YNCSDKDrone.h"
-
 @class YNCCameraSettings;
+
+/**
+ Data type for completion blocks for camera commands that contain error results, if any.
+ */
+typedef void (^YNCCameraCompletion)(NSError *error);
 
 /**
  Completion block for the asynchronous getSettings() function for the camera.
@@ -74,50 +77,50 @@ typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NS
 
 /**
  Triggers the take photo command.
- 
+
  @param completion the callback function after completion
  */
-+ (void)takePhotoWithCompletion:(YNCCompletionBlock)completion;
++ (void)takePhotoWithCompletion:(YNCCameraCompletion)completion;
 
 /**
  Starts video recording.
- 
+
  @param completion the callback function after completion
  */
-+ (void)startVideoWithCompletion:(YNCCompletionBlock)completion;
++ (void)startVideoWithCompletion:(YNCCameraCompletion)completion;
 
 /**
  Stops video recording.
- 
+
  @param completion the callback function after completion
  */
-+ (void)stopVideoWithCompletion:(YNCCompletionBlock)completion;
++ (void)stopVideoWithCompletion:(YNCCameraCompletion)completion;
 
 /**
  Starts taking photos in burst mode (every n intervals).
- 
+
  @param intervalS the interval (in seconds) between photos in burst mode
  @param completion the callback function after completion
  */
-+ (void)startPhotoInterval:(double)intervalS Completion:(YNCCompletionBlock)completion;
++ (void)startPhotoInterval:(double)intervalS Completion:(YNCCameraCompletion)completion;
 
 /**
  Stops taking photos in burst mode.
- 
+
  @param completion the callback function after completion
  */
-+ (void)stopPhotoIntervalWithCompletion:(YNCCompletionBlock)completion;
++ (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion;
 
 /**
  Sets the camera settings.
- 
+
  @param completion the callback function after completion
  */
-+ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCompletionBlock)completion;
++ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion;
 
 /**
  Gets the camera settings.
- 
+
  @param receiveDataCompletion the completion block for getSettings()
  */
 + (void)getSettings:(YNCReceiveDataCompletionBlock)receiveDataCompletion;

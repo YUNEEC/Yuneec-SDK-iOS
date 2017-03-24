@@ -12,7 +12,7 @@ using namespace std::placeholders;
 
 //MARK: C Functions
 //MARK: receive camera operate result
-void receive_camera_result(YNCCompletionBlock completion, Camera::Result result) {
+void receive_camera_result(YNCCameraCompletion completion, Camera::Result result) {
     if (completion) {
         NSError *error = nullptr;
         if (result != Camera::Result::SUCCESS) {
@@ -21,7 +21,7 @@ void receive_camera_result(YNCCompletionBlock completion, Camera::Result result)
                                                code:(int)result
                                            userInfo:@{@"message": message}];
         }
-        
+
         completion(error);
     }
 }
@@ -46,7 +46,7 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
             tmpSettings.shutterAuto = settings.shutter_auto;
             tmpSettings.isoAuto = settings.iso_auto;
             tmpSettings.whitespaceAuto = settings.white_space_auto;
-            
+
             completion(tmpSettings, error);
         }
     }
@@ -64,49 +64,49 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
 @implementation YNCSDKCamera
 
 //MARK: Camera TakePhoto
-+ (void)takePhotoWithCompletion:(YNCCompletionBlock)completion {
++ (void)takePhotoWithCompletion:(YNCCameraCompletion)completion {
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().take_photo_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StartVideo
-+ (void)startVideoWithCompletion:(YNCCompletionBlock)completion {
++ (void)startVideoWithCompletion:(YNCCameraCompletion)completion {
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().start_video_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StopVideo
-+ (void)stopVideoWithCompletion:(YNCCompletionBlock)completion {
++ (void)stopVideoWithCompletion:(YNCCameraCompletion)completion {
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().stop_video_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StartPhotoInterval
-+ (void)startPhotoInterval:(double)intervalS Completion:(YNCCompletionBlock)completion{
++ (void)startPhotoInterval:(double)intervalS Completion:(YNCCameraCompletion)completion{
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().start_photo_interval_async(intervalS, std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StopPhotoInterval
-+ (void)stopPhotoIntervalWithCompletion:(YNCCompletionBlock)completion {
++ (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion {
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().stop_photo_interval_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera set settings
-+ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCompletionBlock)completion {
++ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion {
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dronelink::Camera::Settings settings;
     settings.aperture_value = cameraSettings.apertureValue;
     settings.shutter_speed_s = cameraSettings.shutterSpeedS;
     settings.iso_sensitivity = cameraSettings.isoSensitivity;
     settings.white_space_balance_temperature_k = cameraSettings.whitespaceBalanceTemperatureK;
-    
+
     settings.aperture_auto = cameraSettings.apertureAuto;
     settings.shutter_auto = cameraSettings.shutterAuto;
     settings.iso_auto = cameraSettings.isoAuto;
     settings.white_space_auto = cameraSettings.whitespaceAuto;
-    
+
     dl->device().camera().set_settings_async(settings, std::bind(&receive_camera_result, completion, _1));
 }
 
