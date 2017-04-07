@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		080E8C431E56EDE600E48132 /* YNCSDKMissionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 080E8C411E56EDE600E48132 /* YNCSDKMissionItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		080E8C441E56EDE600E48132 /* YNCSDKMissionItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 080E8C421E56EDE600E48132 /* YNCSDKMissionItem.mm */; };
+		0817D88A1E977F850062ADCF /* YNCSDKGimbal.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F34C9B1E2F4CBE0022D1B8 /* YNCSDKGimbal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C065A1E150EAB00BDD785 /* Yuneec_SDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C06581E150EAB00BDD785 /* Yuneec_SDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C066E1E150ED400BDD785 /* YNCSDKAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C06601E150ED400BDD785 /* YNCSDKAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C066F1E150ED400BDD785 /* YNCSDKAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C06611E150ED400BDD785 /* YNCSDKAction.mm */; };
@@ -22,7 +23,7 @@
 		082C06881E157A1500BDD785 /* libdronelink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 082C06871E157A1500BDD785 /* libdronelink.a */; };
 		B9FFEDE41E1F658A008458AE /* YNCSDKMission.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9FFEDE51E1F658A008458AE /* YNCSDKMission.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */; };
-		F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = F4B49D731E81037100C44328 /* YNCSDKCamera.h */; };
+		F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = F4B49D731E81037100C44328 /* YNCSDKCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4B49D761E81037100C44328 /* YNCSDKCamera.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B49D741E81037100C44328 /* YNCSDKCamera.mm */; };
 		F4F34C9E1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4F34C9C1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm */; };
 /* End PBXBuildFile section */
@@ -125,12 +126,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				082C066E1E150ED400BDD785 /* YNCSDKAction.h in Headers */,
-				F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */,
 				082C065A1E150EAB00BDD785 /* Yuneec_SDK_iOS.h in Headers */,
+				082C066E1E150ED400BDD785 /* YNCSDKAction.h in Headers */,
+				0817D88A1E977F850062ADCF /* YNCSDKGimbal.h in Headers */,
 				082C06781E150ED400BDD785 /* YNCSDKTelemetry.h in Headers */,
 				082C06701E150ED400BDD785 /* YNCSDKConnection.h in Headers */,
 				082C06761E150ED400BDD785 /* YNCSDKOffboard.h in Headers */,
+				F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */,
 				080E8C431E56EDE600E48132 /* YNCSDKMissionItem.h in Headers */,
 				B9FFEDE41E1F658A008458AE /* YNCSDKMission.h in Headers */,
 			);
