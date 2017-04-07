@@ -161,6 +161,13 @@
  @param groundSpeedNED the ground speed object
  */
 - (void)onGroundSpeedNEDUpdate:(YNCGroundSpeedNED *)groundSpeedNED;
+
+/**
+ Receives course updates.
+ 
+ @param course drone's course
+ */
+- (void)onCourseUpdate:(float)course;
 @end
 
 /**
