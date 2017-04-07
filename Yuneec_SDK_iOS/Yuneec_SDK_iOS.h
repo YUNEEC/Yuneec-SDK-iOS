@@ -20,3 +20,5 @@ FOUNDATION_EXPORT const unsigned char Yuneec_SDK_iOSVersionString[];
 #import "YNCSDKOffboard.h"
 #import "YNCSDKMission.h"
 #import "YNCSDKMissionItem.h"
+#import "YNCSDKCamera.h"
+#import "YNCSDKGimbal.h"
