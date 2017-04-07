@@ -72,6 +72,11 @@ void receive_mission_progress(YNCMissionProgressCallbackBlock callback, int curr
     dl->device().mission().subscribe_progress(std::bind(&receive_mission_progress, callback, _1, _2));
 }
 
++ (void)restartMissionWithCompletion:(YNCMissionCompletion)completion {
+    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    dl->device().mission().set_current_mission_item_async(0, std::bind(&receive_mission_error, completion, _1));
+}
+
 + (MissionItem::CameraAction)convertIntToCameraAction:(YNCCameraAction)raw {
     MissionItem::CameraAction cameraAction;
 
