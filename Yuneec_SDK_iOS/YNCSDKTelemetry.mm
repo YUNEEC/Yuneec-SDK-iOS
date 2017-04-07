@@ -62,6 +62,15 @@ void receive_ground_speed_ned(Telemetry::GroundSpeedNED ground_speed_ned) {
         [_groundSpeedNEDDelegate respondsToSelector:@selector(onGroundSpeedNEDUpdate:)]) {
         [_groundSpeedNEDDelegate onGroundSpeedNEDUpdate:tmpSpeed];
     }
+    
+    float course = atan2f(ground_speed_ned.velocity_east_m_s, ground_speed_ned.velocity_north_m_s);
+    
+    if (_groundSpeedNEDDelegate &&
+        [_groundSpeedNEDDelegate respondsToSelector:@selector(onCourseUpdate:)]) {
+        [_groundSpeedNEDDelegate onCourseUpdate:course];
+    }
+    
+    
 }
 
 #pragma mark Receive GPS information
