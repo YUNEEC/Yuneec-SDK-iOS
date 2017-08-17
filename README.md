@@ -27,16 +27,16 @@ Then, to pull in the library and build it, run Carthage in your app's repository
 carthage update --use-ssh
 ```
 
-This command also, needs to be re-run if you want to udpate the framework.
+This command also needs to be re-run if you want to udpate the framework.
 
 ### Add the framework into your project
 
-Open the project in XCode and do:
+Open the project in XCode and do the following:
 
-1. Open project settings -> General
+1. Open Project Settings -> General
 2. Find Embedded Binaries and press *+*
-3. Click Other, go one folder up and select `Carthage/Build/iOS/Yuneec_SDK_iOS.framework`.
-4. Do "Product Clean and "Product Build"
+3. Click Other, go one folder up, and select `Carthage/Build/iOS/Yuneec_SDK_iOS.framework`.
+4. Do "Product Clean" and "Product Build"
 
 ### Use Carthage to check out a developer branch
 
