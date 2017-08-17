@@ -47,7 +47,7 @@
  /**
  * Subscribes to battery status updates.
  *
- * @param delegate the delegate object
+ * @param delegate The Battery delegate object
  */
 - (void)subscribe:(id<YNCSDKTelemetryBatteryDelegate>) delegate;
 @end
@@ -87,7 +87,7 @@
 /**
  Receives position updates.
  
- @param position the position object with current position
+ @param position The position object with current position
  */
 - (void)onPositionUpdate:(YNCPosition *)position;
 @end
@@ -99,7 +99,7 @@
  /**
  * Subscribes to position updates
  *
- * @param delegate the delegate object
+ * @param delegate The Position delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryPositionDelegate>) delegate;
 @end
@@ -123,7 +123,7 @@
 /**
  * Subscribes to home position updates.
  *
- * @param delegate the delegate object
+ * @param delegate The Home Position delegate object
  */ 
 - (void)subscribe:(id<YNCSDKTelemetryHomePositionDelegate>) delegate;
 @end
@@ -187,7 +187,7 @@
     @property (nonatomic, assign) int numSatellites;
 
     /**
-     GPS fix type
+     GPS fix type: 1 - No GPS Fix, 2 - 2D Fix, 3 - 3D Fix.
      */
     @property (nonatomic, assign) int fixType;
 
@@ -309,20 +309,20 @@
 /**
  * Subscribes to attitude updates in quaternion.
  *
- * @param delegate the delegate object
+ * @param delegate The Quaternion Attitude delegate object
  */ 
 - (void)subscribe:(id<YNCSDKTelemetryAttitudeQuaternionDelegate>) delegate;
 @end
 
 /**
- This delegate provides in-air status updates of the drone.
+ This delegate provides the in-air status updates of the drone.
  */
 @protocol YNCSDKTelemetryInAirDelegate <NSObject>
 
 /**
  Receives in-air status updates.
  
- @param inAir true if drone is in flight, false if drone is on the ground (landed)
+ @param inAir true if drone is in flight, false if drone is on the ground (landed).
  */
 - (void)onInAirUpdate:(BOOL)inAir;
 @end
@@ -358,7 +358,7 @@
 /**
  * Subscribes to camera attitude updates.
  *
- * @param delegate the delegate object
+ * @param delegate The Camera Euler Angle delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryCameraAttitudeEulerAngleDelegate>) delegate;
 @end
@@ -382,13 +382,13 @@
  /**
  * Subscribes to camera attitude updates (in quarternion).
  *
- * @param delegate the delegate object
+ * @param delegate The Camera Quarternion Attitude delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryCameraAttitudeQuaternionDelegate>) delegate;
 @end
 
 /**
- This class contains the drone's remote control link status.
+ This class contains the drone's remote control (RC) link status.
  */
 @interface YNCRCStatus : NSObject
 
@@ -416,7 +416,7 @@
  /**
   Receives updates for remote control status.
  
-  @param rcStatus the remote control status
+  @param rcStatus The remote control status
  */
 - (void)onRCStatusUpdate:(YNCRCStatus *)rcStatus;
 @end
@@ -428,7 +428,7 @@
  /**
  * Subscribes to RC link status updates.
  *
- * @param delegate the delegate object
+ * @param delegate The RC Status delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryRCStatusDelegate>) delegate;
 @end
@@ -491,7 +491,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
  /**
  * Subscribes to flight mode updates.
  *
- * @param delegate the delegate object
+ * @param delegate The flight mode delegate object
  */ 
 - (void)subscribe:(id<YNCSDKTelemetryFlightModeDelegate>) delegate;
 @end
@@ -545,7 +545,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
 /**
  Receives health status updates.
  
- @param health the health status
+ @param health The health status
  */
 - (void)onHealthUpdate:(YNCHealth *)health;
 @end
@@ -557,7 +557,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
  /**
  * Subscribes to drone health updates.
  *
- * @param delegate the delegate object
+ * @param delegate The Drone Health delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryHealthDelegate>) delegate;
 @end
@@ -569,7 +569,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
 /**
  Receives armed status updates. Indicates whether the props are spinning (armed) or not (disarmed).
  
- @param armed the armed status
+ @param armed The armed status
  */
 - (void)onArmedUpdate:(BOOL)armed;
 @end
@@ -581,7 +581,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
  /**
  * Subscribes to armed status updates.
  *
- * @param delegate the delegate object
+ * @param delegate The Arm Status delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryArmedDelegate>) delegate;
 @end
@@ -605,7 +605,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
 /**
  * Subscribes to overall health status updates.
  *
- * @param delegate the delegate object
+ * @param delegate The Overall Health delegate object
  */
 - (void)subscribe:(id<YNCSDKTelemetryHealthAllOkDelegate>) delegate;
 @end

@@ -72,7 +72,7 @@ void on_timeout(uint64_t uuid) {
     _delegate = delegate;
 }
 
-//MARK:Since China's National Bank iPhone requires users to allow App to access cellular data and WiFi connection to the network, So, Add a network request to prompt the network for permission, to resolve the qustion of "no route to host"
+//MARK:Since China's National Bank iPhone requires users to allow App to access cellular data and WiFi connection to the network, add a network request to prompt the network for permission, to resolve the qustion of "no route to host"
 - (void)requestNetwork {
     NSURL *url = [NSURL URLWithString:@"https://192.168.42.1/"];
     

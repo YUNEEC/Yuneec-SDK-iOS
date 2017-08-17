@@ -23,15 +23,15 @@ typedef void (^YNCMissionCompletion)(NSError *error);
 /**
  * Receives the current waypoint in the mission.
  *
- * @param current the current waypoint number
- * @param total the total number of waypoints in the mission
+ * @param current The current waypoint number
+ * @param total The total number of waypoints in the current mission
  */
 - (void)receiveCurrentMissionItemIndex:(int)current WithTotalItems:(int)total;
 
 /**
  * Receives the error status for mission commands.
  *
- * @param error the error object
+ * @param error The error object
  */
 - (void)receiveMissionError:(NSError *)error;
 @end
@@ -49,8 +49,8 @@ typedef void (^YNCMissionProgressCallbackBlock)(int current, int total);
  /**
  * Sends the added waypoints to the drone and creates a mission.
  *
- * @param missionItems the array of waypoints in the mission
- * @param completion the completion function block
+ * @param missionItems The array of waypoints in the mission
+ * @param completion The completion function block
  */
 + (void)sendMissionWithMissionItems:(NSMutableArray *) missionItems
                      withCompletion:(YNCMissionCompletion)completion;
@@ -72,7 +72,7 @@ typedef void (^YNCMissionProgressCallbackBlock)(int current, int total);
 /**
  * Subscribes to the progress updates in the current mission.
  *
- * @param callback the callback block
+ * @param callback The Mission Progress callback block
  */
 + (void)subscribeProgressWithCallback:(YNCMissionProgressCallbackBlock)callback;
 
