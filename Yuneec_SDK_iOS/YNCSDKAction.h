@@ -20,42 +20,42 @@ typedef void (^YNCActionCompletion)(NSError *error);
 @interface YNCAction : NSObject
 
 /**
- * Turns on motors.
+ * Turns on the motors.
  *
  * @param completion Completion function block
  */
 + (void)armWithCompletion:(YNCActionCompletion)completion;
 
 /**
- * Turns off motors when drone is grounded and not in-air.
+ * Turns off the motors when the drone is grounded and not in-air.
  *
  * @param completion Completion function block
  */
 + (void)disarmWithCompletion:(YNCActionCompletion)completion;
 
 /**
- * Sends command to take-off.
+ * Sends command to take-off using the default take off height.
  *
  * @param completion Completion function block
  */
 + (void)takeoffWithCompletion:(YNCActionCompletion)completion;
 
 /**
- * Sends command to land drone.
+ * Sends command to land the drone at the current position.
  *
  * @param completion Completion function block
  */
 + (void)landWithCompletion:(YNCActionCompletion)completion;
 
 /**
- * Sends command to return to home.
+ * Sends command to return to the home position.
  *
  * @param completion Completion function block
  */
 + (void)doReturnToLaunchWithCompletion:(YNCActionCompletion)completion;
 
 /**
- * Switches off power to motors.
+ * Switches off power to the motors.
  *
  * Warning: if triggered in-air, the drone will drop straight down. This cuts all power the motors and should only be used for emergency situations.
  *

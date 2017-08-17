@@ -12,15 +12,15 @@
  Data type for specifying camera action types.
  */
 typedef NS_ENUM (NSInteger, YNCCameraAction) {
-    /** Take photo */
+    /** Takes a photo */
     TAKE_PHOTO,
-    /** Start burst mode */
+    /** Starts burst mode */
     START_PHOTO_INTERVAL,
-    /** Stop burst mode */
+    /** Stops burst mode */
     STOP_PHOTO_INTERVAL,
-    /** Start video */
+    /** Starts video */
     START_VIDEO,
-    /** Stop video */
+    /** Stop svideo */
     STOP_VIDEO,
     /** No action */
     NONE
@@ -31,21 +31,21 @@ typedef NS_ENUM (NSInteger, YNCCameraAction) {
  */
 @interface YNCSDKMissionItem : NSObject
     
-    /** Latitude in degrees */
+    /** Latitude in Degrees */
     @property double latitudeDeg;
-    /** Longitude in degrees */
+    /** Longitude in Degrees */
     @property double longitudeDeg;
-    /** Relative altitude in meters */
+    /** Relative Altitude in Meters */
     @property float relativeAltitudeM;
-    /** Speed in meters per second */
+    /** Speed in Meters per second (m/s) */
     @property float speedMS;
     /** True if no stopping at the waypoint*/
     @property bool isFlyThrough;
-    /** Pitch (tilt) of gimbal in degrees */
+    /** Pitch (tilt) of gimbal in Degrees */
     @property float gimbalPitchDeg;
-    /** Yaw (rotation/pan) angle of gimbal in degrees */
+    /** Yaw (rotation/pan) angle of gimbal in Degrees */
     @property float gimbalYawDeg;
-    /** Camera action to perform */
+    /** Camera action to perform (see Camera Action Types for options) */
     @property YNCCameraAction cameraAction;
 
 @end
