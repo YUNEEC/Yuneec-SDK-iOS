@@ -57,7 +57,7 @@ typedef void (^YNCActionCompletion)(NSError *error);
 /**
  * Switches off power to motors.
  *
- * Warning: if triggered in-air, the drone will drop straight down.
+ * Warning: if triggered in-air, the drone will drop straight down. This cuts all power the motors and should only be used for emergency situations.
  *
  * @param completion Completion function block
  */
