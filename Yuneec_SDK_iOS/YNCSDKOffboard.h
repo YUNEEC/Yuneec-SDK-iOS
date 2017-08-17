@@ -20,7 +20,7 @@ typedef void (^YNCOffboardCompletion)(NSError *error);
 @interface YNCSDKOffboard : NSObject
 
 /**
- * Starts the offboard control mode.
+ * Starts the offboard (manual) control mode.
  * 
  * This requires that a velocity waypoint has already been set.
  * 
@@ -29,7 +29,7 @@ typedef void (^YNCOffboardCompletion)(NSError *error);
 + (void)startWithCompletion:(YNCOffboardCompletion)completion;
 
 /**
- * Stops the offboard control mode.
+ * Stops the offboard (manual) control mode.
  *
  * The drone will go back to pause mode and hold its position.
  * 
@@ -52,9 +52,9 @@ typedef void (^YNCOffboardCompletion)(NSError *error);
 /**
  * Sets the drone velocity in body coordinates. You should set a speed every 30ms to ensure smooth flight operation.
  *
- * @param velocityForward the forward direction body speed (in m/s - negative for backward)
- * @param velocityRight the right direction body speed (in ms/s - negative for left)
- * @param velocityDown the down direction body speed (in ms/s - negative for up)
+ * @param velocityForward the forward direction body speed (in m/s - negative for Backward)
+ * @param velocityRight the right direction body speed (in ms/s - negative for Left)
+ * @param velocityDown the down direction body speed (in ms/s - negative for Up)
  * @param yawspeed the yaw speed (in deg/sec - positive for clockwise from top view)
  */
 + (void)setVelocityBodyYawspeedWithVelocityForward:(float)velocityForward

@@ -58,22 +58,22 @@
 @interface YNCPosition : NSObject
 
     /**
-     Latitude (in degrees)
+     Latitude (in Degrees)
      */
     @property (nonatomic, assign) double latitudeDeg;
 
     /**
-     Longitude (in degrees)
+     Longitude (in Degrees)
      */
     @property (nonatomic, assign) double longitudeDeg;
 
     /**
-     Absolute altitude (in meters)
+     Absolute altitude (in Meters)
      */
     @property (nonatomic, assign) float absoluteAltitudeM;
 
     /**
-     Relative altitude (in meters)
+     Relative altitude (in Meters)
      */
     @property (nonatomic, assign) float relativeAltitudeM;
 
@@ -158,7 +158,7 @@
 /**
  Receives ground speed updates.
  
- @param groundSpeedNED the ground speed object
+ @param groundSpeedNED The NED ground speed object
  */
 - (void)onGroundSpeedNEDUpdate:(YNCGroundSpeedNED *)groundSpeedNED;
 @end
@@ -171,7 +171,7 @@
 /**
  * Subscribes to ground speed updates.
  *
- * @param delegate the delegate object
+ * @param delegate The NED GroundSpeed delegate object
  */ 
 - (void)subscribe:(id<YNCSDKTelemetryGroundSpeedNEDDelegate>) delegate;
 @end
@@ -212,7 +212,7 @@
 /**
  * Subscribes to GPS info updates.
  *
- * @param delegate the delegate object
+ * @param delegate the GPS Information delegate object
  */
 - (void)subscribe:(id<YNCSDKTelemetryGPSInfoDelegate>) delegate;
 @end
@@ -223,17 +223,17 @@
 @interface YNCAttitudeEulerAngle : NSObject
 
     /**
-     Roll value (in degrees)
+     Roll value (in Degrees)
      */
     @property (nonatomic, assign) float rollDeg;
 
     /**
-     Pitch value (in degrees)
+     Pitch value (in Degrees)
      */
     @property (nonatomic, assign) float pitchDeg;
 
     /**
-     Yaw value (in degrees)
+     Yaw value (in Degrees)
      */
     @property (nonatomic, assign) float yawDeg;
 
@@ -258,7 +258,7 @@
 /**
  * Subscribes to attitude updates of the drone.
  *
- * @param delegate the delegate object
+ * @param delegate The Euler Angle Attitude delegate object
  */ 
 - (void)subscribe:(id<YNCSDKTelemetryAttitudeEulerAngleDelegate>) delegate;
 @end
@@ -334,7 +334,7 @@
 /**
  * Subscribes to in-air status updates.
  *
- * @param delegate the delegate object
+ * @param delegate the In Air Status delegate object
  */  
 - (void)subscribe:(id<YNCSDKTelemetryInAirDelegate>) delegate;
 @end
@@ -567,7 +567,7 @@ typedef NS_ENUM (NSInteger, YNCTelemetryFlightMode) {
  */
 @protocol YNCSDKTelemetryArmedDelegate <NSObject>
 /**
- Receives armed status updates.
+ Receives armed status updates. Indicates whether the props are spinning (armed) or not (disarmed).
  
  @param armed the armed status
  */

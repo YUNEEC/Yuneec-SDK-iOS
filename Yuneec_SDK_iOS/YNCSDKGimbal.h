@@ -22,8 +22,8 @@ typedef void (^YNCGimbalCompletion)(NSError *error);
 /**
  * Sets the pitch and yaw of the gimbal.
  *
- * @param pitchDeg the pitch value in degrees
- * @param yawDeg the yaw angle in degrees
+ * @param pitchDeg the pitch value in degrees. This indicates the tilt angle of the camera.
+ * @param yawDeg the yaw angle in degrees. This indicates the rotation angle of the camera relative to the front centered starting point.
  * @param completion the completion block returning the error status, if any
  */
 + (void)setPitchDeg:(float)pitchDeg andYawDeg:(float)yawDeg withCompletion:(YNCGimbalCompletion)completion;

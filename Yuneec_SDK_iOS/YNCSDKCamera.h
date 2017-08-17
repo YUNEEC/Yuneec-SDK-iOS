@@ -19,8 +19,8 @@ typedef void (^YNCCameraCompletion)(NSError *error);
 /**
  Completion block for the asynchronous getSettings() function for the camera.
 
- @param receiveData the camera setting data
- @param error the error object if an error occurred during the get operation, or nil if no error occurred.
+ @param receiveData The camera setting data
+ @param error The error object if an error occurred during the get operation, or nil if no error occurred.
  */
 typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NSError *error);
 
@@ -29,42 +29,42 @@ typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NS
  */
 @interface YNCCameraSettings : NSObject
 /**
- Aperture value
+ Aperture value, the amount of light allowed in while the shutter is open.
  */
 @property (nonatomic, assign) double apertureValue;
 
 /**
- Shutter speed (in seconds)
+ Shutter speed (in seconds). The interval for which the shutter is open.
  */
 @property (nonatomic, assign) double shutterSpeedS;
 
 /**
- ISO value
+ ISO value. The sensitivity to light of the sensor.
  */
 @property (nonatomic, assign) double isoSensitivity;
 
 /**
- White balance temperature (in K)
+ White balance temperature (in K). Defines the color rendering of the sensor.
  */
 @property (nonatomic, assign) double whitespaceBalanceTemperatureK;
 
 /**
- True, if auto aperture mode
+ True, if auto aperture mode. Aperture is set by the camera while Shutter Speed/ISO can be managed by the user.
  */
 @property (nonatomic, assign) BOOL apertureAuto;
 
 /**
- True, if auto shutter speed mode
+ True, if auto shutter speed mode. Shutter Speed is set by the camera while Aperture/ISO can be managed by the user.
  */
 @property (nonatomic, assign) BOOL shutterAuto;
 
 /**
- True, if auto ISO mode
+ True, if auto ISO mode. ISO is set by the camera while Shutter Speed/Aperture can be managed by the user.
  */
 @property (nonatomic, assign) BOOL isoAuto;
 
 /**
- True, if auto white balance mode
+ True, if auto white balance mode. Camera will autoselect the best white balance based on the scene.
  */
 @property (nonatomic, assign) BOOL whitespaceAuto;
 

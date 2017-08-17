@@ -33,17 +33,17 @@ typedef NS_ENUM (NSInteger, YNCCameraAction) {
     
     /** Latitude in degrees */
     @property double latitudeDeg;
-    /** Longitude in degree */
+    /** Longitude in degrees */
     @property double longitudeDeg;
     /** Relative altitude in meters */
     @property float relativeAltitudeM;
-    /** Speed in meter per second */
+    /** Speed in meters per second */
     @property float speedMS;
-    /** True if no stopping */
+    /** True if no stopping at the waypoint*/
     @property bool isFlyThrough;
-    /** Pitch of gimbal in degrees */
+    /** Pitch (tilt) of gimbal in degrees */
     @property float gimbalPitchDeg;
-    /** Yaw angle of gimbal in degrees */
+    /** Yaw (rotation/pan) angle of gimbal in degrees */
     @property float gimbalYawDeg;
     /** Camera action to perform */
     @property YNCCameraAction cameraAction;
