@@ -60,7 +60,7 @@
   /* Name.Variable.Instance */
   /* Literal.Number.Integer.Long */ }
   .highlight .c {
-    color: #999988;
+    color: #4a4a4a;
     font-style: italic; }
   .highlight .err {
     color: #a61717;
@@ -72,13 +72,13 @@
     color: #000000;
     font-weight: bold; }
   .highlight .cm {
-    color: #999988;
+    color: #4a4a4a;
     font-style: italic; }
   .highlight .cp {
     color: #999999;
     font-weight: bold; }
   .highlight .c1 {
-    color: #999988;
+    color: #4a4a4a;
     font-style: italic; }
   .highlight .cs {
     color: #999999;
@@ -126,9 +126,11 @@
     color: #000000;
     font-weight: bold; }
   .highlight .kt {
-    color: #445588; }
+    color: #000088; }
   .highlight .m {
-    color: #009999; }
+    color: #1f81b6; }
+  .highlight .n {
+    color: #000088; }
   .highlight .s {
     color: #d14; }
   .highlight .na {
@@ -136,7 +138,7 @@
   .highlight .nb {
     color: #0086B3; }
   .highlight .nc {
-    color: #445588;
+    color: #000088;
     font-weight: bold; }
   .highlight .no {
     color: #008080; }
@@ -159,13 +161,13 @@
   .highlight .w {
     color: #bbbbbb; }
   .highlight .mf {
-    color: #009999; }
+    color: #1f81b6; }
   .highlight .mh {
-    color: #009999; }
+    color: #1f81b6; }
   .highlight .mi {
-    color: #009999; }
+    color: #1f81b6; }
   .highlight .mo {
-    color: #009999; }
+    color: #1f81b6; }
   .highlight .sb {
     color: #d14; }
   .highlight .sc {
@@ -197,4 +199,4 @@
   .highlight .vi {
     color: #008080; }
   .highlight .il {
-    color: #009999; }
+    color: #1f81b6; }
