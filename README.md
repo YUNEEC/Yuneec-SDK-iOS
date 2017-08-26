@@ -1,3 +1,5 @@
+# [![Yuneec](http://developer.yuneec.com/sites/default/files/docs/YuneecLogo.svg)](https://developer.yuneec.com)
+
 # Yuneec SDK for iOS
 
 iOS wrappers for the Yuneec-SDK https://github.com/YUNEEC/Yuneec-SDK written in Objective-C/Objective-C++.
@@ -63,7 +65,7 @@ sudo gem install jazzy
 To update the docs:
 
 ```
-jazzy --objc --umbrella-header Yuneec_SDK_iOS/Yuneec_SDK_iOS.h
+jazzy --objc --umbrella-header Yuneec_SDK_iOS/Yuneec_SDK_iOS.h --theme docs/yuneec
 ```
 
 ## License

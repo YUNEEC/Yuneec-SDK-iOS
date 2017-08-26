@@ -4,7 +4,7 @@
 body {
   margin: 0;
   background: #fff;
-  color: #333;
+  color: #4a4a4a;
   font: 16px/1.7 "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: .2px;
   -webkit-font-smoothing: antialiased;
@@ -58,7 +58,7 @@ img {
   max-width: 100%; }
 
 a {
-  color: #4183c4;
+  color: #f04c24;
   text-decoration: none; }
   a:hover, a:focus {
     outline: 0;
@@ -112,7 +112,7 @@ pre code {
   display: flex;
   padding: 8px;
   font-size: 0.875em;
-  background: #444;
+  background: #4a4a4a;
   color: #999; }
 
 .header-col {
@@ -147,7 +147,7 @@ pre code {
     .navigation {
       order: 1;
       width: 25%;
-      max-width: 300px;
+      max-width: 450px;
       padding-bottom: 64px;
       overflow: hidden;
       word-wrap: normal;
@@ -163,7 +163,7 @@ pre code {
   padding: 8px 0 8px 16px; }
 
 .nav-group-name-link {
-  color: #333; }
+  color: #f04c24; }
 
 .nav-group-tasks {
   margin: 8px 0;
@@ -175,7 +175,7 @@ pre code {
   white-space: nowrap; }
 
 .nav-group-task-link {
-  color: #808080; }
+  color: #4a4a4a; }
 
 .main-content {
   order: 1; }
@@ -195,7 +195,7 @@ pre code {
   padding: 16px 0; }
 
 .section-name {
-  color: #666;
+  color: #4a4a4a;
   display: block; }
 
 .declaration .highlight {
@@ -269,7 +269,7 @@ pre code {
 .aside, .language {
   padding: 6px 12px;
   margin: 12px 0;
-  border-left: 5px solid #dddddd;
+  border-left: 5px solid #7d7d7d;
   overflow-y: hidden; }
   .aside .aside-title, .language .aside-title {
     font-size: 9px;
@@ -277,15 +277,15 @@ pre code {
     text-transform: uppercase;
     padding-bottom: 0;
     margin: 0;
-    color: #aaa;
+    color: #4a4a4a;
     -webkit-user-select: none; }
   .aside p:last-child, .language p:last-child {
     margin-bottom: 0; }
 
 .language {
-  border-left: 5px solid #cde9f4; }
+  border-left: 5px solid #f59f7a; }
   .language .aside-title {
-    color: #4183c4; }
+    color: #f04c24; }
 
 .aside-warning {
   border-left: 5px solid #ff6666; }
@@ -315,7 +315,7 @@ pre code {
 
 .footer {
   padding: 8px 16px;
-  background: #444;
+  background: #4a4a4a;
   color: #ddd;
   font-size: 0.8em; }
   .footer p {
@@ -342,7 +342,7 @@ form[role=search] .tt-menu {
   margin: 0;
   min-width: 300px;
   background: #fbfbfb;
-  color: #333;
+  color: #4a4a4a;
   border: 1px solid #ddd; }
 form[role=search] .tt-highlight {
   font-weight: bold; }
@@ -361,7 +361,7 @@ form[role=search] .tt-suggestion {
 form[role=search] .tt-suggestion:hover,
 form[role=search] .tt-suggestion.tt-cursor {
   cursor: pointer;
-  background-color: #4183c4;
+  background-color: #f04c24;
   color: #fff; }
 form[role=search] .tt-suggestion:hover .doc-parent-name,
 form[role=search] .tt-suggestion.tt-cursor .doc-parent-name {
