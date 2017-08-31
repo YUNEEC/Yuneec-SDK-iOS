@@ -26,6 +26,7 @@ void receive_camera_result(YNCCameraCompletion completion, Camera::Result result
     }
 }
 
+#if 0
 //MARK: receive get camera setting result
 void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Camera::Result result, Camera::Settings settings) {
     if (completion) {
@@ -51,6 +52,7 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
         }
     }
 }
+#endif
 
 //MARK: Class YNCCameraSettings implementation
 @implementation YNCCameraSettings
@@ -93,6 +95,7 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
     dl->device().camera().stop_photo_interval_async(std::bind(&receive_camera_result, completion, _1));
 }
 
+#if 0
 //MARK: Camera set settings
 + (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion {
     DroneLink *dl = [[YNCSDKInternal instance] dl];
@@ -115,5 +118,6 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
     DroneLink *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().get_settings_async(std::bind(&receive_camera_settings_result, receiveDataCompletion, _1, _2));
 }
+#endif
 
 @end
