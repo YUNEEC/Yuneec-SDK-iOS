@@ -111,6 +111,7 @@ typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NS
  */
 + (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion;
 
+#if 0
 /**
  Sets the camera settings.
 
@@ -124,5 +125,6 @@ typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NS
  @param receiveDataCompletion the completion block for getSettings()
  */
 + (void)getSettings:(YNCReceiveDataCompletionBlock)receiveDataCompletion;
+#endif
 
 @end
