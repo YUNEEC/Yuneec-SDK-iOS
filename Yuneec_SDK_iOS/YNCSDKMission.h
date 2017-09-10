@@ -76,4 +76,11 @@ typedef void (^YNCMissionProgressCallbackBlock)(int current, int total);
  */
 + (void)subscribeProgressWithCallback:(YNCMissionProgressCallbackBlock)callback;
 
+/**
+ * This allows to go back to 0
+ *
+ * @param completion the completion function block
+ */
++ (void)restartMissionWithCompletion:(YNCMissionCompletion)completion;
+
 @end
