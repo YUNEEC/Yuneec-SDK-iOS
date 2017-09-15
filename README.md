@@ -1,4 +1,4 @@
-# [![Yuneec](http://developer.yuneec.com/sites/default/files/docs/YuneecLogo.svg)](https://developer.yuneec.com)
+# [![Yuneec](http://developer.yuneec.com/sites/default/files/ios-sdk/YuneecLogo.svg)](https://developer.yuneec.com)
 
 # Yuneec SDK for iOS
 
