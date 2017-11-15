@@ -10,15 +10,15 @@
 #import "YNCSDKMissionItem.h"
 #import "YNCSDKInternal.h"
 
-#include <dronelink/dronelink.h>
+#include <dronecore/dronecore.h>
 #include <functional>
 
-using namespace dronelink;
+using namespace dronecore;
 using namespace std::placeholders; // for _1, _2, etc.
 
-void receive_mission_error(YNCMissionCompletion completion, dronelink::Mission::Result result) {
-    if (result != dronelink::Mission::Result::SUCCESS) {
-        NSString *message = [NSString stringWithFormat:@"%s", dronelink::Mission::result_str(result)];
+void receive_mission_error(YNCMissionCompletion completion, dronecore::Mission::Result result) {
+    if (result != dronecore::Mission::Result::SUCCESS) {
+        NSString *message = [NSString stringWithFormat:@"%s", dronecore::Mission::result_str(result)];
         NSError *error = [NSError errorWithDomain:@"Mission"
                                              code:(int)result
                                          userInfo:@{@"message": message}];
@@ -40,7 +40,7 @@ void receive_mission_progress(YNCMissionProgressCallbackBlock callback, int curr
 
 + (void)sendMissionWithMissionItems:(NSMutableArray *)missionItems
                      withCompletion:(YNCMissionCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     std::vector<std::shared_ptr<MissionItem>> std_vec;
 
     for (YNCSDKMissionItem *missionItem in missionItems) {
@@ -58,17 +58,17 @@ void receive_mission_progress(YNCMissionProgressCallbackBlock callback, int curr
 }
 
 + (void)startMissionWithCompletion:(YNCMissionCompletion)completion{
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().mission().start_mission_async(std::bind(&receive_mission_error, completion, _1));
 }
 
 + (void)pauseMissionWithCompletion:(YNCMissionCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().mission().pause_mission_async(std::bind(&receive_mission_error, completion, _1));
 }
 
 + (void)subscribeProgressWithCallback:(YNCMissionProgressCallbackBlock)callback {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().mission().subscribe_progress(std::bind(&receive_mission_progress, callback, _1, _2));
 }
 

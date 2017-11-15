@@ -3,7 +3,7 @@
 
 #import "YNCSDKInternal.h"
 
-using namespace dronelink;
+using namespace dronecore;
 
 
 @implementation YNCSDKInternal
@@ -23,7 +23,7 @@ using namespace dronelink;
 
 - (instancetype)init {
     self = [super init];
-    _dl = new DroneLink;
+    _dl = new DroneCore;
     return self;
 }
 

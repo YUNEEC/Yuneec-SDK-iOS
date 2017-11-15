@@ -4,10 +4,10 @@
 
 #import "YNCSDKInternal.h"
 
-#include <dronelink/dronelink.h>
+#include <dronecore/dronecore.h>
 #include <functional>
 
-using namespace dronelink;
+using namespace dronecore;
 using namespace std::placeholders;
 
 //MARK: C Functions
@@ -67,39 +67,39 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
 
 //MARK: Camera TakePhoto
 + (void)takePhotoWithCompletion:(YNCCameraCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().take_photo_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StartVideo
 + (void)startVideoWithCompletion:(YNCCameraCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().start_video_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StopVideo
 + (void)stopVideoWithCompletion:(YNCCameraCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().stop_video_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StartPhotoInterval
 + (void)startPhotoInterval:(double)intervalS Completion:(YNCCameraCompletion)completion{
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().start_photo_interval_async(intervalS, std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StopPhotoInterval
 + (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().stop_photo_interval_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 #if 0
 //MARK: Camera set settings
 + (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dronelink::Camera::Settings settings;
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
+    dronecore::Camera::Settings settings;
     settings.aperture_value = cameraSettings.apertureValue;
     settings.shutter_speed_s = cameraSettings.shutterSpeedS;
     settings.iso_sensitivity = cameraSettings.isoSensitivity;
@@ -115,7 +115,7 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
 
 //MARK: Camera get settings
 + (void)getSettings:(YNCReceiveDataCompletionBlock)receiveDataCompletion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
+    DroneCore *dl = [[YNCSDKInternal instance] dl];
     dl->device().camera().get_settings_async(std::bind(&receive_camera_settings_result, receiveDataCompletion, _1, _2));
 }
 #endif

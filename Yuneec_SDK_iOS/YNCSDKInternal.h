@@ -9,18 +9,18 @@
 
 #import <Foundation/Foundation.h>
 
-#include <dronelink/dronelink.h>
+#include <dronecore/dronecore.h>
 
 
 /*
- This class provides methods for Dronelink, a messaging library for PX4 using mavlink.
+ This class provides methods for Dronecore, a messaging library for PX4 using mavlink.
  */
 @interface YNCSDKInternal : NSObject
 
 /**
- Dronelink object
+ Dronecore object
  */
-@property (nonatomic) dronelink::DroneLink *dl;
+@property (nonatomic) dronecore::DroneCore *dl;
 
 + (id)instance;
 
