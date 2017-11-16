@@ -54,16 +54,16 @@ void on_timeout(uint64_t uuid) {
 - (BOOL)connect {
     [self requestNetwork];
     
-    DroneCore *dl = [[YNCSDKInternal instance] dl];
-    DroneCore::ConnectionResult ret = dl->add_udp_connection();
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    DroneCore::ConnectionResult ret = dc->add_udp_connection();
     
     if (ret != DroneCore::ConnectionResult::SUCCESS) {
         NSLog(@"Connect error: %u", (unsigned)ret);
         return false;
     }
     
-    dl->register_on_discover(&on_discover);
-    dl->register_on_timeout(&on_timeout);
+    dc->register_on_discover(&on_discover);
+    dc->register_on_timeout(&on_timeout);
     
     return true;
 }

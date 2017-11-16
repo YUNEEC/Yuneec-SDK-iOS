@@ -23,7 +23,7 @@ using namespace dronecore;
 
 - (instancetype)init {
     self = [super init];
-    _dl = new DroneCore;
+    _dc = new DroneCore;
     return self;
 }
 

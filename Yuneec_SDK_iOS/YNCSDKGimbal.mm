@@ -29,8 +29,8 @@ void receive_gimbal_result(YNCGimbalCompletion completion, Gimbal::Result result
 
 //MARK: Set PitchAndYaw
 + (void)setPitchDeg:(float)pitchDeg andYawDeg:(float)yawDeg withCompletion:(YNCGimbalCompletion)completion{
-    DroneCore *dl = [[YNCSDKInternal instance] dl];
-    dl->device().gimbal().set_pitch_and_yaw_async(pitchDeg, yawDeg, std::bind(&receive_gimbal_result, completion, _1));
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().gimbal().set_pitch_and_yaw_async(pitchDeg, yawDeg, std::bind(&receive_gimbal_result, completion, _1));
 }
 
 @end

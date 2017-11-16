@@ -20,7 +20,7 @@
 /**
  Dronecore object
  */
-@property (nonatomic) dronecore::DroneCore *dl;
+@property (nonatomic) dronecore::DroneCore *dc;
 
 + (id)instance;
 
