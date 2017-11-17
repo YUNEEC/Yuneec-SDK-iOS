@@ -4,9 +4,9 @@
 #import "YNCSDKInternal.h"
 
 
-#include <dronelink/dronelink.h>
+#include <dronecore/dronecore.h>
 
-using namespace dronelink;
+using namespace dronecore;
 using namespace std::placeholders;
 
 static id <YNCSDKTelemetryBatteryDelegate> _batteryDelegate;
@@ -155,7 +155,7 @@ void receive_CameraAttitudeQuaternion(Telemetry::Quaternion quaternion) {
 void receive_RCStatus(Telemetry::RCStatus RCStatus) {
     YNCRCStatus *tmpRCStatus = [YNCRCStatus new];
     tmpRCStatus.availableOnce = RCStatus.available_once;
-    tmpRCStatus.lost = RCStatus.lost;
+    tmpRCStatus.lost = !RCStatus.available;
     tmpRCStatus.signalStrengthPercent = RCStatus.signal_strength_percent;
     
     if (_rcStatusDelegate &&
@@ -247,8 +247,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryBatteryDelegate>) delegate {
     _batteryDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().battery_async(&receive_battery);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().battery_async(&receive_battery);
 }
 
 @end
@@ -260,8 +260,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryPositionDelegate>) delegate {
     _positionDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().position_async(&receive_position);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().position_async(&receive_position);
 }
 
 @end
@@ -273,8 +273,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryGroundSpeedNEDDelegate>) delegate {
     _groundSpeedNEDDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().ground_speed_ned_async(&receive_ground_speed_ned);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().ground_speed_ned_async(&receive_ground_speed_ned);
 }
 
 @end
@@ -286,8 +286,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryGPSInfoDelegate>) delegate {
     _gpsInfoDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().gps_info_async(&receive_GPSInfo);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().gps_info_async(&receive_GPSInfo);
 }
 
 @end
@@ -299,8 +299,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryAttitudeEulerAngleDelegate>) delegate {
     _attitudeEulerAngleDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().attitude_euler_angle_async(&receive_attitudeEulerAngle);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().attitude_euler_angle_async(&receive_attitudeEulerAngle);
 }
 
 @end
@@ -312,8 +312,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryAttitudeQuaternionDelegate>) delegate {
     _attitudeQuaternionDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().attitude_quaternion_async(&receive_attitudeQuaternion);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().attitude_quaternion_async(&receive_attitudeQuaternion);
 }
 
 @end
@@ -322,8 +322,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryHomePositionDelegate>) delegate {
     _homePositionDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().home_position_async(&receive_homePosition);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().home_position_async(&receive_homePosition);
 }
 
 @end
@@ -332,8 +332,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryInAirDelegate>) delegate {
     _inAirDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().in_air_async(&receive_inAir);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().in_air_async(&receive_inAir);
 }
 
 @end
@@ -342,8 +342,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryCameraAttitudeEulerAngleDelegate>) delegate {
     _cameraAttitudeEulerAngleDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().camera_attitude_euler_angle_async(&receive_attitudeEulerAngle);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().camera_attitude_euler_angle_async(&receive_attitudeEulerAngle);
 }
 
 @end
@@ -352,8 +352,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryCameraAttitudeQuaternionDelegate>) delegate {
     _cameraAttitudeQuaternionDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().camera_attitude_quaternion_async(&receive_attitudeQuaternion);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().camera_attitude_quaternion_async(&receive_attitudeQuaternion);
 }
 
 @end
@@ -365,8 +365,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryRCStatusDelegate>) delegate {
     _rcStatusDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().rc_status_async(&receive_RCStatus);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().rc_status_async(&receive_RCStatus);
 }
 
 @end
@@ -375,8 +375,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryFlightModeDelegate>) delegate {
     _flightModeDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().flight_mode_async(&receive_flightMode);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().flight_mode_async(&receive_flightMode);
 }
 
 @end
@@ -388,8 +388,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryHealthDelegate>) delegate {
     _healthDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().health_async(&receive_health);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().health_async(&receive_health);
 }
 
 @end
@@ -398,8 +398,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryArmedDelegate>) delegate {
     _armedDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().armed_async(&receive_armed);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().armed_async(&receive_armed);
 }
 
 @end
@@ -408,8 +408,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryHealthAllOkDelegate>) delegate {
     _healthAllOkDelegate = delegate;
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().telemetry().health_all_ok_async(&receive_healthAllOk);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().telemetry().health_all_ok_async(&receive_healthAllOk);
 }
 
 @end

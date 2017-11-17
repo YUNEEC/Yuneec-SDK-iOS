@@ -10,9 +10,9 @@
 #import "YNCSDKInternal.h"
 
 #include <functional>
-#include <dronelink/dronelink.h>
+#include <dronecore/dronecore.h>
 
-using namespace dronelink;
+using namespace dronecore;
 using namespace std::placeholders; // for _1, _2, etc.
 
 @implementation YNCSDKOffboard
@@ -31,13 +31,13 @@ void receive_offboard_error(YNCOffboardCompletion completion, Offboard::Result r
 }
 
 + (void)startWithCompletion:(YNCOffboardCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().offboard().start_async(std::bind(&receive_offboard_error, completion, _1));
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().offboard().start_async(std::bind(&receive_offboard_error, completion, _1));
 }
 
 + (void)stopWithCompletion:(YNCOffboardCompletion)completion {
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().offboard().stop_async(std::bind(&receive_offboard_error, completion, _1));
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().offboard().stop_async(std::bind(&receive_offboard_error, completion, _1));
 }
 
 + (void)setVelocityNEDYawWithVelocityNorth:(float)velocityNorth
@@ -51,8 +51,8 @@ void receive_offboard_error(YNCOffboardCompletion completion, Offboard::Result r
     vNEDYaw.down_m_s = velocityDown;
     vNEDYaw.yaw_deg = yawDeg;
     
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().offboard().set_velocity_ned(vNEDYaw);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().offboard().set_velocity_ned(vNEDYaw);
 }
 
 + (void)setVelocityBodyYawspeedWithVelocityForward:(float)velocityForward
@@ -66,8 +66,8 @@ void receive_offboard_error(YNCOffboardCompletion completion, Offboard::Result r
     vBodyYawspeed.down_m_s = velocityDown;
     vBodyYawspeed.yawspeed_deg_s = yawspeed;
     
-    DroneLink *dl = [[YNCSDKInternal instance] dl];
-    dl->device().offboard().set_velocity_body(vBodyYawspeed);
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().offboard().set_velocity_body(vBodyYawspeed);
 }
 
 @end
