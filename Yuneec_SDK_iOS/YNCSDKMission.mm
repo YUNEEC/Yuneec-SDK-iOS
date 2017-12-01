@@ -54,7 +54,7 @@ void receive_mission_progress(YNCMissionProgressCallbackBlock callback, int curr
         std_vec.push_back(newItem);
     }
 
-    dc->device().mission().send_mission_async(std_vec, std::bind(&receive_mission_error, completion, _1));
+    dc->device().mission().upload_mission_async(std_vec, std::bind(&receive_mission_error, completion, _1));
 }
 
 + (void)startMissionWithCompletion:(YNCMissionCompletion)completion{
