@@ -159,6 +159,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 082C065D1E150EAB00BDD785 /* Build configuration list for PBXNativeTarget "Yuneec_SDK_iOS" */;
 			buildPhases = (
+				08FAFD9C1FD1ECC400D7232C /* ShellScript */,
 				082C06501E150EAB00BDD785 /* Sources */,
 				082C06511E150EAB00BDD785 /* Frameworks */,
 				082C06521E150EAB00BDD785 /* Headers */,
@@ -214,6 +215,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08FAFD9C1FD1ECC400D7232C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Yuneec_SDK_iOS/libs/",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "./download-dronecore.sh";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		082C06501E150EAB00BDD785 /* Sources */ = {

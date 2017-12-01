@@ -21,3 +21,7 @@ DerivedData
 
 Carthage.pkg
 Carthage/Build
+
+# Leftovers from downloading, unzipping DroneCore
+*.zip
+Yuneec_SDK_iOS/libs/
