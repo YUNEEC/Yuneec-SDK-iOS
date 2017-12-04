@@ -2,6 +2,8 @@
 
 # Yuneec SDK for iOS
 
+[![Build Status](https://travis-ci.org/YUNEEC/Yuneec-SDK-iOS.svg?branch=master)](https://travis-ci.org/YUNEEC/Yuneec-SDK-iOS)
+
 iOS wrappers for the Yuneec-SDK https://github.com/YUNEEC/Yuneec-SDK written in Objective-C/Objective-C++.
 
 ## Usage
