@@ -2,7 +2,9 @@
 
 # Yuneec SDK for iOS
 
-iOS wrappers for the Yuneec-SDK https://github.com/YUNEEC/Yuneec-SDK written in Objective-C/Objective-C++.
+[![Build Status](https://travis-ci.org/YUNEEC/Yuneec-SDK-iOS.svg?branch=master)](https://travis-ci.org/YUNEEC/Yuneec-SDK-iOS)
+
+This repository contains the iOS wrappers for the Yuneec SDK written in Objective-C/Objective-C++.
 
 ## Usage
 
@@ -47,6 +49,23 @@ While developing, you might need a developer version of the iOS wrappers. They c
 ```
 github "YUNEEC/Yuneec-SDK-iOS" "branch-name"
 ```
+
+### Build using xcodebuild
+
+To build, do:
+
+```
+xcodebuild
+```
+
+This will call [./download-dronecore.sh](download-dronecore.sh) to pull the `DroneCore-iOS-vX.Y.Z-Release.zip` file from s3 using curl, unzip it. Then it will compile the Objective-C wrappers.
+
+To clean up and force the script to download the zip file again, you can use:
+```
+xcodebuild clean
+rm *.zip
+```
+Or to remove any unstaged files in the directory: `git clean -dfx`. Attention, check using `--dry-run` first what you're about to remove.
 
 ## Docs
 
