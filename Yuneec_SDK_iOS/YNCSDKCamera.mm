@@ -26,6 +26,41 @@ void receive_camera_result(YNCCameraCompletion completion, Camera::Result result
     }
 }
 
+//MARK: receive color mode result
+void receive_color_mode_result(YNCColorModeCompletion completion, Camera::Result result, Camera::ColorMode colorMode) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraColorMode tmpColorMode = YNCCameraColorMode::YNCUNKNOWN;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpColorMode, error);
+        }
+        else {
+            switch (colorMode) {
+                case Camera::ColorMode::ENHANCED:
+                    tmpColorMode = YNCENHANCED;
+                    break;
+                case Camera::ColorMode::NEUTRAL:
+                    tmpColorMode = YNCNEUTRAL;
+                    break;
+                case Camera::ColorMode::NIGHT:
+                    tmpColorMode = YNCNIGHT;
+                    break;
+                case Camera::ColorMode::UNPROCESSED:
+                    tmpColorMode = YNCUNPROCESSED;
+                    break;
+                default:
+                    tmpColorMode = YNCUNKNOWN;
+                    break;
+            }
+            completion(tmpColorMode, error);
+        }
+    }
+}
+
 #if 0
 //MARK: receive get camera setting result
 void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Camera::Result result, Camera::Settings settings) {
@@ -62,6 +97,18 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
 @interface YNCSDKCamera ()
 
 @end
+
+@implementation YNCSDKCameraSettings
+
+//MARK: get Camera Mode
+
++ (void)getColorModeWithCompletion:(YNCColorModeCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_color_mode_async(std::bind(&receive_color_mode_result, completion, _1, _2));
+}
+
+@end
+
 
 @implementation YNCSDKCamera
 

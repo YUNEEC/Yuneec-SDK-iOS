@@ -25,6 +25,37 @@ typedef void (^YNCCameraCompletion)(NSError *error);
 typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NSError *error);
 
 /**
+ Data type for the different color modes.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraColorMode) {
+    /**
+     Neutral mode
+     */
+    YNCNEUTRAL = 0,
+    /**
+     Enhanced mode
+     */
+    YNCENHANCED,
+    /**
+     Night mode
+     */
+    YNCNIGHT,
+    /**
+     Unprocesses mode
+     */
+    YNCUNPROCESSED,
+    /**
+     Unknown color mode
+     */
+    YNCUNKNOWN
+};
+
+/**
+ Data type for completion blocks for color mode camera setting that contain error results, if any.
+ */
+typedef void (^YNCColorModeCompletion)(YNCCameraColorMode colorMode, NSError *error);
+
+/**
  This class manages the camera settings of the drone.
  */
 @interface YNCCameraSettings : NSObject
@@ -67,6 +98,19 @@ typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NS
  True, if auto white balance mode. Camera will autoselect the best white balance based on the scene.
  */
 @property (nonatomic, assign) BOOL whitespaceAuto;
+
+@end
+
+/**
+ This class provides methods to set and get camera settings.
+ */
+@interface YNCSDKCameraSettings: NSObject
+/**
+ * Get color mode
+ *
+ * @param completion the callback function after completion
+ */
++ (void)getColorModeWithCompletion:(YNCColorModeCompletion) completion;
 
 @end
 
