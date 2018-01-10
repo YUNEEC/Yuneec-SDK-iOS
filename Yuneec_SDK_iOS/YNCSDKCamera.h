@@ -17,37 +17,29 @@
 typedef void (^YNCCameraCompletion)(NSError *error);
 
 /**
- Completion block for the asynchronous getSettings() function for the camera.
-
- @param receiveData The camera setting data
- @param error The error object if an error occurred during the get operation, or nil if no error occurred.
- */
-typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NSError *error);
-
-/**
  Data type for the different color modes.
  */
 typedef NS_ENUM (NSInteger, YNCCameraColorMode) {
     /**
      Neutral mode
      */
-    YNCNEUTRAL = 0,
+    YNCCameraColorModeNeutral = 0,
     /**
      Enhanced mode
      */
-    YNCENHANCED,
+    YNCCameraColorModeEnhanced,
     /**
      Night mode
      */
-    YNCNIGHT,
+    YNCCameraColorModeNight,
     /**
-     Unprocesses mode
+     Unprocessed mode. In this mode, no additional color processing and no artificial sharpening will be performed.
      */
-    YNCUNPROCESSED,
+    YNCCameraColorModeUnprocessed,
     /**
      Unknown color mode
      */
-    YNCUNKNOWN
+    YNCCameraColorModeUnknown
 };
 
 /**
@@ -154,21 +146,5 @@ typedef void (^YNCColorModeCompletion)(YNCCameraColorMode colorMode, NSError *er
  @param completion the callback function after completion
  */
 + (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion;
-
-#if 0
-/**
- Sets the camera settings.
-
- @param completion the callback function after completion
- */
-+ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion;
-
-/**
- Gets the camera settings.
-
- @param receiveDataCompletion the completion block for getSettings()
- */
-+ (void)getSettings:(YNCReceiveDataCompletionBlock)receiveDataCompletion;
-#endif
 
 @end
