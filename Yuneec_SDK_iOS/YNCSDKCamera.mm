@@ -53,7 +53,7 @@ void receive_color_mode_result(YNCColorModeCompletion completion, Camera::Result
                     tmpColorMode = YNCCameraColorModeUnprocessed;
                     break;
                 default:
-                    tmpColorMode = YNCCameraColorModeUnprocessed;
+                    tmpColorMode = YNCCameraColorModeUnknown;
                     break;
             }
             completion(tmpColorMode, error);
@@ -61,9 +61,27 @@ void receive_color_mode_result(YNCColorModeCompletion completion, Camera::Result
     }
 }
 
-//MARK: Class YNCCameraSettings implementation
-@implementation YNCCameraSettings
-@end
+Camera::ColorMode getColorModeEnum(YNCCameraColorMode colorMode) {
+    Camera::ColorMode cameraColorMode;
+    switch (colorMode) {
+    case YNCCameraColorModeEnhanced:
+            cameraColorMode = Camera::ColorMode::ENHANCED;
+        break;
+    case YNCCameraColorModeNight:
+            cameraColorMode = Camera::ColorMode::NIGHT;
+        break;
+    case YNCCameraColorModeNeutral:
+            cameraColorMode = Camera::ColorMode::NEUTRAL;
+        break;
+    case YNCCameraColorModeUnprocessed:
+            cameraColorMode = Camera::ColorMode::UNPROCESSED;
+        break;
+    default:
+        cameraColorMode = Camera::ColorMode::UNKNOWN;
+        break;
+    }
+    return cameraColorMode;
+}
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
@@ -79,6 +97,11 @@ void receive_color_mode_result(YNCColorModeCompletion completion, Camera::Result
     dc->device().camera().get_color_mode_async(std::bind(&receive_color_mode_result, completion, _1, _2));
 }
 
++ (void)setColorMode:(YNCCameraColorMode)colorMode WithCompletion:(YNCColorModeCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::ColorMode cameraColorMode = getColorModeEnum(colorMode);
+    dc->device().camera().set_color_mode_async(cameraColorMode, std::bind(&receive_color_mode_result, completion, _1, _2));
+}
 @end
 
 @implementation YNCSDKCamera

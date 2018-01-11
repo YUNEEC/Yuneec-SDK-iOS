@@ -48,52 +48,6 @@ typedef NS_ENUM (NSInteger, YNCCameraColorMode) {
 typedef void (^YNCColorModeCompletion)(YNCCameraColorMode colorMode, NSError *error);
 
 /**
- This class manages the camera settings of the drone.
- */
-@interface YNCCameraSettings : NSObject
-/**
- Aperture value, the amount of light allowed in while the shutter is open.
- */
-@property (nonatomic, assign) double apertureValue;
-
-/**
- Shutter speed (in seconds). The interval for which the shutter is open.
- */
-@property (nonatomic, assign) double shutterSpeedS;
-
-/**
- ISO value. The sensitivity to light of the sensor.
- */
-@property (nonatomic, assign) double isoSensitivity;
-
-/**
- White balance temperature (in K). Defines the color rendering of the sensor.
- */
-@property (nonatomic, assign) double whitespaceBalanceTemperatureK;
-
-/**
- True, if auto aperture mode. Aperture is set by the camera while Shutter Speed/ISO can be managed by the user.
- */
-@property (nonatomic, assign) BOOL apertureAuto;
-
-/**
- True, if auto shutter speed mode. Shutter Speed is set by the camera while Aperture/ISO can be managed by the user.
- */
-@property (nonatomic, assign) BOOL shutterAuto;
-
-/**
- True, if auto ISO mode. ISO is set by the camera while Shutter Speed/Aperture can be managed by the user.
- */
-@property (nonatomic, assign) BOOL isoAuto;
-
-/**
- True, if auto white balance mode. Camera will autoselect the best white balance based on the scene.
- */
-@property (nonatomic, assign) BOOL whitespaceAuto;
-
-@end
-
-/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -103,6 +57,13 @@ typedef void (^YNCColorModeCompletion)(YNCCameraColorMode colorMode, NSError *er
  * @param completion the callback function after completion
  */
 + (void)getColorModeWithCompletion:(YNCColorModeCompletion) completion;
+
+/**
+ * Set color mode
+ * @param colorMode the color mode to be set
+ * @param completion the callback function after completion
+ */
++ (void)setColorMode:(YNCCameraColorMode)colorMode WithCompletion:(YNCColorModeCompletion) completion;
 
 @end
 
