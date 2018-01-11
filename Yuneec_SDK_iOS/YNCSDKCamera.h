@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @class YNCCameraSettings;
 
 /**
@@ -48,6 +49,49 @@ typedef NS_ENUM (NSInteger, YNCCameraColorMode) {
 typedef void (^YNCColorModeCompletion)(YNCCameraColorMode colorMode, NSError *error);
 
 /**
+ Data type for the different white balance settings.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraWhiteBalance) {
+    /**
+     Auto white balance setting
+     */
+    YNCCameraWhiteBalanceAuto = 0,
+    /**
+     Incandescent white balance setting
+     */
+    YNCCameraWhiteBalanceIncandescent,
+    /**
+     Sunset white balance setting
+     */
+    YNCCameraWhiteBalanceSunset,
+    /**
+     Sunnny white balance setting
+     */
+    YNCCameraWhiteBalanceSunny,
+    /**
+     Cloudy white balance setting
+     */
+    YNCCameraWhiteBalanceCloudy,
+    /**
+     Fluorescent white balance setting
+     */
+    YNCCameraWhiteBalanceFluorescent,
+    /**
+     Lock white balance setting
+     */
+    YNCCameraWhiteBalanceLock,
+    /**
+     Unknown white balance setting
+     */
+    YNCCameraWhiteBalanceUnknown,
+};
+
+/**
+ Data type for completion blocks for white balance camera setting that contain error results, if any.
+ */
+typedef void (^YNCWhiteBalanceSettingCompletion)(YNCCameraWhiteBalance whiteBalance, NSError *error);
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -64,6 +108,19 @@ typedef void (^YNCColorModeCompletion)(YNCCameraColorMode colorMode, NSError *er
  * @param completion the callback function after completion
  */
 + (void)setColorMode:(YNCCameraColorMode)colorMode WithCompletion:(YNCColorModeCompletion) completion;
+
+/**
+ * Get white balance setting
+ * @param completion the callback function after completion
+ */
++ (void)getWhiteBalanceWithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
+
+/**
+ * Set white balance setting
+ * @param whiteBalance the white balance to be set
+ * @param completion the callback function after completion
+ */
++ (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance WithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
 
 @end
 
