@@ -216,12 +216,103 @@ void receive_resolution_result(YNCCameraResolutionCompletion completion, Camera:
             completion(tmpResolution, error);
         }
         else {
-            //tmpResolution.widthPixels = resolution.width_pixels;
-            //tmpResolution.heightPixels = resolution.height_pixels;
+            tmpResolution.widthPixels = resolution.width_pixels;
+            tmpResolution.heightPixels = resolution.height_pixels;
             completion(tmpResolution, error);
         }
     }
 }
+
+//MARK: receive photo format result
+void receive_photo_format_result(YNCPhotoFormatCompletion completion, Camera::Result result, Camera::PhotoFormat photoFormat) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraPhotoFormat tmpPhotoFormat = YNCCameraPhotoFormat::YNCCameraPhotoFormatUnknown;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpPhotoFormat, error);
+        }
+        else {
+            switch (photoFormat) {
+                case Camera::PhotoFormat::JPG:
+                    tmpPhotoFormat = YNCCameraPhotoFormatJPG;
+                    break;
+                case Camera::PhotoFormat::JPG_AND_DNG:
+                    tmpPhotoFormat = YNCCameraPhotoFormatJPG_AND_DNG;
+                    break;
+                default:
+                    tmpPhotoFormat = YNCCameraPhotoFormatUnknown;
+                    break;
+            }
+            completion(tmpPhotoFormat, error);
+        }
+    }
+}
+
+Camera::PhotoFormat getPhotoFormatEnum(YNCCameraPhotoFormat photoFormat) {
+    Camera::PhotoFormat cameraPhotoFormat;
+    switch (photoFormat) {
+        case YNCCameraPhotoFormatJPG:
+            cameraPhotoFormat = Camera::PhotoFormat::JPG;
+            break;
+        case YNCCameraPhotoFormatJPG_AND_DNG:
+            cameraPhotoFormat = Camera::PhotoFormat::JPG_AND_DNG;
+            break;
+        default:
+            cameraPhotoFormat = Camera::PhotoFormat::UNKNOWN;
+            break;
+    }
+    return cameraPhotoFormat;
+}
+
+//MARK: receive video format result
+void receive_video_format_result(YNCVideoFormatCompletion completion, Camera::Result result, Camera::VideoFormat videoFormat) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraVideoFormat tmpVideoFormat = YNCCameraVideoFormat::YNCCameraVideoFormatUnknown;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpVideoFormat, error);
+        }
+        else {
+            switch (videoFormat) {
+                case Camera::VideoFormat::H264:
+                    tmpVideoFormat = YNCCameraVideoFormatH264;
+                    break;
+                case Camera::VideoFormat::H265:
+                    tmpVideoFormat = YNCCameraVideoFormatH265;
+                    break;
+                default:
+                    tmpVideoFormat = YNCCameraVideoFormatUnknown;
+                    break;
+            }
+            completion(tmpVideoFormat, error);
+        }
+    }
+}
+
+Camera::VideoFormat getVideoFormatEnum(YNCCameraVideoFormat videoFormat) {
+    Camera::VideoFormat cameraVideoFormat;
+    switch (videoFormat) {
+        case YNCCameraVideoFormatH264:
+            cameraVideoFormat = Camera::VideoFormat::H264;
+            break;
+        case YNCCameraVideoFormatH265:
+            cameraVideoFormat = Camera::VideoFormat::H265;
+            break;
+        default:
+            cameraVideoFormat = Camera::VideoFormat::UNKNOWN;
+            break;
+    }
+    return cameraVideoFormat;
+}
+
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
@@ -278,6 +369,32 @@ void receive_resolution_result(YNCCameraResolutionCompletion completion, Camera:
 + (void)getResolutionWithCompletion:(YNCCameraResolutionCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     dc->device().camera().get_resolution_async(std::bind(&receive_resolution_result,completion, _1, _2));
+}
+
+//MARK: get Photo Format
++ (void)getPhotoFormatWithCompletion:(YNCPhotoFormatCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_photo_format_async(std::bind(&receive_photo_format_result,completion, _1, _2));
+}
+
+//MARK: set Photo Format
++ (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat WithCompletion:(YNCPhotoFormatCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::PhotoFormat cameraPhotoFormat = getPhotoFormatEnum(photoFormat);
+    dc->device().camera().set_photo_format_async(cameraPhotoFormat, std::bind(&receive_photo_format_result, completion, _1, _2));
+}
+
+//MARK: get Video Format
++ (void)getVideoFormatWithCompletion:(YNCVideoFormatCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_video_format_async(std::bind(&receive_video_format_result,completion, _1, _2));
+}
+
+//MARK: set Video Format
++ (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat WithCompletion:(YNCVideoFormatCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::VideoFormat cameraVideoFormat = getVideoFormatEnum(videoFormat);
+    dc->device().camera().set_video_format_async(cameraVideoFormat, std::bind(&receive_video_format_result, completion, _1, _2));
 }
 
 @end

@@ -137,12 +137,57 @@ typedef void (^YNCExposureModeCompletion)(YNCCameraExposureMode exposureMode, NS
 typedef void (^YNCCameraResolutionCompletion)(YNCCameraResolution *resolution, NSError *error);
 
 /**
+ Data type for the different photo formats.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraPhotoFormat) {
+    /**
+     JPG photo format
+     */
+    YNCCameraPhotoFormatJPG = 0,
+    /**
+     JPG and DNG photo format
+     */
+    YNCCameraPhotoFormatJPG_AND_DNG,
+    /**
+     Unknown photo format
+     */
+    YNCCameraPhotoFormatUnknown
+};
+
+/**
+ Data type for completion blocks for photo format camera setting that contain error results, if any.
+ */
+typedef void (^YNCPhotoFormatCompletion)(YNCCameraPhotoFormat photoFormat, NSError *error);
+
+/**
+ Data type for the different video formats.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraVideoFormat) {
+    /**
+     H264 video format
+     */
+    YNCCameraVideoFormatH264 = 0,
+    /**
+     H265 video photo format
+     */
+    YNCCameraVideoFormatH265,
+    /**
+     Unknown video format
+     */
+    YNCCameraVideoFormatUnknown
+};
+
+/**
+ Data type for completion blocks for video format camera setting that contain error results, if any.
+ */
+typedef void (^YNCVideoFormatCompletion)(YNCCameraVideoFormat videoFormat, NSError *error);
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
 /**
  * Get color mode
- *
  * @param completion the callback function after completion
  */
 + (void)getColorModeWithCompletion:(YNCColorModeCompletion) completion;
@@ -169,7 +214,6 @@ typedef void (^YNCCameraResolutionCompletion)(YNCCameraResolution *resolution, N
 
 /**
  * Get exposure mode
- *
  * @param completion the callback function after completion
  */
 + (void)getExposureModeWithCompletion:(YNCExposureModeCompletion) completion;
@@ -186,6 +230,32 @@ typedef void (^YNCCameraResolutionCompletion)(YNCCameraResolution *resolution, N
  * @param completion the callback function after completion
  */
 + (void)getResolutionWithCompletion:(YNCCameraResolutionCompletion) completion;
+
+/**
+ * Get photo format
+ * @param completion the callback function after completion
+ */
++ (void)getPhotoFormatWithCompletion:(YNCPhotoFormatCompletion) completion;
+
+/**
+ * Set photo format
+ * @param photoFormat the photo format to be set
+ * @param completion the callback function after completion
+ */
++ (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat WithCompletion:(YNCPhotoFormatCompletion) completion;
+
+/**
+ * Get video format
+ * @param completion the callback function after completion
+ */
++ (void)getVideoFormatWithCompletion:(YNCVideoFormatCompletion) completion;
+
+/**
+ * Set video format
+ * @param videoFormat the video format to be set
+ * @param completion the callback function after completion
+ */
++ (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat WithCompletion:(YNCVideoFormatCompletion) completion;
 
 @end
 
