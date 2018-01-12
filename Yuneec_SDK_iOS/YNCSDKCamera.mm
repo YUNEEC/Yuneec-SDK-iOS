@@ -203,6 +203,25 @@ Camera::ExposureMode getExposureModeEnum(YNCCameraExposureMode exposureMode) {
     return cameraExposureMode;
 }
 
+//MARK: receive camera resolution result
+void receive_resolution_result(YNCCameraResolutionCompletion completion, Camera::Result result, Camera::Resolution resolution) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraResolution *tmpResolution = [YNCCameraResolution new];
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpResolution, error);
+        }
+        else {
+            tmpResolution.widthPixels = resolution.width_pixels;
+            tmpResolution.heightPixels = resolution.height_pixels;
+            completion(tmpResolution, error);
+        }
+    }
+}
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
@@ -250,6 +269,13 @@ Camera::ExposureMode getExposureModeEnum(YNCCameraExposureMode exposureMode) {
     Camera::ExposureMode cameraExposureMode = getExposureModeEnum(exposureMode);
     dc->device().camera().set_exposure_mode_async(cameraExposureMode, std::bind(&receive_exposure_mode_result, completion, _1, _2));
 }
+
+//MARK: get Resolution
++ (void)getResolutionWithCompletion:(YNCCameraResolutionCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_resolution_async(std::bind(&receive_resolution_result,completion, _1, _2));
+}
+
 @end
 
 @implementation YNCSDKCamera

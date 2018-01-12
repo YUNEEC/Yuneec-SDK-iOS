@@ -114,6 +114,27 @@ typedef NS_ENUM (NSInteger, YNCCameraExposureMode) {
  */
 typedef void (^YNCExposureModeCompletion)(YNCCameraExposureMode exposureMode, NSError *error);
 
+/**
+ This class contains fields associated with the camera resolution.
+ */
+@interface YNCCameraResolution : NSObject
+
+/**
+ Pixel value for width
+ */
+@property (nonatomic, assign) int widthPixels;
+
+/**
+ Pixel value for height
+ */
+@property (nonatomic, assign) int heightPixels;
+
+/**
+ Data type for completion blocks for camera resolution that contain error results, if any.
+ */
+typedef void (^YNCCameraResolutionCompletion)(YNCCameraResolution *resolution, NSError *error);
+
+@end
 
 /**
  This class provides methods to set and get camera settings.
@@ -159,6 +180,12 @@ typedef void (^YNCExposureModeCompletion)(YNCCameraExposureMode exposureMode, NS
  * @param completion the callback function after completion
  */
 + (void)setExposureMode:(YNCCameraExposureMode)exposureMode WithCompletion:(YNCExposureModeCompletion) completion;
+
+/**
+ * Get camera resolution
+ * @param completion the callback function after completion
+ */
++ (void)getResolutionWithCompletion:(YNCCameraResolutionCompletion) completion;
 
 @end
 
