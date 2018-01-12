@@ -158,6 +158,51 @@ Camera::WhiteBalance getWhiteBalanceEnum(YNCCameraWhiteBalance whiteBalance) {
     return cameraWhiteBalance;
 }
 
+//MARK: receive exposure mode result
+void receive_exposure_mode_result(YNCExposureModeCompletion completion, Camera::Result result, Camera::ExposureMode exposureMode) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraExposureMode tmpExposureMode = YNCCameraExposureMode::YNCCameraExposureModeUnknown;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpExposureMode, error);
+        }
+        else {
+            switch (exposureMode) {
+                case Camera::ExposureMode::AUTO:
+                    tmpExposureMode = YNCCameraExposureModeAuto;
+                    break;
+                case Camera::ExposureMode::MANUAL:
+                    tmpExposureMode = YNCCameraExposureModeManual;
+                    break;
+                default:
+                    tmpExposureMode = YNCCameraExposureModeUnknown;
+                    break;
+            }
+            completion(tmpExposureMode, error);
+        }
+    }
+}
+
+Camera::ExposureMode getExposureModeEnum(YNCCameraExposureMode exposureMode) {
+    Camera::ExposureMode cameraExposureMode;
+    switch (exposureMode) {
+        case YNCCameraExposureModeAuto:
+            cameraExposureMode = Camera::ExposureMode::AUTO;
+            break;
+        case YNCCameraExposureModeManual:
+            cameraExposureMode = Camera::ExposureMode::MANUAL;
+            break;
+        default:
+            cameraExposureMode = Camera::ExposureMode::UNKNOWN;
+            break;
+    }
+    return cameraExposureMode;
+}
+
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
@@ -191,6 +236,19 @@ Camera::WhiteBalance getWhiteBalanceEnum(YNCCameraWhiteBalance whiteBalance) {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     Camera::WhiteBalance cameraWhiteBalance = getWhiteBalanceEnum(whiteBalance);
     dc->device().camera().set_white_balance_async(cameraWhiteBalance, std::bind(&receive_white_balance_result, completion, _1, _2));
+}
+
+//MARK: get Exposure Mode
++ (void)getExposureModeWithCompletion:(YNCExposureModeCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_exposure_mode_async(std::bind(&receive_exposure_mode_result, completion, _1, _2));
+}
+
+//MARK: set Exposure Mode
++ (void)setExposureMode:(YNCCameraExposureMode)exposureMode WithCompletion:(YNCExposureModeCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::ExposureMode cameraExposureMode = getExposureModeEnum(exposureMode);
+    dc->device().camera().set_exposure_mode_async(cameraExposureMode, std::bind(&receive_exposure_mode_result, completion, _1, _2));
 }
 @end
 

@@ -92,6 +92,30 @@ typedef NS_ENUM (NSInteger, YNCCameraWhiteBalance) {
 typedef void (^YNCWhiteBalanceSettingCompletion)(YNCCameraWhiteBalance whiteBalance, NSError *error);
 
 /**
+ Data type for the different exposure modes.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraExposureMode) {
+    /**
+     Auto mode
+     */
+    YNCCameraExposureModeAuto = 0,
+    /**
+     Manual mode
+     */
+    YNCCameraExposureModeManual,
+    /**
+     Unknown exposure mode
+     */
+    YNCCameraExposureModeUnknown
+};
+
+/**
+ Data type for completion blocks for exposure mode camera setting that contain error results, if any.
+ */
+typedef void (^YNCExposureModeCompletion)(YNCCameraExposureMode exposureMode, NSError *error);
+
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -121,6 +145,20 @@ typedef void (^YNCWhiteBalanceSettingCompletion)(YNCCameraWhiteBalance whiteBala
  * @param completion the callback function after completion
  */
 + (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance WithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
+
+/**
+ * Get exposure mode
+ *
+ * @param completion the callback function after completion
+ */
++ (void)getExposureModeWithCompletion:(YNCExposureModeCompletion) completion;
+
+/**
+ * Set exposure mode
+ * @param exposureMode the exposure mode to be set
+ * @param completion the callback function after completion
+ */
++ (void)setExposureMode:(YNCCameraExposureMode)exposureMode WithCompletion:(YNCExposureModeCompletion) completion;
 
 @end
 
