@@ -216,8 +216,8 @@ void receive_resolution_result(YNCCameraResolutionCompletion completion, Camera:
             completion(tmpResolution, error);
         }
         else {
-            tmpResolution.widthPixels = resolution.width_pixels;
-            tmpResolution.heightPixels = resolution.height_pixels;
+            //tmpResolution.widthPixels = resolution.width_pixels;
+            //tmpResolution.heightPixels = resolution.height_pixels;
             completion(tmpResolution, error);
         }
     }
@@ -225,6 +225,10 @@ void receive_resolution_result(YNCCameraResolutionCompletion completion, Camera:
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
+
+@end
+
+@implementation YNCCameraResolution
 
 @end
 
