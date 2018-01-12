@@ -129,12 +129,12 @@ typedef void (^YNCExposureModeCompletion)(YNCCameraExposureMode exposureMode, NS
  */
 @property (nonatomic, assign) int heightPixels;
 
+@end
+
 /**
  Data type for completion blocks for camera resolution that contain error results, if any.
  */
 typedef void (^YNCCameraResolutionCompletion)(YNCCameraResolution *resolution, NSError *error);
-
-@end
 
 /**
  This class provides methods to set and get camera settings.
