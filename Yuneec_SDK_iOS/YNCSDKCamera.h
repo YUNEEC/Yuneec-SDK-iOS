@@ -183,6 +183,80 @@ typedef NS_ENUM (NSInteger, YNCCameraVideoFormat) {
 typedef void (^YNCVideoFormatCompletion)(YNCCameraVideoFormat videoFormat, NSError *error);
 
 /**
+ Data type for the different photo quality.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraPhotoQuality) {
+    /**
+     Photo Quality Low
+     */
+    YNCCameraPhotoQualityLow = 0,
+    /**
+     Photo Quality Medium
+     */
+    YNCCameraPhotoQualityMedium,
+    /**
+     Photo Quality High
+     */
+    YNCCameraPhotoQualityHigh,
+    /**
+     Photo Quality Ultra
+     */
+    YNCCameraPhotoQualityUltra,
+    /**
+     Unknown Photo Quality
+     */
+    YNCCameraPhotoQualityUnknown
+};
+
+/**
+ Data type for completion blocks for photo quality camera setting that contain error results, if any.
+ */
+typedef void (^YNCPhotoQualityCompletion)(YNCCameraPhotoQuality photoQuality, NSError *error);
+
+/**
+ Data type for the different video resolution.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraVideoResolution) {
+    YNCCameraVideoResUHD_4096_X_2160_60FPS,
+    YNCCameraVideoResUHD_4096_X_2160_50FPS,
+    YNCCameraVideoResUHD_4096_X_2160_48FPS,
+    YNCCameraVideoResUHD_4096_X_2160_30FPS,
+    YNCCameraVideoResUHD_4096_X_2160_25FPS,
+    YNCCameraVideoResUHD_4096_X_2160_24FPS,
+    YNCCameraVideoResUHD_3840_X_2160_60FPS,
+    YNCCameraVideoResUHD_3840_X_2160_50FPS,
+    YNCCameraVideoResUHD_3840_X_2160_48FPS,
+    YNCCameraVideoResUHD_3840_X_2160_30FPS,
+    YNCCameraVideoResUHD_3840_X_2160_25FPS,
+    YNCCameraVideoResUHD_3840_X_2160_24FPS,
+    YNCCameraVideoResUHD_2720_X_1530_60FPS,
+    YNCCameraVideoResUHD_2720_X_1530_48FPS,
+    YNCCameraVideoResUHD_2720_X_1530_30FPS,
+    YNCCameraVideoResUHD_2720_X_1530_24FPS,
+    YNCCameraVideoResFHD_1920_X_1080_120FPS,
+    YNCCameraVideoResFHD_1920_X_1080_60FPS,
+    YNCCameraVideoResFHD_1920_X_1080_50FPS,
+    YNCCameraVideoResFHD_1920_X_1080_48FPS,
+    YNCCameraVideoResFHD_1920_X_1080_30FPS,
+    YNCCameraVideoResFHD_1920_X_1080_25FPS,
+    YNCCameraVideoResFHD_1920_X_1080_24FPS,
+    YNCCameraVideoResHD_1280_X_720_120FPS,
+    YNCCameraVideoResHD_1280_X_720_60FPS,
+    YNCCameraVideoResHD_1280_X_720_48FPS,
+    YNCCameraVideoResHD_1280_X_720_30FPS,
+    YNCCameraVideoResHD_1280_X_720_24FPS,
+    /**
+     Unknown Video Resolution
+     */
+    YNCCameraVideoResUnknown
+};
+
+/**
+ Data type for completion blocks for video resolution camera setting that contain error results, if any.
+ */
+typedef void (^YNCVideoResolutionCompletion)(YNCCameraVideoResolution videoResolution, NSError *error);
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -256,6 +330,32 @@ typedef void (^YNCVideoFormatCompletion)(YNCCameraVideoFormat videoFormat, NSErr
  * @param completion the callback function after completion
  */
 + (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat WithCompletion:(YNCVideoFormatCompletion) completion;
+
+/**
+ * Get photo quality
+ * @param completion the callback function after completion
+ */
++ (void)getPhotoQualityWithCompletion:(YNCPhotoQualityCompletion) completion;
+
+/**
+ * Set photo quality
+ * @param photoQuality the photo quality to be set
+ * @param completion the callback function after completion
+ */
++ (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality WithCompletion:(YNCPhotoQualityCompletion) completion;
+
+/**
+ * Get video resolution
+ * @param completion the callback function after completion
+ */
++ (void)getVideoResolutionWithCompletion:(YNCVideoResolutionCompletion) completion;
+
+/**
+ * Set video resolution
+ * @param videoResolution the video resolution to be set
+ * @param completion the callback function after completion
+ */
++ (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution WithCompletion:(YNCVideoResolutionCompletion) completion;
 
 @end
 

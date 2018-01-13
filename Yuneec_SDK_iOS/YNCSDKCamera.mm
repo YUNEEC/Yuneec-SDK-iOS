@@ -313,6 +313,266 @@ Camera::VideoFormat getVideoFormatEnum(YNCCameraVideoFormat videoFormat) {
     return cameraVideoFormat;
 }
 
+//MARK: receive photo quality result
+void receive_photo_quality_result(YNCPhotoQualityCompletion completion, Camera::Result result, Camera::PhotoQuality photoQuality) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraPhotoQuality tmpPhotoQuality = YNCCameraPhotoQuality::YNCCameraPhotoQualityUnknown;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpPhotoQuality, error);
+        }
+        else {
+            switch (photoQuality) {
+                case Camera::PhotoQuality::LOW:
+                    tmpPhotoQuality = YNCCameraPhotoQualityLow;
+                    break;
+                case Camera::PhotoQuality::MEDIUM:
+                    tmpPhotoQuality = YNCCameraPhotoQualityMedium;
+                    break;
+                case Camera::PhotoQuality::HIGH:
+                    tmpPhotoQuality = YNCCameraPhotoQualityHigh;
+                    break;
+                case Camera::PhotoQuality::ULTRA:
+                    tmpPhotoQuality = YNCCameraPhotoQualityUltra;
+                    break;
+                default:
+                    tmpPhotoQuality = YNCCameraPhotoQualityUnknown;
+                    break;
+            }
+            completion(tmpPhotoQuality, error);
+        }
+    }
+}
+
+Camera::PhotoQuality getPhotoQualityEnum(YNCCameraPhotoQuality photoQuality) {
+    Camera::PhotoQuality cameraPhotoQuality;
+    switch (photoQuality) {
+        case YNCCameraPhotoQualityLow:
+            cameraPhotoQuality = Camera::PhotoQuality::LOW;
+            break;
+        case YNCCameraPhotoQualityMedium:
+            cameraPhotoQuality = Camera::PhotoQuality::MEDIUM;
+            break;
+        case YNCCameraPhotoQualityHigh:
+            cameraPhotoQuality = Camera::PhotoQuality::HIGH;
+            break;
+        case YNCCameraPhotoQualityUltra:
+            cameraPhotoQuality = Camera::PhotoQuality::ULTRA;
+            break;
+        default:
+            cameraPhotoQuality = Camera::PhotoQuality::UNKNOWN;
+            break;
+    }
+    return cameraPhotoQuality;
+}
+
+//MARK: receive video resolution result
+void receive_video_resolution_result(YNCVideoResolutionCompletion completion, Camera::Result result, Camera::VideoResolution videoResolution) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraVideoResolution tmpVideoResolution = YNCCameraVideoResolution::YNCCameraVideoResUnknown;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpVideoResolution, error);
+        }
+        else {
+            switch (videoResolution) {
+                case Camera::VideoResolution::FHD_1920_X_1080_120FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_120FPS;
+                    break;
+                case Camera::VideoResolution::FHD_1920_X_1080_24FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_24FPS;
+                    break;
+                case Camera::VideoResolution::FHD_1920_X_1080_25FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_25FPS;
+                    break;
+                case Camera::VideoResolution::FHD_1920_X_1080_30FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_30FPS;
+                    break;
+                case Camera::VideoResolution::FHD_1920_X_1080_48FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_48FPS;
+                    break;
+                case Camera::VideoResolution::FHD_1920_X_1080_50FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_50FPS;
+                    break;
+                case Camera::VideoResolution::FHD_1920_X_1080_60FPS:
+                    tmpVideoResolution = YNCCameraVideoResFHD_1920_X_1080_60FPS;
+                    break;
+                case Camera::VideoResolution::HD_1280_X_720_120FPS:
+                    tmpVideoResolution = YNCCameraVideoResHD_1280_X_720_120FPS;
+                    break;
+                case Camera::VideoResolution::HD_1280_X_720_24FPS:
+                    tmpVideoResolution = YNCCameraVideoResHD_1280_X_720_24FPS;
+                    break;
+                case Camera::VideoResolution::HD_1280_X_720_30FPS:
+                    tmpVideoResolution = YNCCameraVideoResHD_1280_X_720_30FPS;
+                    break;
+                case Camera::VideoResolution::HD_1280_X_720_48FPS:
+                    tmpVideoResolution = YNCCameraVideoResHD_1280_X_720_48FPS;
+                    break;
+                case Camera::VideoResolution::HD_1280_X_720_60FPS:
+                    tmpVideoResolution = YNCCameraVideoResHD_1280_X_720_60FPS;
+                    break;
+                case Camera::VideoResolution::UHD_2720_X_1530_24FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_2720_X_1530_24FPS;
+                    break;
+                case Camera::VideoResolution::UHD_2720_X_1530_30FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_2720_X_1530_30FPS;
+                    break;
+                case Camera::VideoResolution::UHD_2720_X_1530_48FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_2720_X_1530_48FPS;
+                    break;
+                case Camera::VideoResolution::UHD_2720_X_1530_60FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_2720_X_1530_60FPS;
+                    break;
+                case Camera::VideoResolution::UHD_3840_X_2160_24FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_3840_X_2160_24FPS;
+                    break;
+                case Camera::VideoResolution::UHD_3840_X_2160_25FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_3840_X_2160_25FPS;
+                    break;
+                case Camera::VideoResolution::UHD_3840_X_2160_30FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_3840_X_2160_30FPS;
+                    break;
+                case Camera::VideoResolution::UHD_3840_X_2160_48FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_3840_X_2160_48FPS;
+                    break;
+                case Camera::VideoResolution::UHD_3840_X_2160_50FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_3840_X_2160_50FPS;
+                    break;
+                case Camera::VideoResolution::UHD_3840_X_2160_60FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_3840_X_2160_60FPS;
+                    break;
+                case Camera::VideoResolution::UHD_4096_X_2160_24FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_4096_X_2160_24FPS;
+                    break;
+                case Camera::VideoResolution::UHD_4096_X_2160_25FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_4096_X_2160_25FPS;
+                    break;
+                case Camera::VideoResolution::UHD_4096_X_2160_30FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_4096_X_2160_30FPS;
+                    break;
+                case Camera::VideoResolution::UHD_4096_X_2160_48FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_4096_X_2160_48FPS;
+                    break;
+                case Camera::VideoResolution::UHD_4096_X_2160_50FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_4096_X_2160_50FPS;
+                    break;
+                case Camera::VideoResolution::UHD_4096_X_2160_60FPS:
+                    tmpVideoResolution = YNCCameraVideoResUHD_4096_X_2160_60FPS;
+                    break;
+                default:
+                    tmpVideoResolution = YNCCameraVideoResUnknown;
+                    break;
+            }
+            completion(tmpVideoResolution, error);
+        }
+    }
+}
+
+
+
+Camera::VideoResolution getVideoResolutionEnum(YNCCameraVideoResolution videoResolution) {
+    Camera::VideoResolution cameraVideoResolution;
+    switch (videoResolution) {
+        case YNCCameraVideoResUHD_2720_X_1530_24FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_2720_X_1530_24FPS;
+            break;
+        case YNCCameraVideoResUHD_2720_X_1530_30FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_2720_X_1530_30FPS;
+            break;
+        case YNCCameraVideoResUHD_2720_X_1530_48FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_2720_X_1530_48FPS;
+            break;
+        case YNCCameraVideoResUHD_2720_X_1530_60FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_2720_X_1530_60FPS;
+            break;
+        case YNCCameraVideoResUHD_3840_X_2160_24FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_3840_X_2160_24FPS;
+            break;
+        case YNCCameraVideoResUHD_3840_X_2160_25FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_3840_X_2160_25FPS;
+            break;
+        case YNCCameraVideoResUHD_3840_X_2160_30FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_3840_X_2160_30FPS;
+            break;
+        case YNCCameraVideoResUHD_3840_X_2160_48FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_3840_X_2160_48FPS;
+            break;
+        case YNCCameraVideoResUHD_3840_X_2160_50FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_3840_X_2160_50FPS;
+            break;
+        case YNCCameraVideoResUHD_3840_X_2160_60FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_3840_X_2160_60FPS;
+            break;
+        case YNCCameraVideoResUHD_4096_X_2160_24FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_4096_X_2160_24FPS;
+            break;
+        case YNCCameraVideoResUHD_4096_X_2160_25FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_4096_X_2160_25FPS;
+            break;
+        case YNCCameraVideoResUHD_4096_X_2160_30FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_4096_X_2160_30FPS;
+            break;
+        case YNCCameraVideoResUHD_4096_X_2160_48FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_4096_X_2160_48FPS;
+            break;
+        case YNCCameraVideoResUHD_4096_X_2160_50FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_4096_X_2160_50FPS;
+            break;
+        case YNCCameraVideoResUHD_4096_X_2160_60FPS:
+            cameraVideoResolution = Camera::VideoResolution::UHD_4096_X_2160_60FPS;
+            break;
+        case YNCCameraVideoResHD_1280_X_720_24FPS:
+            cameraVideoResolution = Camera::VideoResolution::HD_1280_X_720_24FPS;
+            break;
+        case YNCCameraVideoResHD_1280_X_720_30FPS:
+            cameraVideoResolution = Camera::VideoResolution::HD_1280_X_720_30FPS;
+            break;
+        case YNCCameraVideoResHD_1280_X_720_48FPS:
+            cameraVideoResolution = Camera::VideoResolution::HD_1280_X_720_48FPS;
+            break;
+        case YNCCameraVideoResHD_1280_X_720_60FPS:
+            cameraVideoResolution = Camera::VideoResolution::HD_1280_X_720_60FPS;
+            break;
+        case YNCCameraVideoResHD_1280_X_720_120FPS:
+            cameraVideoResolution = Camera::VideoResolution::HD_1280_X_720_120FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_24FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_24FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_25FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_25FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_30FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_30FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_48FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_48FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_50FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_50FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_60FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_60FPS;
+            break;
+        case YNCCameraVideoResFHD_1920_X_1080_120FPS:
+            cameraVideoResolution = Camera::VideoResolution::FHD_1920_X_1080_120FPS;
+            break;
+        default:
+            cameraVideoResolution = Camera::VideoResolution::UNKNOWN;
+            break;
+    }
+    return cameraVideoResolution;
+}
+
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
@@ -397,6 +657,31 @@ Camera::VideoFormat getVideoFormatEnum(YNCCameraVideoFormat videoFormat) {
     dc->device().camera().set_video_format_async(cameraVideoFormat, std::bind(&receive_video_format_result, completion, _1, _2));
 }
 
+//MARK: get Photo Quality
++ (void)getPhotoQualityWithCompletion:(YNCPhotoQualityCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_photo_quality_async(std::bind(&receive_photo_quality_result,completion, _1, _2));
+}
+
+//MARK: set Photo Quality
++ (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality WithCompletion:(YNCPhotoQualityCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::PhotoQuality cameraPhotoQuality = getPhotoQualityEnum(photoQuality);
+    dc->device().camera().set_photo_quality_async(cameraPhotoQuality, std::bind(&receive_photo_quality_result, completion, _1, _2));
+}
+
+//MARK: get Video Resolution
++ (void)getVideoResolutionWithCompletion:(YNCVideoResolutionCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_video_resolution_async(std::bind(&receive_video_resolution_result,completion, _1, _2));
+}
+
+//MARK: set Video Resolution
++ (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution WithCompletion:(YNCVideoResolutionCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::VideoResolution cameraVideoResolution = getVideoResolutionEnum(videoResolution);
+    dc->device().camera().set_video_resolution_async(cameraVideoResolution, std::bind(&receive_video_resolution_result, completion, _1, _2));
+}
 @end
 
 @implementation YNCSDKCamera
