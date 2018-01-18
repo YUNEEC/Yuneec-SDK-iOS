@@ -573,6 +573,100 @@ Camera::VideoResolution getVideoResolutionEnum(YNCCameraVideoResolution videoRes
     return cameraVideoResolution;
 }
 
+//MARK: receive shutter speed result
+void receive_shutter_speed_result(YNCShutterSpeedCompletion completion, Camera::Result result, Camera::ShutterSpeedS shutterSpeed) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraShutterSpeed *tmpShutterSpeed = [YNCCameraShutterSpeed new];
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpShutterSpeed, error);
+        }
+        else {
+            tmpShutterSpeed.numerator = shutterSpeed.numerator;
+            tmpShutterSpeed.denominator = shutterSpeed.denominator;
+            completion(tmpShutterSpeed, error);
+        }
+    }
+}
+
+//MARK: receive ISO value result
+void receive_iso_value_result(YNCISOValueCompletion completion, Camera::Result result, int isoValue) {
+    if (completion) {
+        NSError *error = nullptr;
+        int tmpISOValue = 0;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpISOValue, error);
+        }
+        else {
+            tmpISOValue = isoValue;
+            completion(tmpISOValue, error);
+        }
+    }
+}
+
+//MARK: receive metering result
+void receive_metering_result(YNCMeteringCompletion completion, Camera::Result result, Camera::Metering metering) {
+    if (completion) {
+        NSError *error = nullptr;
+        YNCCameraMetering *tmpMetering = [YNCCameraMetering new];
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpMetering, error);
+        }
+        else {
+            switch (metering.mode) {
+                case Camera::Metering::Mode::AVERAGE:
+                    tmpMetering.mode = YNCCameraMeteringAverage;
+                    break;
+                case Camera::Metering::Mode::CENTER:
+                    tmpMetering.mode = YNCCameraMeteringCenter;
+                    break;
+                case Camera::Metering::Mode::SPOT:
+                    tmpMetering.mode = YNCCameraMeteringSpot;
+                    break;
+                default:
+                    tmpMetering.mode = YNCCameraMeteringUnknown;
+                    break;
+            }
+            tmpMetering.spotScreenWidthPercent = metering.spot_screen_width_percent;
+            tmpMetering.spotScreenHeightPercent = metering.spot_screen_height_percent;
+            completion(tmpMetering, error);
+        }
+    }
+}
+
+Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
+    Camera::Metering::Mode cameraMeteringMode;
+    switch (meteringMode) {
+        case YNCCameraMeteringCenter:
+            cameraMeteringMode = Camera::Metering::Mode::CENTER;
+            break;
+        case YNCCameraMeteringAverage:
+            cameraMeteringMode = Camera::Metering::Mode::AVERAGE;
+            break;
+        case YNCCameraMeteringSpot:
+            cameraMeteringMode = Camera::Metering::Mode::SPOT;
+            break;
+        default:
+            cameraMeteringMode = Camera::Metering::Mode::UNKNOWN;
+            break;
+    }
+    return cameraMeteringMode;
+}
+
+
+
 
 //MARK: Class YNCSDKCamera implementation
 @interface YNCSDKCamera ()
@@ -580,6 +674,14 @@ Camera::VideoResolution getVideoResolutionEnum(YNCCameraVideoResolution videoRes
 @end
 
 @implementation YNCCameraResolution
+
+@end
+
+@implementation YNCCameraShutterSpeed
+
+@end
+
+@implementation YNCCameraMetering
 
 @end
 
@@ -682,6 +784,50 @@ Camera::VideoResolution getVideoResolutionEnum(YNCCameraVideoResolution videoRes
     Camera::VideoResolution cameraVideoResolution = getVideoResolutionEnum(videoResolution);
     dc->device().camera().set_video_resolution_async(cameraVideoResolution, std::bind(&receive_video_resolution_result, completion, _1, _2));
 }
+
+//MARK: get Shutter Speed
++ (void)getShutterSpeedWithCompletion:(YNCShutterSpeedCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_shutter_speed_async(std::bind(&receive_shutter_speed_result,completion, _1, _2));
+}
+
+//MARK: set Shutter Speed
++ (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed WithCompletion:(YNCShutterSpeedCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::ShutterSpeedS tmpShutterSpeed;
+    tmpShutterSpeed.numerator = shutterSpeed.numerator;
+    tmpShutterSpeed.denominator = shutterSpeed.denominator;
+    dc->device().camera().set_shutter_speed_async(tmpShutterSpeed, std::bind(&receive_shutter_speed_result, completion, _1, _2));
+}
+
+//MARK: get ISO value
++ (void)getISOValueWithCompletion:(YNCISOValueCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_iso_value_async(std::bind(&receive_iso_value_result, completion, _1, _2));
+}
+
+//MARK: set ISO value
++ (void)setISOValue:(int)isoValue WithCompletion:(YNCISOValueCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().set_iso_value_async(isoValue, std::bind(&receive_iso_value_result, completion, _1, _2));
+}
+
+//MARK: get Metering
++ (void)getMeteringWithCompletion:(YNCMeteringCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_metering_async(std::bind(&receive_metering_result,completion, _1, _2));
+}
+
+//MARK: set Metering
++ (void)setMetering:(YNCCameraMetering *)metering WithCompletion:(YNCMeteringCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera::Metering tmpMetering;
+    tmpMetering.spot_screen_width_percent = metering.spotScreenWidthPercent;
+    tmpMetering.spot_screen_height_percent = metering.spotScreenHeightPercent;
+    tmpMetering.mode = getMeteringModeEnum(metering.mode);
+    dc->device().camera().set_metering_async(tmpMetering, std::bind(&receive_metering_result, completion, _1, _2));
+}
+
 @end
 
 @implementation YNCSDKCamera

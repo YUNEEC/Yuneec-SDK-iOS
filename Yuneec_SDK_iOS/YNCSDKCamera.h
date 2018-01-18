@@ -257,6 +257,80 @@ typedef NS_ENUM (NSInteger, YNCCameraVideoResolution) {
 typedef void (^YNCVideoResolutionCompletion)(YNCCameraVideoResolution videoResolution, NSError *error);
 
 /**
+ This class contains fields associated with the camera shutter speed.
+ */
+@interface YNCCameraShutterSpeed : NSObject
+
+/**
+ Shutter speed numerator
+ */
+@property (nonatomic, assign) int numerator;
+
+/**
+ Shutter speed denominator
+ */
+@property (nonatomic, assign) int denominator;
+
+@end
+
+/**
+ Data type for completion blocks for camera shutter speed that contain error results, if any.
+ */
+typedef void (^YNCShutterSpeedCompletion)(YNCCameraShutterSpeed *shutterSpeed, NSError *error);
+
+/**
+ Data type for completion blocks for camera shutter ISO value that contain error results, if any.
+ */
+typedef void (^YNCISOValueCompletion)(int isoValue, NSError *error);
+
+/**
+ This class contains fields associated with the camera metering.
+ */
+@interface YNCCameraMetering : NSObject
+
+/**
+ Data type for the different Metering modes.
+ */
+typedef NS_ENUM (NSInteger, YNCCameraMeteringMode) {
+    /**
+     Average metering mode
+     */
+    YNCCameraMeteringAverage = 0,
+    /**
+     Center metering mode
+     */
+    YNCCameraMeteringCenter,
+    /**
+     Spot metering mode
+     */
+    YNCCameraMeteringSpot,
+    /**
+     Unknown metering mode
+     */
+    YNCCameraMeteringUnknown
+};
+
+/**
+ Metering mode
+ */
+@property (nonatomic, assign) YNCCameraMeteringMode mode;
+/**
+ Screen width percent for spot mode
+ */
+@property (nonatomic, assign) int spotScreenWidthPercent;
+/**
+ Screen height percent for spot mode
+ */
+@property (nonatomic, assign) int spotScreenHeightPercent;
+
+@end
+
+/**
+ Data type for completion blocks for camera metering mode that contain error results, if any.
+ */
+typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *error);
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -356,6 +430,45 @@ typedef void (^YNCVideoResolutionCompletion)(YNCCameraVideoResolution videoResol
  * @param completion the callback function after completion
  */
 + (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution WithCompletion:(YNCVideoResolutionCompletion) completion;
+
+/**
+ * Get shutter speed
+ * @param completion the callback function after completion
+ */
++ (void)getShutterSpeedWithCompletion:(YNCShutterSpeedCompletion) completion;
+
+/**
+ * Set shutter speed
+ * @param shutterSpeed the shutter speed to be set
+ * @param completion the callback function after completion
+ */
++ (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed WithCompletion:(YNCShutterSpeedCompletion) completion;
+
+/**
+ * Get ISO value
+ * @param completion the callback function after completion
+ */
++ (void)getISOValueWithCompletion:(YNCISOValueCompletion) completion;
+
+/**
+ * Set ISO value
+ * @param isoValue the ISO value to be set
+ * @param completion the callback function after completion
+ */
++ (void)setISOValue:(int)isoValue WithCompletion:(YNCISOValueCompletion) completion;
+
+/**
+ * Get Metering
+ * @param completion the callback function after completion
+ */
++ (void)getMeteringWithCompletion:(YNCMeteringCompletion) completion;
+
+/**
+ * Set Metering
+ * @param metering the metering to be set
+ * @param completion the callback function after completion
+ */
++ (void)setMetering:(YNCCameraMetering *)metering WithCompletion:(YNCMeteringCompletion) completion;
 
 @end
 
