@@ -18,12 +18,15 @@
 		082C06751E150ED400BDD785 /* YNCSDKInternal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C06671E150ED400BDD785 /* YNCSDKInternal.mm */; };
 		082C06761E150ED400BDD785 /* YNCSDKOffboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C06681E150ED400BDD785 /* YNCSDKOffboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C06771E150ED400BDD785 /* YNCSDKOffboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C06691E150ED400BDD785 /* YNCSDKOffboard.mm */; };
-		082C06781E150ED400BDD785 /* YNCSDKTelemetry.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C066A1E150ED400BDD785 /* YNCSDKTelemetry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		082C06791E150ED400BDD785 /* YNCSDKTelemetry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C066B1E150ED400BDD785 /* YNCSDKTelemetry.mm */; };
+		082C06781E150ED400BDD785 /* YNCSDKAircraftTelemetry.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C066A1E150ED400BDD785 /* YNCSDKAircraftTelemetry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		082C06791E150ED400BDD785 /* YNCSDKAircraftTelemetry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C066B1E150ED400BDD785 /* YNCSDKAircraftTelemetry.mm */; };
 		0842318D1F58725F001E53DA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318C1F58725F001E53DA /* Security.framework */; };
 		0842318F1F587272001E53DA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318E1F587272001E53DA /* libz.tbd */; };
 		1F02BB9D1FBD08DA00F9B384 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318A1F5855F5001E53DA /* libcurl.a */; };
 		1F02BB9F1FBD08DA00F9B384 /* libdronecore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F02BB9E1FBD08DA00F9B384 /* libdronecore.a */; };
+		1F613C06201680A200A2DEC4 /* YNCSDKAircraftBattery.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F613C05201680A200A2DEC4 /* YNCSDKAircraftBattery.mm */; };
+		1F613C09201686ED00A2DEC4 /* YNCSDKAircraftHealth.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F613C07201686ED00A2DEC4 /* YNCSDKAircraftHealth.mm */; };
+		1F613C0A201686ED00A2DEC4 /* YNCSDKAircraftHealth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F613C08201686ED00A2DEC4 /* YNCSDKAircraftHealth.h */; };
 		B9FFEDE41E1F658A008458AE /* YNCSDKMission.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9FFEDE51E1F658A008458AE /* YNCSDKMission.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */; };
 		F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = F4B49D731E81037100C44328 /* YNCSDKCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -45,14 +48,18 @@
 		082C06671E150ED400BDD785 /* YNCSDKInternal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKInternal.mm; sourceTree = "<group>"; };
 		082C06681E150ED400BDD785 /* YNCSDKOffboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKOffboard.h; sourceTree = "<group>"; };
 		082C06691E150ED400BDD785 /* YNCSDKOffboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKOffboard.mm; sourceTree = "<group>"; };
-		082C066A1E150ED400BDD785 /* YNCSDKTelemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKTelemetry.h; sourceTree = "<group>"; };
-		082C066B1E150ED400BDD785 /* YNCSDKTelemetry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKTelemetry.mm; sourceTree = "<group>"; };
+		082C066A1E150ED400BDD785 /* YNCSDKAircraftTelemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKAircraftTelemetry.h; sourceTree = "<group>"; };
+		082C066B1E150ED400BDD785 /* YNCSDKAircraftTelemetry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKAircraftTelemetry.mm; sourceTree = "<group>"; };
 		082C067D1E155F7D00BDD785 /* libdronelink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronelink.a; path = "../Yuneec-SDK/lib/ios/libdronelink.a"; sourceTree = "<group>"; };
 		082C06871E157A1500BDD785 /* libdronelink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronelink.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronelink.a"; sourceTree = "<group>"; };
 		0842318A1F5855F5001E53DA /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libcurl.a"; sourceTree = "<group>"; };
 		0842318C1F58725F001E53DA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0842318E1F587272001E53DA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1F02BB9E1FBD08DA00F9B384 /* libdronecore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore.a"; sourceTree = "<group>"; };
+		1F613C0020167EBF00A2DEC4 /* YNCSDKAircraftBattery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YNCSDKAircraftBattery.h; sourceTree = "<group>"; };
+		1F613C05201680A200A2DEC4 /* YNCSDKAircraftBattery.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKAircraftBattery.mm; sourceTree = "<group>"; };
+		1F613C07201686ED00A2DEC4 /* YNCSDKAircraftHealth.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKAircraftHealth.mm; sourceTree = "<group>"; };
+		1F613C08201686ED00A2DEC4 /* YNCSDKAircraftHealth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YNCSDKAircraftHealth.h; sourceTree = "<group>"; };
 		B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKMission.h; sourceTree = "<group>"; };
 		B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKMission.mm; sourceTree = "<group>"; };
 		F4B49D731E81037100C44328 /* YNCSDKCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKCamera.h; sourceTree = "<group>"; };
@@ -108,14 +115,18 @@
 				082C06671E150ED400BDD785 /* YNCSDKInternal.mm */,
 				082C06681E150ED400BDD785 /* YNCSDKOffboard.h */,
 				082C06691E150ED400BDD785 /* YNCSDKOffboard.mm */,
-				082C066A1E150ED400BDD785 /* YNCSDKTelemetry.h */,
-				082C066B1E150ED400BDD785 /* YNCSDKTelemetry.mm */,
+				082C066A1E150ED400BDD785 /* YNCSDKAircraftTelemetry.h */,
+				082C066B1E150ED400BDD785 /* YNCSDKAircraftTelemetry.mm */,
 				B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */,
 				B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */,
 				080E8C411E56EDE600E48132 /* YNCSDKMissionItem.h */,
 				080E8C421E56EDE600E48132 /* YNCSDKMissionItem.mm */,
 				082C06581E150EAB00BDD785 /* Yuneec_SDK_iOS.h */,
 				082C06591E150EAB00BDD785 /* Info.plist */,
+				1F613C0020167EBF00A2DEC4 /* YNCSDKAircraftBattery.h */,
+				1F613C05201680A200A2DEC4 /* YNCSDKAircraftBattery.mm */,
+				1F613C07201686ED00A2DEC4 /* YNCSDKAircraftHealth.mm */,
+				1F613C08201686ED00A2DEC4 /* YNCSDKAircraftHealth.h */,
 			);
 			path = Yuneec_SDK_iOS;
 			sourceTree = "<group>";
@@ -143,7 +154,8 @@
 				082C065A1E150EAB00BDD785 /* Yuneec_SDK_iOS.h in Headers */,
 				082C066E1E150ED400BDD785 /* YNCSDKAction.h in Headers */,
 				0817D88A1E977F850062ADCF /* YNCSDKGimbal.h in Headers */,
-				082C06781E150ED400BDD785 /* YNCSDKTelemetry.h in Headers */,
+				082C06781E150ED400BDD785 /* YNCSDKAircraftTelemetry.h in Headers */,
+				1F613C0A201686ED00A2DEC4 /* YNCSDKAircraftHealth.h in Headers */,
 				082C06701E150ED400BDD785 /* YNCSDKConnection.h in Headers */,
 				082C06761E150ED400BDD785 /* YNCSDKOffboard.h in Headers */,
 				F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */,
@@ -239,14 +251,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F613C09201686ED00A2DEC4 /* YNCSDKAircraftHealth.mm in Sources */,
 				082C06771E150ED400BDD785 /* YNCSDKOffboard.mm in Sources */,
 				082C066F1E150ED400BDD785 /* YNCSDKAction.mm in Sources */,
 				082C06751E150ED400BDD785 /* YNCSDKInternal.mm in Sources */,
 				082C06711E150ED400BDD785 /* YNCSDKConnection.mm in Sources */,
 				F4F34C9E1E2F4CBE0022D1B8 /* YNCSDKGimbal.mm in Sources */,
+				1F613C06201680A200A2DEC4 /* YNCSDKAircraftBattery.mm in Sources */,
 				080E8C441E56EDE600E48132 /* YNCSDKMissionItem.mm in Sources */,
 				B9FFEDE51E1F658A008458AE /* YNCSDKMission.mm in Sources */,
-				082C06791E150ED400BDD785 /* YNCSDKTelemetry.mm in Sources */,
+				082C06791E150ED400BDD785 /* YNCSDKAircraftTelemetry.mm in Sources */,
 				F4B49D761E81037100C44328 /* YNCSDKCamera.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,6 @@
-/** @brief YNCSDKTelemetry  implementation file, Subscribe Drone Telemetry status*/
+/** @brief YNCSDKAircraftTelemetry implementation file, Subscribe Drone Telemetry status*/
 
-#import "YNCSDKTelemetry.h"
+#import "YNCSDKAircraftTelemetry.h"
 #import "YNCSDKInternal.h"
 
 
@@ -9,7 +9,6 @@
 using namespace dronecore;
 using namespace std::placeholders;
 
-static id <YNCSDKTelemetryBatteryDelegate> _batteryDelegate;
 static id <YNCSDKTelemetryPositionDelegate> _positionDelegate;
 static id <YNCSDKTelemetryGroundSpeedNEDDelegate> _groundSpeedNEDDelegate;
 static id <YNCSDKTelemetryGPSInfoDelegate> _gpsInfoDelegate;
@@ -21,21 +20,8 @@ static id <YNCSDKTelemetryCameraAttitudeEulerAngleDelegate> _cameraAttitudeEuler
 static id <YNCSDKTelemetryCameraAttitudeQuaternionDelegate> _cameraAttitudeQuaternionDelegate;
 static id <YNCSDKTelemetryRCStatusDelegate> _rcStatusDelegate;
 static id <YNCSDKTelemetryFlightModeDelegate> _flightModeDelegate;
-static id <YNCSDKTelemetryHealthDelegate> _healthDelegate;
 static id <YNCSDKTelemetryArmedDelegate> _armedDelegate;
-static id <YNCSDKTelemetryHealthAllOkDelegate> _healthAllOkDelegate;
 
-
-#pragma mark Receive battery data
-void receive_battery(Telemetry::Battery battery) {
-    YNCBattery *tmpBattery = [YNCBattery new];
-    tmpBattery.voltageV = battery.voltage_v;
-    tmpBattery.remainingPercent = battery.remaining_percent;
-    
-    if (_batteryDelegate && [_batteryDelegate respondsToSelector:@selector(onBatteryUpdate:)]) {
-        [_batteryDelegate onBatteryUpdate:tmpBattery];
-    }
-}
 
 #pragma mark Receive Position information
 void receive_position(Telemetry::Position position) {
@@ -209,49 +195,12 @@ void receive_flightMode(Telemetry::FlightMode flightMode) {
     }
 }
 
-#pragma mark Receive Health information
-void receive_health(Telemetry::Health health) {
-    YNCHealth *tmpHealth = [YNCHealth new];
-    tmpHealth.homePositionOk = health.home_position_ok;
-    tmpHealth.localPositionOk = health.local_position_ok;
-    tmpHealth.globalPositionOk = health.global_position_ok;
-    tmpHealth.levelCalibrationOk = health.level_calibration_ok;
-    tmpHealth.gyrometerCalibrationOk = health.gyrometer_calibration_ok;
-    tmpHealth.magnetometerCalibrationOk = health.magnetometer_calibration_ok;
-    tmpHealth.accelerometerCalibrationOk = health.accelerometer_calibration_ok;
-    
-    if (_healthDelegate &&
-        [_healthDelegate respondsToSelector:@selector(onHealthUpdate:)]) {
-        [_healthDelegate onHealthUpdate:tmpHealth];
-    }
-}
-
 #pragma mark Receive armed information
 void receive_armed(bool armed) {
     if (_armedDelegate && [_armedDelegate respondsToSelector:@selector(onArmedUpdate:)]) {
         [_armedDelegate onArmedUpdate:armed];
     }
 }
-
-#pragma mark Receive health all information
-void receive_healthAllOk(bool healthAllOk) {
-    if (_healthAllOkDelegate && [_healthAllOkDelegate respondsToSelector:@selector(onHealthAllOkUpdate:)]) {
-        [_healthAllOkDelegate onHealthAllOkUpdate:healthAllOk];
-    }
-}
-
-@implementation YNCBattery
-@end
-
-@implementation YNCSDKTelemetryBattery
-
-- (void)subscribe:(id<YNCSDKTelemetryBatteryDelegate>) delegate {
-    _batteryDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().battery_async(&receive_battery);
-}
-
-@end
 
 @implementation YNCPosition
 @end
@@ -381,35 +330,12 @@ void receive_healthAllOk(bool healthAllOk) {
 
 @end
 
-@implementation YNCHealth
-@end
-
-@implementation YNCSDKTelemetryHealth
-
-- (void)subscribe:(id<YNCSDKTelemetryHealthDelegate>) delegate {
-    _healthDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().health_async(&receive_health);
-}
-
-@end
-
 @implementation YNCSDKTelemetryArmed
 
 - (void)subscribe:(id<YNCSDKTelemetryArmedDelegate>) delegate {
     _armedDelegate = delegate;
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     dc->device().telemetry().armed_async(&receive_armed);
-}
-
-@end
-
-@implementation YNCSDKTelemetryHealthAllOk
-
-- (void)subscribe:(id<YNCSDKTelemetryHealthAllOkDelegate>) delegate {
-    _healthAllOkDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().health_all_ok_async(&receive_healthAllOk);
 }
 
 @end
