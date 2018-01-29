@@ -2,7 +2,7 @@
 
 set -e # fail on errors
 
-dronecore_filename=DroneCore-iOS-v0.9.0-Release.zip
+dronecore_filename=DroneCore-iOS-v0.10.1-Release.zip
 unzip_dir=Yuneec_SDK_iOS/libs/Yuneec-SDK
 
 downloaded=false
