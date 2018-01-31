@@ -9,66 +9,62 @@
 
 #import <Foundation/Foundation.h>
 
-@class YNCCameraSettings;
-
 /**
  Data type for completion blocks for camera commands that contain error results, if any.
  */
 typedef void (^YNCCameraCompletion)(NSError *error);
 
 /**
- Completion block for the asynchronous getSettings() function for the camera.
-
- @param receiveData The camera setting data
- @param error The error object if an error occurred during the get operation, or nil if no error occurred.
+ Data type for the different camera modes.
  */
-typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NSError *error);
-
-/**
- This class manages the camera settings of the drone.
- */
-@interface YNCCameraSettings : NSObject
-/**
- Aperture value, the amount of light allowed in while the shutter is open.
- */
-@property (nonatomic, assign) double apertureValue;
-
-/**
- Shutter speed (in seconds). The interval for which the shutter is open.
- */
-@property (nonatomic, assign) double shutterSpeedS;
-
-/**
- ISO value. The sensitivity to light of the sensor.
- */
-@property (nonatomic, assign) double isoSensitivity;
+typedef NS_ENUM (NSInteger, YNCCameraMode) {
+    /**
+     Set Camera.Mode to this mode to capture photos
+     */
+    YNCCameraModePhoto = 0,
+    /**
+     Set Camera.Mode to this mode for survey missions.
+     This mode sets camera to AE mode, metering to "average" and also results in white balance getting locked right before the first photo is taken.
+     */
+    YNCCameraModePhotoSurvey,
+    /**
+     Set Camera.Mode to this mode to capture videos
+     */
+    YNCCameraModeVideo,
+    /**
+     Unknown camera mode
+     */
+    YNCCameraModeUnknown
+};
 
 /**
- White balance temperature (in K). Defines the color rendering of the sensor.
+ Data type for completion blocks for camera mode that contain error results, if any.
  */
-@property (nonatomic, assign) double whitespaceBalanceTemperatureK;
+typedef void (^YNCCameraModeCompletion)(YNCCameraMode cameraMode, NSError *error);
 
 /**
- True, if auto aperture mode. Aperture is set by the camera while Shutter Speed/ISO can be managed by the user.
+ This class contains fields associated with the camera status.
  */
-@property (nonatomic, assign) BOOL apertureAuto;
+@interface YNCCameraStatus : NSObject
 
-/**
- True, if auto shutter speed mode. Shutter Speed is set by the camera while Aperture/ISO can be managed by the user.
- */
-@property (nonatomic, assign) BOOL shutterAuto;
+@property (nonatomic, assign) BOOL videoOn;
 
-/**
- True, if auto ISO mode. ISO is set by the camera while Shutter Speed/Aperture can be managed by the user.
- */
-@property (nonatomic, assign) BOOL isoAuto;
+@property (nonatomic, assign) BOOL photoIntervalOn;
 
-/**
- True, if auto white balance mode. Camera will autoselect the best white balance based on the scene.
- */
-@property (nonatomic, assign) BOOL whitespaceAuto;
+@property (nonatomic, assign) BOOL storageOk;
+
+@property (nonatomic, assign) float usedStorageMib;
+
+@property (nonatomic, assign) float availableStorageMib;
+
+@property (nonatomic, assign) float totalStorageMib;
 
 @end
+
+/**
+ Data type for completion blocks for camera status that contain error results, if any.
+ */
+typedef void (^YNCCameraStatusCompletion)(YNCCameraStatus *cameraStatus, NSError *error);
 
 /**
  This class provides methods for performing camera actions.
@@ -111,20 +107,23 @@ typedef void (^YNCReceiveDataCompletionBlock)(YNCCameraSettings *receiveData, NS
  */
 + (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion;
 
-#if 0
 /**
- Sets the camera settings.
-
- @param completion the callback function after completion
+ * Set camera mode
+ * @param cameraMode the mode to be set
+ * @param completion the callback function after completion
  */
-+ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion;
++ (void)setCameraMode:(YNCCameraMode)cameraMode WithCompletion:(YNCCameraModeCompletion) completion;
 
 /**
- Gets the camera settings.
-
- @param receiveDataCompletion the completion block for getSettings()
+ * Get camera mode
+ * @param completion the callback function after completion
  */
-+ (void)getSettings:(YNCReceiveDataCompletionBlock)receiveDataCompletion;
-#endif
++ (void)getCameraModeWithCompletion:(YNCCameraModeCompletion) completion;
+
+/**
+ * Get camera status
+ * @param completion the callback function after completion
+ */
++ (void)getCameraStatusWithCompletion:(YNCCameraStatusCompletion) completion;
 
 @end
