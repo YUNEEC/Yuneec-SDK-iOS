@@ -95,55 +95,17 @@ void receive_camera_status_result(YNCCameraStatusCompletion completion, Camera::
 }
 
 Camera::Mode getCameraModeEnum(YNCCameraMode mode) {
-    Camera::Mode cameraMode;
     switch (mode) {
         case YNCCameraModePhoto:
-            cameraMode = Camera::Mode::PHOTO;
-            break;
+            return Camera::Mode::PHOTO;
         case YNCCameraModeVideo:
-            cameraMode = Camera::Mode::VIDEO;
-            break;
+            return Camera::Mode::VIDEO;
         case YNCCameraModePhotoSurvey:
-            cameraMode = Camera::Mode::PHOTO_SURVEY;
-            break;
+            return Camera::Mode::PHOTO_SURVEY;
         default:
-            cameraMode = Camera::Mode::UNKNOWN;
-            break;
-    }
-    return cameraMode;
-}
-
-#if 0
-//MARK: receive get camera setting result
-void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Camera::Result result, Camera::Settings settings) {
-    if (completion) {
-        NSError *error = nullptr;
-        if (result != Camera::Result::SUCCESS) {
-            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
-            error = [[NSError alloc] initWithDomain:@"Camera"
-                                               code:(int)result
-                                           userInfo:@{@"message": message}];
-            completion(nil, error);
-        } else {
-            YNCCameraSettings *tmpSettings = [YNCCameraSettings new];
-            tmpSettings.apertureValue = settings.aperture_value;
-            tmpSettings.shutterSpeedS = settings.shutter_speed_s;
-            tmpSettings.isoSensitivity = settings.iso_sensitivity;
-            tmpSettings.whitespaceBalanceTemperatureK = settings.white_space_balance_temperature_k;
-            tmpSettings.apertureAuto = settings.aperture_auto;
-            tmpSettings.shutterAuto = settings.shutter_auto;
-            tmpSettings.isoAuto = settings.iso_auto;
-            tmpSettings.whitespaceAuto = settings.white_space_auto;
-
-            completion(tmpSettings, error);
-        }
+            return Camera::Mode::UNKNOWN;
     }
 }
-#endif
-
-//MARK: Class YNCCameraSettings implementation
-@implementation YNCCameraSettings
-@end
 
 //MARK: Class YNCCameraStatus implementation
 @implementation YNCCameraStatus
@@ -190,45 +152,19 @@ void receive_camera_settings_result(YNCReceiveDataCompletionBlock completion, Ca
 + (void) setCameraMode:(YNCCameraMode)cameraMode WithCompletion:(YNCCameraModeCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     Camera::Mode cameraModeVal = getCameraModeEnum(cameraMode);
-    dc->device().camera().set_mode_async(cameraModeVal,std::bind(&receive_camera_mode_result,completion,_1,_2));
+    dc->device().camera().set_mode_async(cameraModeVal, std::bind(&receive_camera_mode_result, completion, _1, _2));
 }
 
 //MARK: get camera mode
 + (void) getCameraModeWithCompletion:(YNCCameraModeCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_mode_async(std::bind(&receive_camera_mode_result,completion,_1,_2));
+    dc->device().camera().get_mode_async(std::bind(&receive_camera_mode_result, completion, _1, _2));
 }
 
 //MARK: get camera status
 + (void) getCameraStatusWithCompletion:(YNCCameraStatusCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_status_async(std::bind(&receive_camera_status_result,completion,_1,_2));
+    dc->device().camera().get_status_async(std::bind(&receive_camera_status_result, completion, _1, _2));
 }
-
-
-#if 0
-//MARK: Camera set settings
-+ (void)setSettings:(YNCCameraSettings *)cameraSettings Completion:(YNCCameraCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dronecore::Camera::Settings settings;
-    settings.aperture_value = cameraSettings.apertureValue;
-    settings.shutter_speed_s = cameraSettings.shutterSpeedS;
-    settings.iso_sensitivity = cameraSettings.isoSensitivity;
-    settings.white_space_balance_temperature_k = cameraSettings.whitespaceBalanceTemperatureK;
-
-    settings.aperture_auto = cameraSettings.apertureAuto;
-    settings.shutter_auto = cameraSettings.shutterAuto;
-    settings.iso_auto = cameraSettings.isoAuto;
-    settings.white_space_auto = cameraSettings.whitespaceAuto;
-
-    dc->device().camera().set_settings_async(settings, std::bind(&receive_camera_result, completion, _1));
-}
-
-//MARK: Camera get settings
-+ (void)getSettings:(YNCReceiveDataCompletionBlock)receiveDataCompletion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_settings_async(std::bind(&receive_camera_settings_result, receiveDataCompletion, _1, _2));
-}
-#endif
 
 @end
