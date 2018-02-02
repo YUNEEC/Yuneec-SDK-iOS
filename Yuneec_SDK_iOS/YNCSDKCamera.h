@@ -9,9 +9,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class YNCCameraSettings;
-
 /**
  Data type for completion blocks for camera commands that contain error results, if any.
  */

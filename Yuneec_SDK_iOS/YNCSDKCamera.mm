@@ -665,14 +665,6 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
     return cameraMeteringMode;
 }
 
-
-
-
-//MARK: Class YNCSDKCamera implementation
-@interface YNCSDKCamera ()
-
-@end
-
 @implementation YNCCameraResolution
 
 @end
