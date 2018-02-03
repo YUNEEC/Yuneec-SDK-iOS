@@ -27,6 +27,11 @@ using namespace dronecore;
     return self;
 }
 
+- (void)resetDroneCore {
+    delete _dc;
+    _dc = nullptr;
+}
+
 - (void)dealloc {
     // Should never be called.
 }
