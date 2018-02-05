@@ -68,6 +68,10 @@ void on_timeout(uint64_t uuid) {
     return true;
 }
 
+- (void)removeConnection {
+    [[YNCSDKInternal instance] resetDroneCore];
+}
+
 - (void)setDelegate:(id<YNCSDKConnectionDelegate>)delegate {
     _delegate = delegate;
 }

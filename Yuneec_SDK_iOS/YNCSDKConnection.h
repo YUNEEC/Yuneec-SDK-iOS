@@ -42,6 +42,11 @@
 - (BOOL)connect;
 
 /**
+  * Remove connection to the drone.
+  */
+- (void)removeConnection;
+
+/**
  Sets a delegate to get notified about the connection status.
  */
 - (void)setDelegate:(id<YNCSDKConnectionDelegate>)delegate;

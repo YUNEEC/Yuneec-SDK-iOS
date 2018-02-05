@@ -24,4 +24,6 @@
 
 + (id)instance;
 
+- (void)resetDroneCore;
+
 @end
