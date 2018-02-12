@@ -765,14 +765,9 @@ void receive_camera_media_result(YNCCameraMediaCompletion completion, Camera::Re
 }
 
 //MARK: receive camera all media info result
-void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, Camera::Result result, std::vector<Camera::MediaInfo> mediaInfo) {
+void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, Camera::Result result, std::vector<Camera::MediaInfo> mediaInfos) {
     if (completion) {
         NSError *error = nullptr;
-        if(mediaInfo.size() > 0) {
-            for(int i=0; i < mediaInfo.size(); i++) {
-                NSLog(@"%f", mediaInfo[i].size_mib);
-            }
-        }
         if (result != Camera::Result::SUCCESS) {
             NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
             error = [[NSError alloc] initWithDomain:@"Camera"
@@ -781,12 +776,15 @@ void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, C
             completion(nil, error);
         }
         else {
-            completion(nil, error);
-            if(mediaInfo.size() > 0) {
-                for(int i=0; i < mediaInfo.size(); i++) {
-                    NSLog(@"%f", mediaInfo[i].size_mib);
-                }
+            NSMutableArray<YNCCameraMediaInfo *> *YNCCameraMediaInfos = [NSMutableArray new];
+            for(int i=0; i<mediaInfos.size(); i++) {
+                YNCCameraMediaInfo *mediaInfo = [YNCCameraMediaInfo new];
+                mediaInfo.path = @(mediaInfos[i].path.c_str());
+                mediaInfo.sizeMib = mediaInfos[i].size_mib;
+                [YNCCameraMediaInfos addObject:(mediaInfo)];
             }
+            completion(YNCCameraMediaInfos, error);
+            NSLog(@"%lu", mediaInfos.size());
         }
     }
 }
@@ -806,6 +804,10 @@ void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, C
 @end
 
 @implementation YNCCameraMetering
+
+@end
+
+@implementation YNCCameraMediaInfo
 
 @end
 
@@ -1012,10 +1014,9 @@ void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, C
 }
 
 //MARK: get media
-+ (void) getMediaWithCompletion:(YNCCameraMediaCompletion)completion {
++ (void) getMedia:(NSString *)localPath WithUrl:(NSString *)path WithCompletion:(YNCCameraMediaCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
-    //NSString path = @"localpath";
-    //dc->device().camera().get_media_async(path, @"dasd", std::bind(&receive_camera_media_result,completion, _1, _2));
+    dc->device().camera().get_media_async(std::string([localPath UTF8String]), std::string([path UTF8String]), std::bind(&receive_camera_media_result,completion, _1, _2));
 }
 
 @end

@@ -614,8 +614,10 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
 
 /**
  * Get media
+ * @param localPath path where the media is downloaded
+ * @param path URL of the media to be downloaded
  * @param completion the callback function after completion
  */
-+ (void)getMediaWithCompletion:(YNCCameraMediaCompletion) completion;
++ (void)getMedia:(NSString*) localPath WithUrl:(NSString*) path WithCompletion:(YNCCameraMediaCompletion) completion;
 
 @end
