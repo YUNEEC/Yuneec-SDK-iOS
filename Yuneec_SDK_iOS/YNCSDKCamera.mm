@@ -746,6 +746,52 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
     return cameraMeteringMode;
 }
 
+//MARK: receive camera media info result
+void receive_camera_media_result(YNCCameraMediaCompletion completion, Camera::Result result, int progress) {
+    if (completion) {
+        NSError *error = nullptr;
+        int tmpProgress = 0;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(tmpProgress, error);
+        }
+        else {
+            completion(tmpProgress, error);
+        }
+    }
+}
+
+//MARK: receive camera all media info result
+void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, Camera::Result result, std::vector<Camera::MediaInfo> mediaInfo) {
+    if (completion) {
+        NSError *error = nullptr;
+        if(mediaInfo.size() > 0) {
+            for(int i=0; i < mediaInfo.size(); i++) {
+                NSLog(@"%f", mediaInfo[i].size_mib);
+            }
+        }
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(nil, error);
+        }
+        else {
+            completion(nil, error);
+            if(mediaInfo.size() > 0) {
+                for(int i=0; i < mediaInfo.size(); i++) {
+                    NSLog(@"%f", mediaInfo[i].size_mib);
+                }
+            }
+        }
+    }
+}
+
+
 @implementation YNCCameraResolution
 
 @end
@@ -957,6 +1003,19 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
 + (void) getCameraStatusWithCompletion:(YNCCameraStatusCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     dc->device().camera().get_status_async(std::bind(&receive_camera_status_result, completion, _1, _2));
+}
+
+//MARK: get all media info
++ (void) getMediaInfosWithCompletion:(YNCCameraMediaInfosCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_media_infos_async(std::bind(&receive_camera_all_media_result,completion, _1, _2));
+}
+
+//MARK: get media
++ (void) getMediaWithCompletion:(YNCCameraMediaCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    //NSString path = @"localpath";
+    //dc->device().camera().get_media_async(path, @"dasd", std::bind(&receive_camera_media_result,completion, _1, _2));
 }
 
 @end

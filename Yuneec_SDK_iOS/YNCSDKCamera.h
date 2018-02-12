@@ -380,6 +380,31 @@ typedef NS_ENUM (NSInteger, YNCCameraMeteringMode) {
 typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *error);
 
 /**
+ This class contains fields associated with the camera media info.
+ */
+@interface YNCCameraMediaInfo : NSObject
+/**
+ URL of the media.
+ */
+@property (nonatomic, assign) NSString *path;
+/**
+ Media size in mib.
+ */
+@property (nonatomic, assign) double sizeMib;
+
+@end
+
+/**
+ Data type for completion blocks for downloading a media that contain error results, if any.
+ */
+typedef void (^YNCCameraMediaCompletion)(int progress, NSError *error);
+
+/**
+ Data type for completion blocks to get the media info that contain error results, if any.
+ */
+typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*> *YNCCameraMediaInfo , NSError *error);
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -580,5 +605,17 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param completion the callback function after completion
  */
 + (void)getCameraStatusWithCompletion:(YNCCameraStatusCompletion) completion;
+
+/**
+ * Get media infos
+ * @param completion the callback function after completion
+ */
++ (void)getMediaInfosWithCompletion:(YNCCameraMediaInfosCompletion) completion;
+
+/**
+ * Get media
+ * @param completion the callback function after completion
+ */
++ (void)getMediaWithCompletion:(YNCCameraMediaCompletion) completion;
 
 @end
