@@ -419,7 +419,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param colorMode the color mode to be set
  * @param completion the callback function after completion
  */
-+ (void)setColorMode:(YNCCameraColorMode)colorMode WithCompletion:(YNCColorModeCompletion) completion;
++ (void)setColorMode:(YNCCameraColorMode)colorMode
+      WithCompletion:(YNCColorModeCompletion) completion;
 
 /**
  * Get white balance setting
@@ -432,7 +433,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param whiteBalance the white balance to be set
  * @param completion the callback function after completion
  */
-+ (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance WithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
++ (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance
+         WithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
 
 /**
  * Get exposure mode
@@ -445,7 +447,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param exposureMode the exposure mode to be set
  * @param completion the callback function after completion
  */
-+ (void)setExposureMode:(YNCCameraExposureMode)exposureMode WithCompletion:(YNCExposureModeCompletion) completion;
++ (void)setExposureMode:(YNCCameraExposureMode)exposureMode
+         WithCompletion:(YNCExposureModeCompletion) completion;
 
 /**
  * Get camera resolution
@@ -464,7 +467,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param photoFormat the photo format to be set
  * @param completion the callback function after completion
  */
-+ (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat WithCompletion:(YNCPhotoFormatCompletion) completion;
++ (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat
+        WithCompletion:(YNCPhotoFormatCompletion) completion;
 
 /**
  * Get video format
@@ -477,7 +481,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param videoFormat the video format to be set
  * @param completion the callback function after completion
  */
-+ (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat WithCompletion:(YNCVideoFormatCompletion) completion;
++ (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat
+        WithCompletion:(YNCVideoFormatCompletion) completion;
 
 /**
  * Get photo quality
@@ -490,7 +495,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param photoQuality the photo quality to be set
  * @param completion the callback function after completion
  */
-+ (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality WithCompletion:(YNCPhotoQualityCompletion) completion;
++ (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality
+         WithCompletion:(YNCPhotoQualityCompletion) completion;
 
 /**
  * Get video resolution
@@ -503,7 +509,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param videoResolution the video resolution to be set
  * @param completion the callback function after completion
  */
-+ (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution WithCompletion:(YNCVideoResolutionCompletion) completion;
++ (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution
+            WithCompletion:(YNCVideoResolutionCompletion) completion;
 
 /**
  * Get shutter speed
@@ -516,7 +523,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param shutterSpeed the shutter speed to be set
  * @param completion the callback function after completion
  */
-+ (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed WithCompletion:(YNCShutterSpeedCompletion) completion;
++ (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed
+         WithCompletion:(YNCShutterSpeedCompletion) completion;
 
 /**
  * Get ISO value
@@ -529,7 +537,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param isoValue the ISO value to be set
  * @param completion the callback function after completion
  */
-+ (void)setISOValue:(int)isoValue WithCompletion:(YNCISOValueCompletion) completion;
++ (void)setISOValue:(int)isoValue
+     WithCompletion:(YNCISOValueCompletion) completion;
 
 /**
  * Get Metering
@@ -542,7 +551,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param metering the metering to be set
  * @param completion the callback function after completion
  */
-+ (void)setMetering:(YNCCameraMetering *)metering WithCompletion:(YNCMeteringCompletion) completion;
++ (void)setMetering:(YNCCameraMetering *)metering
+     WithCompletion:(YNCMeteringCompletion) completion;
 
 @end
 
@@ -578,7 +588,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  @param intervalS the interval (in seconds) between photos in burst mode
  @param completion the callback function after completion
  */
-+ (void)startPhotoInterval:(double)intervalS Completion:(YNCCameraCompletion)completion;
++ (void)startPhotoInterval:(double)intervalS
+                Completion:(YNCCameraCompletion)completion;
 
 /**
  Stops taking photos in burst mode.
@@ -592,7 +603,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param cameraMode the mode to be set
  * @param completion the callback function after completion
  */
-+ (void)setCameraMode:(YNCCameraMode)cameraMode WithCompletion:(YNCCameraModeCompletion) completion;
++ (void)setCameraMode:(YNCCameraMode)cameraMode
+       WithCompletion:(YNCCameraModeCompletion) completion;
 
 /**
  * Get camera mode
@@ -618,6 +630,8 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  * @param path URL of the media to be downloaded
  * @param completion the callback function after completion
  */
-+ (void)getMedia:(NSString*) localPath WithUrl:(NSString*) path WithCompletion:(YNCCameraMediaCompletion) completion;
++ (void)getMedia:(NSString*)localPath
+         WithUrl:(NSString*) path
+  WithCompletion:(YNCCameraMediaCompletion) completion;
 
 @end
