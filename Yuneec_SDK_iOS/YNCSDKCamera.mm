@@ -750,16 +750,15 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
 void receive_camera_media_result(YNCCameraMediaCompletion completion, Camera::Result result, int progress) {
     if (completion) {
         NSError *error = nullptr;
-        int tmpProgress = 0;
         if (result != Camera::Result::SUCCESS) {
             NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
             error = [[NSError alloc] initWithDomain:@"Camera"
                                                code:(int)result
                                            userInfo:@{@"message": message}];
-            completion(tmpProgress, error);
+            completion(progress, error);
         }
         else {
-            completion(tmpProgress, error);
+            completion(progress, error);
         }
     }
 }
