@@ -784,7 +784,6 @@ void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, C
                 [YNCCameraMediaInfos addObject:(mediaInfo)];
             }
             completion(YNCCameraMediaInfos, error);
-            NSLog(@"%lu", mediaInfos.size());
         }
     }
 }

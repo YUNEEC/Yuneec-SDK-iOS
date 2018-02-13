@@ -386,7 +386,7 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
 /**
  URL of the media.
  */
-@property (nonatomic, assign) NSString *path;
+@property (nonatomic, copy) NSString *path;
 /**
  Media size in mib.
  */
