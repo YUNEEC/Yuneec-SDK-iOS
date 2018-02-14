@@ -10,6 +10,8 @@
 using namespace dronecore;
 using namespace std::placeholders;
 
+static id <YNCSDKCameraCaptureInfoDelegate> _captureInfoDelegate;
+
 //MARK: C Functions
 //MARK: receive camera operate result
 void receive_camera_result(YNCCameraCompletion completion, Camera::Result result) {
@@ -787,6 +789,16 @@ void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, C
     }
 }
 
+void receive_capture_info(Camera::CaptureInfo captureInfo) {
+    YNCCameraCaptureInfo *tmpCaptureInfo = [YNCCameraCaptureInfo new];
+    tmpCaptureInfo.timeUtc = captureInfo.time_utc_us;
+    tmpCaptureInfo.success = captureInfo.success;
+    tmpCaptureInfo.fileURL = @(captureInfo.file_url.c_str());
+    tmpCaptureInfo.index = captureInfo.index;
+    if (_captureInfoDelegate && [_captureInfoDelegate respondsToSelector:@selector(onCapture:)]) {
+        [_captureInfoDelegate onCapture:tmpCaptureInfo];
+    }
+}
 
 @implementation YNCCameraResolution
 
@@ -807,6 +819,90 @@ void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, C
 
 @implementation YNCCameraMediaInfo
 
+@end
+
+/**
+ This class contains fields associated with the position of drone/camera when image was captured.
+ */
+@interface YNCCaptureInfoPosition: NSObject
+/**
+ Latitude in degrees (range: -90 to +90).
+ */
+@property (nonatomic, assign) double latitudeDeg;
+/**
+ Longitude in degrees (range: -180 to 180).
+ */
+@property (nonatomic, assign) double longitudeDeg;
+/**
+ Altitude AMSL (above mean sea level) in metres.
+ */
+@property (nonatomic, assign) float absoluteAltitudeM;
+/**
+ Altitude relative to takeoff altitude in metres.
+ */
+@property (nonatomic, assign) float relativeAltitudeM;
+
+@end
+
+@implementation YNCCaptureInfoPosition
+
+@end
+
+/**
+ This class contains fields associated with the Quaternion of camera orientation.
+ * All rotations and axis systems follow the right-hand rule.
+ * The Hamilton quaternion product definition is used.
+ * A zero-rotation quaternion is represented by (1,0,0,0).
+ * The quaternion could also be written as w + xi + yj + zk.
+ * For more info see: https://en.wikipedia.org/wiki/Quaternion
+ */
+@interface YNCCaptureInfoQuaternion: NSObject
+/**
+ Quaternion entry 0 also denoted as a.
+ */
+@property (nonatomic, assign) float w;
+/**
+ Quaternion entry 1 also denoted as b.
+ */
+@property (nonatomic, assign) float x;
+/**
+ Quaternion entry 2 also denoted as c.
+ */
+@property (nonatomic, assign) float y;
+/**
+ Quaternion entry 3 also denoted as d.
+ */
+@property (nonatomic, assign) float z;
+
+@end
+
+@implementation YNCCaptureInfoQuaternion
+
+@end
+
+@interface YNCCameraCaptureInfo()
+/**
+ * Position of drone/camera when image was captured.
+ */
+@property (retain) YNCCaptureInfoPosition *position;
+/**
+ * Quaternion of camera orientation.
+ */
+@property (retain) YNCCaptureInfoQuaternion *quaternion;
+
+@end
+
+@implementation YNCCameraCaptureInfo
+
+@end
+
+@implementation YNCSDKCameraCaptureInfo
+
+-(void) subscribe:(id<YNCSDKCameraCaptureInfoDelegate>)delegate {
+    _captureInfoDelegate = delegate;
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().capture_info_async(&receive_capture_info);
+}
 @end
 
 @implementation YNCSDKCameraSettings

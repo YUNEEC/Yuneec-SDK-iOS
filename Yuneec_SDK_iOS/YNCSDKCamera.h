@@ -405,6 +405,53 @@ typedef void (^YNCCameraMediaCompletion)(int progress, NSError *error);
 typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*> *YNCCameraMediaInfo , NSError *error);
 
 /**
+ This class contains fields associated with the camera capture info.
+ */
+@interface YNCCameraCaptureInfo : NSObject
+/**
+ Timestamp in UTC (since UNIX epoch) in microseconds.
+ */
+@property (nonatomic, assign) long timeUtc;
+/**
+ True if capture was successful.
+ */
+@property (nonatomic, assign) BOOL success;
+/**
+ Zero-based index of this image since armed.
+ */
+@property (nonatomic, assign) int index;
+/**
+ URL of image captures.
+ */
+@property (nonatomic, copy) NSString *fileURL;
+
+@end
+
+/**
+ * This delegate provides capture info of the media.
+ */
+@protocol YNCSDKCameraCaptureInfoDelegate <NSObject>
+/**
+ * Receives info of the captured media.
+ *
+ * @param captureInfo the Capture Info object
+ */
+- (void)onCapture:(YNCCameraCaptureInfo *)captureInfo;
+@end
+
+/**
+ This class provides a method to subscribe to receive capture info
+ */
+@interface YNCSDKCameraCaptureInfo : NSObject
+/**
+ * Subscribes to capture info updates.
+ *
+ * @param delegate The Capture Info delegate object
+ */
+- (void)subscribe:(id<YNCSDKCameraCaptureInfoDelegate>) delegate;
+@end
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
