@@ -478,11 +478,11 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
 /**
  Position of drone/camera when image was captured
  */
-@property (nonatomic, copy) YNCCaptureInfoPosition *position;
+@property (nonatomic, retain) YNCCaptureInfoPosition *position;
 /**
  Quaternion of camera orientation
  */
-@property (nonatomic, copy) YNCCaptureInfoQuaternion *quaternion;
+@property (nonatomic, retain) YNCCaptureInfoQuaternion *quaternion;
 
 @end
 
