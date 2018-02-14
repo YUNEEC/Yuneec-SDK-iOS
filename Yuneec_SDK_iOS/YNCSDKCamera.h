@@ -405,6 +405,57 @@ typedef void (^YNCCameraMediaCompletion)(int progress, NSError *error);
 typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*> *YNCCameraMediaInfo , NSError *error);
 
 /**
+ This class contains fields associated with the position of drone/camera when image was captured.
+ */
+@interface YNCCaptureInfoPosition: NSObject
+/**
+ Latitude in degrees (range: -90 to +90).
+ */
+@property (nonatomic, assign) double latitudeDeg;
+/**
+ Longitude in degrees (range: -180 to 180).
+ */
+@property (nonatomic, assign) double longitudeDeg;
+/**
+ Altitude AMSL (above mean sea level) in metres.
+ */
+@property (nonatomic, assign) float absoluteAltitudeM;
+/**
+ Altitude relative to takeoff altitude in metres.
+ */
+@property (nonatomic, assign) float relativeAltitudeM;
+
+@end
+
+/**
+ * This class contains fields associated with the Quaternion of camera orientation.
+ * All rotations and axis systems follow the right-hand rule.
+ * The Hamilton quaternion product definition is used.
+ * A zero-rotation quaternion is represented by (1,0,0,0).
+ * The quaternion could also be written as w + xi + yj + zk.
+ * For more info see: https://en.wikipedia.org/wiki/Quaternion
+ */
+@interface YNCCaptureInfoQuaternion: NSObject
+/**
+ Quaternion entry 0 also denoted as a.
+ */
+@property (nonatomic, assign) float w;
+/**
+ Quaternion entry 1 also denoted as b.
+ */
+@property (nonatomic, assign) float x;
+/**
+ Quaternion entry 2 also denoted as c.
+ */
+@property (nonatomic, assign) float y;
+/**
+ Quaternion entry 3 also denoted as d.
+ */
+@property (nonatomic, assign) float z;
+
+@end
+
+/**
  This class contains fields associated with the camera capture info.
  */
 @interface YNCCameraCaptureInfo : NSObject
@@ -424,6 +475,14 @@ typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*
  URL of image captures.
  */
 @property (nonatomic, copy) NSString *fileURL;
+/**
+ Position of drone/camera when image was captured
+ */
+@property (nonatomic, copy) YNCCaptureInfoPosition *position;
+/**
+ Quaternion of camera orientation
+ */
+@property (nonatomic, copy) YNCCaptureInfoQuaternion *quaternion;
 
 @end
 

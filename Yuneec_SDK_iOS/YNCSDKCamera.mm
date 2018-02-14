@@ -795,6 +795,18 @@ void receive_capture_info(Camera::CaptureInfo captureInfo) {
     tmpCaptureInfo.success = captureInfo.success;
     tmpCaptureInfo.fileURL = @(captureInfo.file_url.c_str());
     tmpCaptureInfo.index = captureInfo.index;
+    YNCCaptureInfoPosition *tmpPosition = [YNCCaptureInfoPosition new];
+    tmpPosition.latitudeDeg = captureInfo.position.latitude_deg;
+    tmpPosition.longitudeDeg = captureInfo.position.longitude_deg;
+    tmpPosition.absoluteAltitudeM = captureInfo.position.absolute_altitude_m;
+    tmpPosition.relativeAltitudeM = captureInfo.position.relative_altitude_m;
+    tmpCaptureInfo.position = tmpPosition;
+    YNCCaptureInfoQuaternion *tmpQuaternion = [YNCCaptureInfoQuaternion new];
+    tmpQuaternion.w = captureInfo.quaternion.w;
+    tmpQuaternion.x = captureInfo.quaternion.x;
+    tmpQuaternion.y = captureInfo.quaternion.y;
+    tmpQuaternion.z = captureInfo.quaternion.z;
+    tmpCaptureInfo.quaternion = tmpQuaternion;
     if (_captureInfoDelegate && [_captureInfoDelegate respondsToSelector:@selector(onCapture:)]) {
         [_captureInfoDelegate onCapture:tmpCaptureInfo];
     }
@@ -821,74 +833,11 @@ void receive_capture_info(Camera::CaptureInfo captureInfo) {
 
 @end
 
-/**
- This class contains fields associated with the position of drone/camera when image was captured.
- */
-@interface YNCCaptureInfoPosition: NSObject
-/**
- Latitude in degrees (range: -90 to +90).
- */
-@property (nonatomic, assign) double latitudeDeg;
-/**
- Longitude in degrees (range: -180 to 180).
- */
-@property (nonatomic, assign) double longitudeDeg;
-/**
- Altitude AMSL (above mean sea level) in metres.
- */
-@property (nonatomic, assign) float absoluteAltitudeM;
-/**
- Altitude relative to takeoff altitude in metres.
- */
-@property (nonatomic, assign) float relativeAltitudeM;
-
-@end
-
 @implementation YNCCaptureInfoPosition
 
 @end
 
-/**
- This class contains fields associated with the Quaternion of camera orientation.
- * All rotations and axis systems follow the right-hand rule.
- * The Hamilton quaternion product definition is used.
- * A zero-rotation quaternion is represented by (1,0,0,0).
- * The quaternion could also be written as w + xi + yj + zk.
- * For more info see: https://en.wikipedia.org/wiki/Quaternion
- */
-@interface YNCCaptureInfoQuaternion: NSObject
-/**
- Quaternion entry 0 also denoted as a.
- */
-@property (nonatomic, assign) float w;
-/**
- Quaternion entry 1 also denoted as b.
- */
-@property (nonatomic, assign) float x;
-/**
- Quaternion entry 2 also denoted as c.
- */
-@property (nonatomic, assign) float y;
-/**
- Quaternion entry 3 also denoted as d.
- */
-@property (nonatomic, assign) float z;
-
-@end
-
 @implementation YNCCaptureInfoQuaternion
-
-@end
-
-@interface YNCCameraCaptureInfo()
-/**
- * Position of drone/camera when image was captured.
- */
-@property (retain) YNCCaptureInfoPosition *position;
-/**
- * Quaternion of camera orientation.
- */
-@property (retain) YNCCaptureInfoQuaternion *quaternion;
 
 @end
 
