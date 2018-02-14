@@ -10,6 +10,8 @@
 using namespace dronecore;
 using namespace std::placeholders;
 
+static id <YNCSDKCameraCaptureInfoDelegate> _captureInfoDelegate;
+
 //MARK: C Functions
 //MARK: receive camera operate result
 void receive_camera_result(YNCCameraCompletion completion, Camera::Result result) {
@@ -746,6 +748,70 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
     return cameraMeteringMode;
 }
 
+//MARK: receive camera media info result
+void receive_camera_media_result(YNCCameraMediaCompletion completion, Camera::Result result, int progress) {
+    if (completion) {
+        NSError *error = nullptr;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(progress, error);
+        }
+        else {
+            completion(progress, error);
+        }
+    }
+}
+
+//MARK: receive camera all media info result
+void receive_camera_all_media_result(YNCCameraMediaInfosCompletion completion, Camera::Result result, std::vector<Camera::MediaInfo> mediaInfos) {
+    if (completion) {
+        NSError *error = nullptr;
+        if (result != Camera::Result::SUCCESS) {
+            NSString *message = [NSString stringWithFormat:@"%s", Camera::result_str(result)];
+            error = [[NSError alloc] initWithDomain:@"Camera"
+                                               code:(int)result
+                                           userInfo:@{@"message": message}];
+            completion(nil, error);
+        }
+        else {
+            NSMutableArray<YNCCameraMediaInfo *> *YNCCameraMediaInfos = [NSMutableArray new];
+            for(int i=0; i<mediaInfos.size(); i++) {
+                YNCCameraMediaInfo *mediaInfo = [YNCCameraMediaInfo new];
+                mediaInfo.path = @(mediaInfos[i].path.c_str());
+                mediaInfo.sizeMib = mediaInfos[i].size_mib;
+                [YNCCameraMediaInfos addObject:(mediaInfo)];
+            }
+            completion(YNCCameraMediaInfos, error);
+        }
+    }
+}
+
+void receive_capture_info(Camera::CaptureInfo captureInfo) {
+    YNCCameraCaptureInfo *tmpCaptureInfo = [YNCCameraCaptureInfo new];
+    tmpCaptureInfo.timeUtc = captureInfo.time_utc_us;
+    tmpCaptureInfo.success = captureInfo.success;
+    tmpCaptureInfo.fileURL = @(captureInfo.file_url.c_str());
+    tmpCaptureInfo.index = captureInfo.index;
+    YNCCaptureInfoPosition *tmpPosition = [YNCCaptureInfoPosition new];
+    tmpPosition.latitudeDeg = captureInfo.position.latitude_deg;
+    tmpPosition.longitudeDeg = captureInfo.position.longitude_deg;
+    tmpPosition.absoluteAltitudeM = captureInfo.position.absolute_altitude_m;
+    tmpPosition.relativeAltitudeM = captureInfo.position.relative_altitude_m;
+    tmpCaptureInfo.position = tmpPosition;
+    YNCCaptureInfoQuaternion *tmpQuaternion = [YNCCaptureInfoQuaternion new];
+    tmpQuaternion.w = captureInfo.quaternion.w;
+    tmpQuaternion.x = captureInfo.quaternion.x;
+    tmpQuaternion.y = captureInfo.quaternion.y;
+    tmpQuaternion.z = captureInfo.quaternion.z;
+    tmpCaptureInfo.quaternion = tmpQuaternion;
+    if (_captureInfoDelegate && [_captureInfoDelegate respondsToSelector:@selector(onCapture:)]) {
+        [_captureInfoDelegate onCapture:tmpCaptureInfo];
+    }
+}
+
 @implementation YNCCameraResolution
 
 @end
@@ -761,6 +827,31 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
 
 @implementation YNCCameraMetering
 
+@end
+
+@implementation YNCCameraMediaInfo
+
+@end
+
+@implementation YNCCaptureInfoPosition
+
+@end
+
+@implementation YNCCaptureInfoQuaternion
+
+@end
+
+@implementation YNCCameraCaptureInfo
+
+@end
+
+@implementation YNCSDKCameraCaptureInfo
+
+-(void) subscribe:(id<YNCSDKCameraCaptureInfoDelegate>)delegate {
+    _captureInfoDelegate = delegate;
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().capture_info_async(&receive_capture_info);
+}
 @end
 
 @implementation YNCSDKCameraSettings
@@ -957,6 +1048,18 @@ Camera::Metering::Mode getMeteringModeEnum(YNCCameraMeteringMode meteringMode) {
 + (void) getCameraStatusWithCompletion:(YNCCameraStatusCompletion)completion {
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     dc->device().camera().get_status_async(std::bind(&receive_camera_status_result, completion, _1, _2));
+}
+
+//MARK: get all media info
++ (void) getMediaInfosWithCompletion:(YNCCameraMediaInfosCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_media_infos_async(std::bind(&receive_camera_all_media_result,completion, _1, _2));
+}
+
+//MARK: get media
++ (void) getMedia:(NSString *)localPath WithUrl:(NSString *)path WithCompletion:(YNCCameraMediaCompletion)completion {
+    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    dc->device().camera().get_media_async(std::string([localPath UTF8String]), std::string([path UTF8String]), std::bind(&receive_camera_media_result,completion, _1, _2));
 }
 
 @end

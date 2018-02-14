@@ -380,6 +380,137 @@ typedef NS_ENUM (NSInteger, YNCCameraMeteringMode) {
 typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *error);
 
 /**
+ This class contains fields associated with the camera media info.
+ */
+@interface YNCCameraMediaInfo : NSObject
+/**
+ URL of the media.
+ */
+@property (nonatomic, copy) NSString *path;
+/**
+ Media size in mib.
+ */
+@property (nonatomic, assign) double sizeMib;
+
+@end
+
+/**
+ Data type for completion blocks for downloading a media that contain error results, if any.
+ */
+typedef void (^YNCCameraMediaCompletion)(int progress, NSError *error);
+
+/**
+ Data type for completion blocks to get the media info that contain error results, if any.
+ */
+typedef void (^YNCCameraMediaInfosCompletion)(NSMutableArray<YNCCameraMediaInfo*> *YNCCameraMediaInfo , NSError *error);
+
+/**
+ This class contains fields associated with the position of drone/camera when image was captured.
+ */
+@interface YNCCaptureInfoPosition: NSObject
+/**
+ Latitude in degrees (range: -90 to +90).
+ */
+@property (nonatomic, assign) double latitudeDeg;
+/**
+ Longitude in degrees (range: -180 to 180).
+ */
+@property (nonatomic, assign) double longitudeDeg;
+/**
+ Altitude AMSL (above mean sea level) in metres.
+ */
+@property (nonatomic, assign) float absoluteAltitudeM;
+/**
+ Altitude relative to takeoff altitude in metres.
+ */
+@property (nonatomic, assign) float relativeAltitudeM;
+
+@end
+
+/**
+ * This class contains fields associated with the Quaternion of camera orientation.
+ * All rotations and axis systems follow the right-hand rule.
+ * The Hamilton quaternion product definition is used.
+ * A zero-rotation quaternion is represented by (1,0,0,0).
+ * The quaternion could also be written as w + xi + yj + zk.
+ * For more info see: https://en.wikipedia.org/wiki/Quaternion
+ */
+@interface YNCCaptureInfoQuaternion: NSObject
+/**
+ Quaternion entry 0 also denoted as a.
+ */
+@property (nonatomic, assign) float w;
+/**
+ Quaternion entry 1 also denoted as b.
+ */
+@property (nonatomic, assign) float x;
+/**
+ Quaternion entry 2 also denoted as c.
+ */
+@property (nonatomic, assign) float y;
+/**
+ Quaternion entry 3 also denoted as d.
+ */
+@property (nonatomic, assign) float z;
+
+@end
+
+/**
+ This class contains fields associated with the camera capture info.
+ */
+@interface YNCCameraCaptureInfo : NSObject
+/**
+ Timestamp in UTC (since UNIX epoch) in microseconds.
+ */
+@property (nonatomic, assign) long timeUtc;
+/**
+ True if capture was successful.
+ */
+@property (nonatomic, assign) BOOL success;
+/**
+ Zero-based index of this image since armed.
+ */
+@property (nonatomic, assign) int index;
+/**
+ URL of image captures.
+ */
+@property (nonatomic, copy) NSString *fileURL;
+/**
+ Position of drone/camera when image was captured
+ */
+@property (nonatomic, retain) YNCCaptureInfoPosition *position;
+/**
+ Quaternion of camera orientation
+ */
+@property (nonatomic, retain) YNCCaptureInfoQuaternion *quaternion;
+
+@end
+
+/**
+ * This delegate provides capture info of the media.
+ */
+@protocol YNCSDKCameraCaptureInfoDelegate <NSObject>
+/**
+ * Receives info of the captured media.
+ *
+ * @param captureInfo the Capture Info object
+ */
+- (void)onCapture:(YNCCameraCaptureInfo *)captureInfo;
+@end
+
+/**
+ This class provides a method to subscribe to receive capture info
+ */
+@interface YNCSDKCameraCaptureInfo : NSObject
+/**
+ * Subscribes to capture info updates.
+ *
+ * @param delegate The Capture Info delegate object
+ */
+- (void)subscribe:(id<YNCSDKCameraCaptureInfoDelegate>) delegate;
+@end
+
+/**
  This class provides methods to set and get camera settings.
  */
 @interface YNCSDKCameraSettings: NSObject
@@ -394,7 +525,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param colorMode the color mode to be set
  * @param completion the callback function after completion
  */
-+ (void)setColorMode:(YNCCameraColorMode)colorMode WithCompletion:(YNCColorModeCompletion) completion;
++ (void)setColorMode:(YNCCameraColorMode)colorMode
+      WithCompletion:(YNCColorModeCompletion) completion;
 
 /**
  * Get white balance setting
@@ -407,7 +539,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param whiteBalance the white balance to be set
  * @param completion the callback function after completion
  */
-+ (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance WithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
++ (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance
+         WithCompletion:(YNCWhiteBalanceSettingCompletion) completion;
 
 /**
  * Get exposure mode
@@ -420,7 +553,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param exposureMode the exposure mode to be set
  * @param completion the callback function after completion
  */
-+ (void)setExposureMode:(YNCCameraExposureMode)exposureMode WithCompletion:(YNCExposureModeCompletion) completion;
++ (void)setExposureMode:(YNCCameraExposureMode)exposureMode
+         WithCompletion:(YNCExposureModeCompletion) completion;
 
 /**
  * Get camera resolution
@@ -439,7 +573,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param photoFormat the photo format to be set
  * @param completion the callback function after completion
  */
-+ (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat WithCompletion:(YNCPhotoFormatCompletion) completion;
++ (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat
+        WithCompletion:(YNCPhotoFormatCompletion) completion;
 
 /**
  * Get video format
@@ -452,7 +587,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param videoFormat the video format to be set
  * @param completion the callback function after completion
  */
-+ (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat WithCompletion:(YNCVideoFormatCompletion) completion;
++ (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat
+        WithCompletion:(YNCVideoFormatCompletion) completion;
 
 /**
  * Get photo quality
@@ -465,7 +601,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param photoQuality the photo quality to be set
  * @param completion the callback function after completion
  */
-+ (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality WithCompletion:(YNCPhotoQualityCompletion) completion;
++ (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality
+         WithCompletion:(YNCPhotoQualityCompletion) completion;
 
 /**
  * Get video resolution
@@ -478,7 +615,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param videoResolution the video resolution to be set
  * @param completion the callback function after completion
  */
-+ (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution WithCompletion:(YNCVideoResolutionCompletion) completion;
++ (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution
+            WithCompletion:(YNCVideoResolutionCompletion) completion;
 
 /**
  * Get shutter speed
@@ -491,7 +629,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param shutterSpeed the shutter speed to be set
  * @param completion the callback function after completion
  */
-+ (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed WithCompletion:(YNCShutterSpeedCompletion) completion;
++ (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed
+         WithCompletion:(YNCShutterSpeedCompletion) completion;
 
 /**
  * Get ISO value
@@ -504,7 +643,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param isoValue the ISO value to be set
  * @param completion the callback function after completion
  */
-+ (void)setISOValue:(int)isoValue WithCompletion:(YNCISOValueCompletion) completion;
++ (void)setISOValue:(int)isoValue
+     WithCompletion:(YNCISOValueCompletion) completion;
 
 /**
  * Get Metering
@@ -517,7 +657,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param metering the metering to be set
  * @param completion the callback function after completion
  */
-+ (void)setMetering:(YNCCameraMetering *)metering WithCompletion:(YNCMeteringCompletion) completion;
++ (void)setMetering:(YNCCameraMetering *)metering
+     WithCompletion:(YNCMeteringCompletion) completion;
 
 @end
 
@@ -553,7 +694,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  @param intervalS the interval (in seconds) between photos in burst mode
  @param completion the callback function after completion
  */
-+ (void)startPhotoInterval:(double)intervalS Completion:(YNCCameraCompletion)completion;
++ (void)startPhotoInterval:(double)intervalS
+                Completion:(YNCCameraCompletion)completion;
 
 /**
  Stops taking photos in burst mode.
@@ -567,7 +709,8 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param cameraMode the mode to be set
  * @param completion the callback function after completion
  */
-+ (void)setCameraMode:(YNCCameraMode)cameraMode WithCompletion:(YNCCameraModeCompletion) completion;
++ (void)setCameraMode:(YNCCameraMode)cameraMode
+       WithCompletion:(YNCCameraModeCompletion) completion;
 
 /**
  * Get camera mode
@@ -580,5 +723,21 @@ typedef void (^YNCMeteringCompletion)(YNCCameraMetering *metering, NSError *erro
  * @param completion the callback function after completion
  */
 + (void)getCameraStatusWithCompletion:(YNCCameraStatusCompletion) completion;
+
+/**
+ * Get media infos
+ * @param completion the callback function after completion
+ */
++ (void)getMediaInfosWithCompletion:(YNCCameraMediaInfosCompletion) completion;
+
+/**
+ * Get media
+ * @param localPath path where the media is downloaded
+ * @param path URL of the media to be downloaded
+ * @param completion the callback function after completion
+ */
++ (void)getMedia:(NSString*)localPath
+         WithUrl:(NSString*) path
+  WithCompletion:(YNCCameraMediaCompletion) completion;
 
 @end
