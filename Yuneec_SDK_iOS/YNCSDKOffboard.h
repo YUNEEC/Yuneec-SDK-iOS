@@ -21,9 +21,9 @@ typedef void (^YNCOffboardCompletion)(NSError *error);
 
 /**
  * Starts the offboard (manual) control mode.
- * 
+ *
  * This requires that a velocity waypoint has already been set.
- * 
+ *
  * @param completion the completion block returning the error status, if any
  */
 + (void)startWithCompletion:(YNCOffboardCompletion)completion;
@@ -32,14 +32,14 @@ typedef void (^YNCOffboardCompletion)(NSError *error);
  * Stops the offboard (manual) control mode.
  *
  * The drone will go back to pause mode and hold its position.
- * 
+ *
  * @param completion the completion block returning the error status, if any
  */
 + (void)stopWithCompletion:(YNCOffboardCompletion)completion;
 
 /**
  Sets the drone velocity in ground coordinates. You should set a speed every 30ms to ensure smooth flight operation.
- 
+
  @param velocityNorth the north direction ground speed (m/s)
  @param velocityEast the east direction ground speed (m/s)
  @param velocityDown the down direction ground speed (m/s)

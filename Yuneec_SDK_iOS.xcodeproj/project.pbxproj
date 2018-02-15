@@ -10,6 +10,16 @@
 		080E8C431E56EDE600E48132 /* YNCSDKMissionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 080E8C411E56EDE600E48132 /* YNCSDKMissionItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		080E8C441E56EDE600E48132 /* YNCSDKMissionItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 080E8C421E56EDE600E48132 /* YNCSDKMissionItem.mm */; };
 		0817D88A1E977F850062ADCF /* YNCSDKGimbal.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F34C9B1E2F4CBE0022D1B8 /* YNCSDKGimbal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		081FEE8320347F21007422E2 /* libdronecore_camera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE72203475D2007422E2 /* libdronecore_camera.a */; };
+		081FEE8520347F21007422E2 /* libdronecore_gimbal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE6F203475D2007422E2 /* libdronecore_gimbal.a */; };
+		081FEE8620347F21007422E2 /* libdronecore_info.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE6E203475D2007422E2 /* libdronecore_info.a */; };
+		081FEE8920347F21007422E2 /* libdronecore_mission.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE70203475D2007422E2 /* libdronecore_mission.a */; };
+		081FEE8A20347F21007422E2 /* libdronecore_offboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE6D203475D2007422E2 /* libdronecore_offboard.a */; };
+		081FEE8B20347F21007422E2 /* libdronecore_telemetry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE74203475D2007422E2 /* libdronecore_telemetry.a */; };
+		081FEE8F20347F21007422E2 /* libdronecore_action.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FEE8E20347F21007422E2 /* libdronecore_action.a */; };
+		081FEE9020347F38007422E2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318C1F58725F001E53DA /* Security.framework */; };
+		081FEE9120347F43007422E2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318E1F587272001E53DA /* libz.tbd */; };
+		08272CC9202B3B8A00C9B3F4 /* libdronecore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F02BB9E1FBD08DA00F9B384 /* libdronecore.a */; };
 		082C065A1E150EAB00BDD785 /* Yuneec_SDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C06581E150EAB00BDD785 /* Yuneec_SDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C066E1E150ED400BDD785 /* YNCSDKAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C06601E150ED400BDD785 /* YNCSDKAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C066F1E150ED400BDD785 /* YNCSDKAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C06611E150ED400BDD785 /* YNCSDKAction.mm */; };
@@ -20,10 +30,7 @@
 		082C06771E150ED400BDD785 /* YNCSDKOffboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C06691E150ED400BDD785 /* YNCSDKOffboard.mm */; };
 		082C06781E150ED400BDD785 /* YNCSDKTelemetry.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C066A1E150ED400BDD785 /* YNCSDKTelemetry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C06791E150ED400BDD785 /* YNCSDKTelemetry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 082C066B1E150ED400BDD785 /* YNCSDKTelemetry.mm */; };
-		0842318D1F58725F001E53DA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318C1F58725F001E53DA /* Security.framework */; };
-		0842318F1F587272001E53DA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318E1F587272001E53DA /* libz.tbd */; };
 		1F02BB9D1FBD08DA00F9B384 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0842318A1F5855F5001E53DA /* libcurl.a */; };
-		1F02BB9F1FBD08DA00F9B384 /* libdronecore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F02BB9E1FBD08DA00F9B384 /* libdronecore.a */; };
 		B9FFEDE41E1F658A008458AE /* YNCSDKMission.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FFEDE21E1F658A008458AE /* YNCSDKMission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9FFEDE51E1F658A008458AE /* YNCSDKMission.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9FFEDE31E1F658A008458AE /* YNCSDKMission.mm */; };
 		F4B49D751E81037100C44328 /* YNCSDKCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = F4B49D731E81037100C44328 /* YNCSDKCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +41,19 @@
 /* Begin PBXFileReference section */
 		080E8C411E56EDE600E48132 /* YNCSDKMissionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNCSDKMissionItem.h; sourceTree = "<group>"; };
 		080E8C421E56EDE600E48132 /* YNCSDKMissionItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YNCSDKMissionItem.mm; sourceTree = "<group>"; };
+		081FEE6A203475D1007422E2 /* libdronecore_update.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_update.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_update.a"; sourceTree = "<group>"; };
+		081FEE6B203475D1007422E2 /* libdronecore_calibration.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_calibration.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_calibration.a"; sourceTree = "<group>"; };
+		081FEE6C203475D1007422E2 /* libdronecore_yuneec_st16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_yuneec_st16.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_yuneec_st16.a"; sourceTree = "<group>"; };
+		081FEE6D203475D2007422E2 /* libdronecore_offboard.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_offboard.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_offboard.a"; sourceTree = "<group>"; };
+		081FEE6E203475D2007422E2 /* libdronecore_info.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_info.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_info.a"; sourceTree = "<group>"; };
+		081FEE6F203475D2007422E2 /* libdronecore_gimbal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_gimbal.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_gimbal.a"; sourceTree = "<group>"; };
+		081FEE70203475D2007422E2 /* libdronecore_mission.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_mission.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_mission.a"; sourceTree = "<group>"; };
+		081FEE71203475D2007422E2 /* libdronecore_logging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_logging.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_logging.a"; sourceTree = "<group>"; };
+		081FEE72203475D2007422E2 /* libdronecore_camera.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_camera.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_camera.a"; sourceTree = "<group>"; };
+		081FEE73203475D2007422E2 /* libdronecore_manual.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_manual.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_manual.a"; sourceTree = "<group>"; };
+		081FEE74203475D2007422E2 /* libdronecore_telemetry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_telemetry.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_telemetry.a"; sourceTree = "<group>"; };
+		081FEE75203475D2007422E2 /* libdronecore_follow_me.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_follow_me.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_follow_me.a"; sourceTree = "<group>"; };
+		081FEE8E20347F21007422E2 /* libdronecore_action.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdronecore_action.a; path = "Yuneec_SDK_iOS/libs/Yuneec-SDK/lib/ios/libdronecore_action.a"; sourceTree = "<group>"; };
 		082C06551E150EAB00BDD785 /* Yuneec_SDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Yuneec_SDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		082C06581E150EAB00BDD785 /* Yuneec_SDK_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yuneec_SDK_iOS.h; sourceTree = "<group>"; };
 		082C06591E150EAB00BDD785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,10 +86,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F02BB9F1FBD08DA00F9B384 /* libdronecore.a in Frameworks */,
+				081FEE9120347F43007422E2 /* libz.tbd in Frameworks */,
+				081FEE9020347F38007422E2 /* Security.framework in Frameworks */,
+				081FEE8F20347F21007422E2 /* libdronecore_action.a in Frameworks */,
+				081FEE8320347F21007422E2 /* libdronecore_camera.a in Frameworks */,
+				081FEE8520347F21007422E2 /* libdronecore_gimbal.a in Frameworks */,
+				081FEE8620347F21007422E2 /* libdronecore_info.a in Frameworks */,
+				081FEE8920347F21007422E2 /* libdronecore_mission.a in Frameworks */,
+				081FEE8A20347F21007422E2 /* libdronecore_offboard.a in Frameworks */,
+				081FEE8B20347F21007422E2 /* libdronecore_telemetry.a in Frameworks */,
+				08272CC9202B3B8A00C9B3F4 /* libdronecore.a in Frameworks */,
 				1F02BB9D1FBD08DA00F9B384 /* libcurl.a in Frameworks */,
-				0842318F1F587272001E53DA /* libz.tbd in Frameworks */,
-				0842318D1F58725F001E53DA /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +150,19 @@
 		082C067C1E155F7D00BDD785 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				081FEE8E20347F21007422E2 /* libdronecore_action.a */,
+				081FEE6B203475D1007422E2 /* libdronecore_calibration.a */,
+				081FEE72203475D2007422E2 /* libdronecore_camera.a */,
+				081FEE75203475D2007422E2 /* libdronecore_follow_me.a */,
+				081FEE6F203475D2007422E2 /* libdronecore_gimbal.a */,
+				081FEE6E203475D2007422E2 /* libdronecore_info.a */,
+				081FEE71203475D2007422E2 /* libdronecore_logging.a */,
+				081FEE73203475D2007422E2 /* libdronecore_manual.a */,
+				081FEE70203475D2007422E2 /* libdronecore_mission.a */,
+				081FEE6D203475D2007422E2 /* libdronecore_offboard.a */,
+				081FEE74203475D2007422E2 /* libdronecore_telemetry.a */,
+				081FEE6A203475D1007422E2 /* libdronecore_update.a */,
+				081FEE6C203475D1007422E2 /* libdronecore_yuneec_st16.a */,
 				1F02BB9E1FBD08DA00F9B384 /* libdronecore.a */,
 				0842318E1F587272001E53DA /* libz.tbd */,
 				0842318C1F58725F001E53DA /* Security.framework */,

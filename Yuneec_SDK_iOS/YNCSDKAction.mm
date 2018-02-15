@@ -32,34 +32,34 @@ void receive_action_error(YNCActionCompletion completion, Action::Result result)
 @implementation YNCAction
 
 + (void)armWithCompletion:(YNCActionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().action().arm_async(std::bind(&receive_action_error, completion, _1));
+    Action *action = [[YNCSDKInternal instance] action];
+    action->arm_async(std::bind(&receive_action_error, completion, _1));
 }
 
 + (void)disarmWithCompletion:(YNCActionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().action().disarm_async(std::bind(&receive_action_error, completion, _1));
+    Action *action = [[YNCSDKInternal instance] action];
+    action->disarm_async(std::bind(&receive_action_error, completion, _1));
 }
 
 + (void)takeoffWithCompletion:(YNCActionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    //dc->device().action().set_takeoff_altitude(1.0);
-    dc->device().action().takeoff_async(std::bind(&receive_action_error, completion, _1));
+    Action *action = [[YNCSDKInternal instance] action];
+    //action->set_takeoff_altitude(1.0);
+    action->takeoff_async(std::bind(&receive_action_error, completion, _1));
 }
 
 + (void)landWithCompletion:(YNCActionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().action().land_async(std::bind(&receive_action_error, completion, _1));
+    Action *action = [[YNCSDKInternal instance] action];
+    action->land_async(std::bind(&receive_action_error, completion, _1));
 }
 
 + (void)doReturnToLaunchWithCompletion:(YNCActionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().action().return_to_launch_async(std::bind(&receive_action_error, completion, _1));
+    Action *action = [[YNCSDKInternal instance] action];
+    action->return_to_launch_async(std::bind(&receive_action_error, completion, _1));
 }
 
 + (void)killWithCompletion:(YNCActionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().action().kill_async(std::bind(&receive_action_error, completion, _1));
+    Action *action = [[YNCSDKInternal instance] action];
+    action->kill_async(std::bind(&receive_action_error, completion, _1));
 }
 
 @end
