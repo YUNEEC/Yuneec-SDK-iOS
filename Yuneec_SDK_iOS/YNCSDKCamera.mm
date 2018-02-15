@@ -1,7 +1,6 @@
 /** @brief YNCSDKCamera  implementation file */
 
 #import "YNCSDKCamera.h"
-
 #import "YNCSDKInternal.h"
 
 #include <dronecore/dronecore.h>
@@ -849,8 +848,8 @@ void receive_capture_info(Camera::CaptureInfo captureInfo) {
 
 -(void) subscribe:(id<YNCSDKCameraCaptureInfoDelegate>)delegate {
     _captureInfoDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().capture_info_async(&receive_capture_info);
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->capture_info_async(&receive_capture_info);
 }
 @end
 
@@ -858,143 +857,143 @@ void receive_capture_info(Camera::CaptureInfo captureInfo) {
 
 //MARK: get Camera Mode
 + (void)getColorModeWithCompletion:(YNCColorModeCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_color_mode_async(std::bind(&receive_color_mode_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_color_mode_async(std::bind(&receive_color_mode_result, completion, _1, _2));
 }
 
 //MARK: set Color Mode
 + (void)setColorMode:(YNCCameraColorMode)colorMode WithCompletion:(YNCColorModeCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::ColorMode cameraColorMode = getColorModeEnum(colorMode);
-    dc->device().camera().set_color_mode_async(cameraColorMode, std::bind(&receive_color_mode_result, completion, _1, _2));
+    camera->set_color_mode_async(cameraColorMode, std::bind(&receive_color_mode_result, completion, _1, _2));
 }
 
 //MARK: get White Balance Setting
 + (void)getWhiteBalanceWithCompletion:(YNCWhiteBalanceSettingCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_white_balance_async(std::bind(&receive_white_balance_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_white_balance_async(std::bind(&receive_white_balance_result, completion, _1, _2));
 }
 
 //MARK: set White Balance
 
 + (void)setWhiteBalance:(YNCCameraWhiteBalance)whiteBalance WithCompletion:(YNCWhiteBalanceSettingCompletion)completion{
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::WhiteBalance cameraWhiteBalance = getWhiteBalanceEnum(whiteBalance);
-    dc->device().camera().set_white_balance_async(cameraWhiteBalance, std::bind(&receive_white_balance_result, completion, _1, _2));
+    camera->set_white_balance_async(cameraWhiteBalance, std::bind(&receive_white_balance_result, completion, _1, _2));
 }
 
 //MARK: get Exposure Mode
 + (void)getExposureModeWithCompletion:(YNCExposureModeCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_exposure_mode_async(std::bind(&receive_exposure_mode_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_exposure_mode_async(std::bind(&receive_exposure_mode_result, completion, _1, _2));
 }
 
 //MARK: set Exposure Mode
 + (void)setExposureMode:(YNCCameraExposureMode)exposureMode WithCompletion:(YNCExposureModeCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::ExposureMode cameraExposureMode = getExposureModeEnum(exposureMode);
-    dc->device().camera().set_exposure_mode_async(cameraExposureMode, std::bind(&receive_exposure_mode_result, completion, _1, _2));
+    camera->set_exposure_mode_async(cameraExposureMode, std::bind(&receive_exposure_mode_result, completion, _1, _2));
 }
 
 //MARK: get Resolution
 + (void)getResolutionWithCompletion:(YNCCameraResolutionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_resolution_async(std::bind(&receive_resolution_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_resolution_async(std::bind(&receive_resolution_result,completion, _1, _2));
 }
 
 //MARK: get Photo Format
 + (void)getPhotoFormatWithCompletion:(YNCPhotoFormatCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_photo_format_async(std::bind(&receive_photo_format_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_photo_format_async(std::bind(&receive_photo_format_result,completion, _1, _2));
 }
 
 //MARK: set Photo Format
 + (void)setPhotoFormat:(YNCCameraPhotoFormat)photoFormat WithCompletion:(YNCPhotoFormatCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::PhotoFormat cameraPhotoFormat = getPhotoFormatEnum(photoFormat);
-    dc->device().camera().set_photo_format_async(cameraPhotoFormat, std::bind(&receive_photo_format_result, completion, _1, _2));
+    camera->set_photo_format_async(cameraPhotoFormat, std::bind(&receive_photo_format_result, completion, _1, _2));
 }
 
 //MARK: get Video Format
 + (void)getVideoFormatWithCompletion:(YNCVideoFormatCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_video_format_async(std::bind(&receive_video_format_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_video_format_async(std::bind(&receive_video_format_result,completion, _1, _2));
 }
 
 //MARK: set Video Format
 + (void)setVideoFormat:(YNCCameraVideoFormat)videoFormat WithCompletion:(YNCVideoFormatCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::VideoFormat cameraVideoFormat = getVideoFormatEnum(videoFormat);
-    dc->device().camera().set_video_format_async(cameraVideoFormat, std::bind(&receive_video_format_result, completion, _1, _2));
+    camera->set_video_format_async(cameraVideoFormat, std::bind(&receive_video_format_result, completion, _1, _2));
 }
 
 //MARK: get Photo Quality
 + (void)getPhotoQualityWithCompletion:(YNCPhotoQualityCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_photo_quality_async(std::bind(&receive_photo_quality_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_photo_quality_async(std::bind(&receive_photo_quality_result,completion, _1, _2));
 }
 
 //MARK: set Photo Quality
 + (void)setPhotoQuality:(YNCCameraPhotoQuality)photoQuality WithCompletion:(YNCPhotoQualityCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::PhotoQuality cameraPhotoQuality = getPhotoQualityEnum(photoQuality);
-    dc->device().camera().set_photo_quality_async(cameraPhotoQuality, std::bind(&receive_photo_quality_result, completion, _1, _2));
+    camera->set_photo_quality_async(cameraPhotoQuality, std::bind(&receive_photo_quality_result, completion, _1, _2));
 }
 
 //MARK: get Video Resolution
 + (void)getVideoResolutionWithCompletion:(YNCVideoResolutionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_video_resolution_async(std::bind(&receive_video_resolution_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_video_resolution_async(std::bind(&receive_video_resolution_result,completion, _1, _2));
 }
 
 //MARK: set Video Resolution
 + (void)setVideoResolution:(YNCCameraVideoResolution)videoResolution WithCompletion:(YNCVideoResolutionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::VideoResolution cameraVideoResolution = getVideoResolutionEnum(videoResolution);
-    dc->device().camera().set_video_resolution_async(cameraVideoResolution, std::bind(&receive_video_resolution_result, completion, _1, _2));
+    camera->set_video_resolution_async(cameraVideoResolution, std::bind(&receive_video_resolution_result, completion, _1, _2));
 }
 
 //MARK: get Shutter Speed
 + (void)getShutterSpeedWithCompletion:(YNCShutterSpeedCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_shutter_speed_async(std::bind(&receive_shutter_speed_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_shutter_speed_async(std::bind(&receive_shutter_speed_result,completion, _1, _2));
 }
 
 //MARK: set Shutter Speed
 + (void)setShutterSpeed:(YNCCameraShutterSpeed *)shutterSpeed WithCompletion:(YNCShutterSpeedCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::ShutterSpeedS tmpShutterSpeed;
     tmpShutterSpeed.numerator = shutterSpeed.numerator;
     tmpShutterSpeed.denominator = shutterSpeed.denominator;
-    dc->device().camera().set_shutter_speed_async(tmpShutterSpeed, std::bind(&receive_shutter_speed_result, completion, _1, _2));
+    camera->set_shutter_speed_async(tmpShutterSpeed, std::bind(&receive_shutter_speed_result, completion, _1, _2));
 }
 
 //MARK: get ISO value
 + (void)getISOValueWithCompletion:(YNCISOValueCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_iso_value_async(std::bind(&receive_iso_value_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_iso_value_async(std::bind(&receive_iso_value_result, completion, _1, _2));
 }
 
 //MARK: set ISO value
 + (void)setISOValue:(int)isoValue WithCompletion:(YNCISOValueCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().set_iso_value_async(isoValue, std::bind(&receive_iso_value_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->set_iso_value_async(isoValue, std::bind(&receive_iso_value_result, completion, _1, _2));
 }
 
 //MARK: get Metering
 + (void)getMeteringWithCompletion:(YNCMeteringCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_metering_async(std::bind(&receive_metering_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_metering_async(std::bind(&receive_metering_result,completion, _1, _2));
 }
 
 //MARK: set Metering
 + (void)setMetering:(YNCCameraMetering *)metering WithCompletion:(YNCMeteringCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::Metering tmpMetering;
     tmpMetering.spot_screen_width_percent = metering.spotScreenWidthPercent;
     tmpMetering.spot_screen_height_percent = metering.spotScreenHeightPercent;
     tmpMetering.mode = getMeteringModeEnum(metering.mode);
-    dc->device().camera().set_metering_async(tmpMetering, std::bind(&receive_metering_result, completion, _1, _2));
+    camera->set_metering_async(tmpMetering, std::bind(&receive_metering_result, completion, _1, _2));
 }
 
 @end
@@ -1003,63 +1002,63 @@ void receive_capture_info(Camera::CaptureInfo captureInfo) {
 
 //MARK: Camera TakePhoto
 + (void)takePhotoWithCompletion:(YNCCameraCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().take_photo_async(std::bind(&receive_camera_result, completion, _1));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->take_photo_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StartVideo
 + (void)startVideoWithCompletion:(YNCCameraCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().start_video_async(std::bind(&receive_camera_result, completion, _1));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->start_video_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StopVideo
 + (void)stopVideoWithCompletion:(YNCCameraCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().stop_video_async(std::bind(&receive_camera_result, completion, _1));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->stop_video_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StartPhotoInterval
 + (void)startPhotoInterval:(double)intervalS Completion:(YNCCameraCompletion)completion{
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().start_photo_interval_async(intervalS, std::bind(&receive_camera_result, completion, _1));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->start_photo_interval_async(intervalS, std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: Camera StopPhotoInterval
 + (void)stopPhotoIntervalWithCompletion:(YNCCameraCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().stop_photo_interval_async(std::bind(&receive_camera_result, completion, _1));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->stop_photo_interval_async(std::bind(&receive_camera_result, completion, _1));
 }
 
 //MARK: set camera mode
 + (void) setCameraMode:(YNCCameraMode)cameraMode WithCompletion:(YNCCameraModeCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Camera *camera = [[YNCSDKInternal instance] camera];
     Camera::Mode cameraModeVal = getCameraModeEnum(cameraMode);
-    dc->device().camera().set_mode_async(cameraModeVal, std::bind(&receive_camera_mode_result, completion, _1, _2));
+    camera->set_mode_async(cameraModeVal, std::bind(&receive_camera_mode_result, completion, _1, _2));
 }
 
 //MARK: get camera mode
 + (void) getCameraModeWithCompletion:(YNCCameraModeCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_mode_async(std::bind(&receive_camera_mode_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_mode_async(std::bind(&receive_camera_mode_result, completion, _1, _2));
 }
 
 //MARK: get camera status
 + (void) getCameraStatusWithCompletion:(YNCCameraStatusCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_status_async(std::bind(&receive_camera_status_result, completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_status_async(std::bind(&receive_camera_status_result, completion, _1, _2));
 }
 
 //MARK: get all media info
 + (void) getMediaInfosWithCompletion:(YNCCameraMediaInfosCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_media_infos_async(std::bind(&receive_camera_all_media_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_media_infos_async(std::bind(&receive_camera_all_media_result,completion, _1, _2));
 }
 
 //MARK: get media
 + (void) getMedia:(NSString *)localPath WithUrl:(NSString *)path WithCompletion:(YNCCameraMediaCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().camera().get_media_async(std::string([localPath UTF8String]), std::string([path UTF8String]), std::bind(&receive_camera_media_result,completion, _1, _2));
+    Camera *camera = [[YNCSDKInternal instance] camera];
+    camera->get_media_async(std::string([localPath UTF8String]), std::string([path UTF8String]), std::bind(&receive_camera_media_result,completion, _1, _2));
 }
 
 @end

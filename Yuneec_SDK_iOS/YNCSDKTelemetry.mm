@@ -31,7 +31,7 @@ void receive_battery(Telemetry::Battery battery) {
     YNCBattery *tmpBattery = [YNCBattery new];
     tmpBattery.voltageV = battery.voltage_v;
     tmpBattery.remainingPercent = battery.remaining_percent;
-    
+
     if (_batteryDelegate && [_batteryDelegate respondsToSelector:@selector(onBatteryUpdate:)]) {
         [_batteryDelegate onBatteryUpdate:tmpBattery];
     }
@@ -44,7 +44,7 @@ void receive_position(Telemetry::Position position) {
     tmpPosition.longitudeDeg = position.longitude_deg;
     tmpPosition.absoluteAltitudeM = position.absolute_altitude_m;
     tmpPosition.relativeAltitudeM = position.relative_altitude_m;
-    
+
     if (_positionDelegate &&
         [_positionDelegate respondsToSelector:@selector(onPositionUpdate:)]) {
         [_positionDelegate onPositionUpdate:tmpPosition];
@@ -57,7 +57,7 @@ void receive_ground_speed_ned(Telemetry::GroundSpeedNED ground_speed_ned) {
     tmpSpeed.velocityNorthMS = ground_speed_ned.velocity_north_m_s;
     tmpSpeed.velocityEastMS = ground_speed_ned.velocity_east_m_s;
     tmpSpeed.velocityDownMS = ground_speed_ned.velocity_down_m_s;
-    
+
     if (_groundSpeedNEDDelegate &&
         [_groundSpeedNEDDelegate respondsToSelector:@selector(onGroundSpeedNEDUpdate:)]) {
         [_groundSpeedNEDDelegate onGroundSpeedNEDUpdate:tmpSpeed];
@@ -69,7 +69,7 @@ void receive_GPSInfo(Telemetry::GPSInfo gpsInfo) {
     YNCGPSInfo *tmpGPSInfo = [YNCGPSInfo new];
     tmpGPSInfo.numSatellites = gpsInfo.num_satellites;
     tmpGPSInfo.fixType = gpsInfo.fix_type;
-    
+
     if (_gpsInfoDelegate &&
         [_gpsInfoDelegate respondsToSelector:@selector(onGPSInfoUpdate:)]) {
         [_gpsInfoDelegate onGPSInfoUpdate:tmpGPSInfo];
@@ -82,7 +82,7 @@ void receive_attitudeEulerAngle(Telemetry::EulerAngle eulerAngle) {
     tmpEulerAngle.pitchDeg = eulerAngle.pitch_deg;
     tmpEulerAngle.rollDeg = eulerAngle.roll_deg;
     tmpEulerAngle.yawDeg = eulerAngle.yaw_deg;
-    
+
     if (_attitudeEulerAngleDelegate &&
         [_attitudeEulerAngleDelegate respondsToSelector:@selector(onAttitudeEulerAngleUpdate:)]) {
         [_attitudeEulerAngleDelegate onAttitudeEulerAngleUpdate:tmpEulerAngle];
@@ -96,7 +96,7 @@ void receive_attitudeQuaternion(Telemetry::Quaternion quaternion) {
     tmpQuaternion.x = quaternion.x;
     tmpQuaternion.y = quaternion.y;
     tmpQuaternion.z = quaternion.z;
-    
+
     if (_attitudeQuaternionDelegate &&
         [_attitudeQuaternionDelegate respondsToSelector:@selector(onAttitudeQuaternionUpdate:)]) {
         [_attitudeQuaternionDelegate onAttitudeQuaternionUpdate:tmpQuaternion];
@@ -110,7 +110,7 @@ void receive_homePosition(Telemetry::Position homePosition) {
     tmpHomePosition.longitudeDeg = homePosition.longitude_deg;
     tmpHomePosition.absoluteAltitudeM = homePosition.absolute_altitude_m;
     tmpHomePosition.relativeAltitudeM = homePosition.relative_altitude_m;
-    
+
     if (_homePositionDelegate &&
         [_homePositionDelegate respondsToSelector:@selector(onHomePositionUpdate:)]) {
         [_homePositionDelegate onHomePositionUpdate:tmpHomePosition];
@@ -130,7 +130,7 @@ void receive_CameraAttitudeEulerAngle(Telemetry::EulerAngle eulerAngle) {
     tmpAttitude.pitchDeg = eulerAngle.pitch_deg;
     tmpAttitude.rollDeg = eulerAngle.roll_deg;
     tmpAttitude.yawDeg = eulerAngle.yaw_deg;
-    
+
     if (_cameraAttitudeEulerAngleDelegate &&
         [_cameraAttitudeEulerAngleDelegate respondsToSelector:@selector(onCameraAttitudeEulerAngleUpdate:)]) {
         [_cameraAttitudeEulerAngleDelegate onCameraAttitudeEulerAngleUpdate:tmpAttitude];
@@ -144,7 +144,7 @@ void receive_CameraAttitudeQuaternion(Telemetry::Quaternion quaternion) {
     tmpAttitude.x = quaternion.x;
     tmpAttitude.y = quaternion.y;
     tmpAttitude.z = quaternion.z;
-    
+
     if (_cameraAttitudeQuaternionDelegate &&
         [_cameraAttitudeQuaternionDelegate respondsToSelector:@selector(onCameraAttitudeQuaternionUpdate:)]) {
         [_cameraAttitudeQuaternionDelegate onCameraAttitudeQuaternionUpdate:tmpAttitude];
@@ -157,7 +157,7 @@ void receive_RCStatus(Telemetry::RCStatus RCStatus) {
     tmpRCStatus.availableOnce = RCStatus.available_once;
     tmpRCStatus.lost = !RCStatus.available;
     tmpRCStatus.signalStrengthPercent = RCStatus.signal_strength_percent;
-    
+
     if (_rcStatusDelegate &&
         [_rcStatusDelegate respondsToSelector:@selector(onRCStatusUpdate:)]) {
         [_rcStatusDelegate onRCStatusUpdate:tmpRCStatus];
@@ -167,42 +167,42 @@ void receive_RCStatus(Telemetry::RCStatus RCStatus) {
 #pragma mark Flight Mode information
 void receive_flightMode(Telemetry::FlightMode flightMode) {
     YNCTelemetryFlightMode tmpFlightMode;
-    
+
     switch (flightMode) {
         case Telemetry::FlightMode::READY:
             tmpFlightMode = YNCREADY;
             break;
-            
+
         case Telemetry::FlightMode::TAKEOFF:
             tmpFlightMode = YNCTAKEOFF;
             break;
-            
+
         case Telemetry::FlightMode::HOLD:
             tmpFlightMode = YNCHOLD;
             break;
-            
+
         case Telemetry::FlightMode::MISSION:
             tmpFlightMode = YNCMISSION;
             break;
-            
+
         case Telemetry::FlightMode::RETURN_TO_LAUNCH:
             tmpFlightMode = YNCRETURN_TO_LAUNCH;
             break;
-            
+
         case Telemetry::FlightMode::LAND:
             tmpFlightMode = YNCLAND;
             break;
-            
+
         case Telemetry::FlightMode::OFFBOARD:
             tmpFlightMode = YNCOFFBOARD;
             break;
-           
+
         case Telemetry::FlightMode::UNKNOWN:
         default:
             tmpFlightMode = YNCUNKNOWN;
             break;
     }
-    
+
     if (_flightModeDelegate &&
         [_flightModeDelegate respondsToSelector:@selector(onFlightModeUpdate:)]) {
         [_flightModeDelegate onFlightModeUpdate:tmpFlightMode];
@@ -219,7 +219,7 @@ void receive_health(Telemetry::Health health) {
     tmpHealth.gyrometerCalibrationOk = health.gyrometer_calibration_ok;
     tmpHealth.magnetometerCalibrationOk = health.magnetometer_calibration_ok;
     tmpHealth.accelerometerCalibrationOk = health.accelerometer_calibration_ok;
-    
+
     if (_healthDelegate &&
         [_healthDelegate respondsToSelector:@selector(onHealthUpdate:)]) {
         [_healthDelegate onHealthUpdate:tmpHealth];
@@ -247,8 +247,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryBatteryDelegate>) delegate {
     _batteryDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().battery_async(&receive_battery);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->battery_async(&receive_battery);
 }
 
 @end
@@ -260,8 +260,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryPositionDelegate>) delegate {
     _positionDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().position_async(&receive_position);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->position_async(&receive_position);
 }
 
 @end
@@ -273,8 +273,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryGroundSpeedNEDDelegate>) delegate {
     _groundSpeedNEDDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().ground_speed_ned_async(&receive_ground_speed_ned);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->ground_speed_ned_async(&receive_ground_speed_ned);
 }
 
 @end
@@ -286,8 +286,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryGPSInfoDelegate>) delegate {
     _gpsInfoDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().gps_info_async(&receive_GPSInfo);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->gps_info_async(&receive_GPSInfo);
 }
 
 @end
@@ -299,8 +299,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryAttitudeEulerAngleDelegate>) delegate {
     _attitudeEulerAngleDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().attitude_euler_angle_async(&receive_attitudeEulerAngle);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->attitude_euler_angle_async(&receive_attitudeEulerAngle);
 }
 
 @end
@@ -312,8 +312,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryAttitudeQuaternionDelegate>) delegate {
     _attitudeQuaternionDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().attitude_quaternion_async(&receive_attitudeQuaternion);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->attitude_quaternion_async(&receive_attitudeQuaternion);
 }
 
 @end
@@ -322,8 +322,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryHomePositionDelegate>) delegate {
     _homePositionDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().home_position_async(&receive_homePosition);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->home_position_async(&receive_homePosition);
 }
 
 @end
@@ -332,8 +332,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryInAirDelegate>) delegate {
     _inAirDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().in_air_async(&receive_inAir);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->in_air_async(&receive_inAir);
 }
 
 @end
@@ -342,8 +342,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryCameraAttitudeEulerAngleDelegate>) delegate {
     _cameraAttitudeEulerAngleDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().camera_attitude_euler_angle_async(&receive_attitudeEulerAngle);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->camera_attitude_euler_angle_async(&receive_attitudeEulerAngle);
 }
 
 @end
@@ -352,8 +352,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryCameraAttitudeQuaternionDelegate>) delegate {
     _cameraAttitudeQuaternionDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().camera_attitude_quaternion_async(&receive_attitudeQuaternion);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->camera_attitude_quaternion_async(&receive_attitudeQuaternion);
 }
 
 @end
@@ -365,8 +365,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryRCStatusDelegate>) delegate {
     _rcStatusDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().rc_status_async(&receive_RCStatus);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->rc_status_async(&receive_RCStatus);
 }
 
 @end
@@ -375,8 +375,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryFlightModeDelegate>) delegate {
     _flightModeDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().flight_mode_async(&receive_flightMode);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->flight_mode_async(&receive_flightMode);
 }
 
 @end
@@ -388,8 +388,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryHealthDelegate>) delegate {
     _healthDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().health_async(&receive_health);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->health_async(&receive_health);
 }
 
 @end
@@ -398,8 +398,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryArmedDelegate>) delegate {
     _armedDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().armed_async(&receive_armed);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->armed_async(&receive_armed);
 }
 
 @end
@@ -408,8 +408,8 @@ void receive_healthAllOk(bool healthAllOk) {
 
 - (void)subscribe:(id<YNCSDKTelemetryHealthAllOkDelegate>) delegate {
     _healthAllOkDelegate = delegate;
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().telemetry().health_all_ok_async(&receive_healthAllOk);
+    Telemetry *telemetry = [[YNCSDKInternal instance] telemetry];
+    telemetry->health_all_ok_async(&receive_healthAllOk);
 }
 
 @end

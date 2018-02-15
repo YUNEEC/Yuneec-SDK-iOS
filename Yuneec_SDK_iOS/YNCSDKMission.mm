@@ -40,7 +40,7 @@ void receive_mission_progress(YNCMissionProgressCallbackBlock callback, int curr
 
 + (void)sendMissionWithMissionItems:(NSMutableArray *)missionItems
                      withCompletion:(YNCMissionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
+    Mission *mission = [[YNCSDKInternal instance] mission];
     std::vector<std::shared_ptr<MissionItem>> std_vec;
 
     for (YNCSDKMissionItem *missionItem in missionItems) {
@@ -54,22 +54,22 @@ void receive_mission_progress(YNCMissionProgressCallbackBlock callback, int curr
         std_vec.push_back(newItem);
     }
 
-    dc->device().mission().upload_mission_async(std_vec, std::bind(&receive_mission_error, completion, _1));
+    mission->upload_mission_async(std_vec, std::bind(&receive_mission_error, completion, _1));
 }
 
 + (void)startMissionWithCompletion:(YNCMissionCompletion)completion{
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().mission().start_mission_async(std::bind(&receive_mission_error, completion, _1));
+    Mission *mission = [[YNCSDKInternal instance] mission];
+    mission->start_mission_async(std::bind(&receive_mission_error, completion, _1));
 }
 
 + (void)pauseMissionWithCompletion:(YNCMissionCompletion)completion {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().mission().pause_mission_async(std::bind(&receive_mission_error, completion, _1));
+    Mission *mission = [[YNCSDKInternal instance] mission];
+    mission->pause_mission_async(std::bind(&receive_mission_error, completion, _1));
 }
 
 + (void)subscribeProgressWithCallback:(YNCMissionProgressCallbackBlock)callback {
-    DroneCore *dc = [[YNCSDKInternal instance] dc];
-    dc->device().mission().subscribe_progress(std::bind(&receive_mission_progress, callback, _1, _2));
+    Mission *mission = [[YNCSDKInternal instance] mission];
+    mission->subscribe_progress(std::bind(&receive_mission_progress, callback, _1, _2));
 }
 
 + (MissionItem::CameraAction)convertIntToCameraAction:(YNCCameraAction)raw {
