@@ -26,7 +26,7 @@
         case YNCConnectionResultNotImplemented:
             return @"Not Implemented";
         case YNCConnectionResultTimeOut:
-            return @"Time Out";
+            return @"Timeout";
         case YNCConnectionResultDeviceNotConnected:
             return @"Device Not Connected";
         case YNCConnectionResultDestinationIpUnknown:

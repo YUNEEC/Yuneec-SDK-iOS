@@ -18,7 +18,7 @@ typedef NS_ENUM (NSInteger, YNCConnectionResult) {
      */
     YNCConnectionResultSuccess = 0,
     /**
-     Time Out
+     Timeout
      */
     YNCConnectionResultTimeOut,
     /**
