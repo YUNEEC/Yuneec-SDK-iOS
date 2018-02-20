@@ -51,21 +51,45 @@ void on_timeout(uint64_t uuid) {
     }
 }
 
-- (BOOL)connect {
+- (YNCConnectionResult)connect {
     [self requestNetwork];
     
     DroneCore *dc = [[YNCSDKInternal instance] dc];
     DroneCore::ConnectionResult ret = dc->add_udp_connection();
-    
     if (ret != DroneCore::ConnectionResult::SUCCESS) {
         NSLog(@"Connect error: %u", (unsigned)ret);
-        return false;
+        switch(ret) {
+            case dronecore::DroneCore::ConnectionResult::BIND_ERROR:
+                return YNCConnectionResultBindError;
+            case dronecore::DroneCore::ConnectionResult::COMMAND_DENIED:
+                return YNCConnectionResultCommandDenied;
+            case dronecore::DroneCore::ConnectionResult::CONNECTION_ERROR:
+                return YNCConnectionResultConnectionError;
+            case dronecore::DroneCore::ConnectionResult::CONNECTIONS_EXHAUSTED:
+                return YNCConnectionResultConnectionsExhausted;
+            case dronecore::DroneCore::ConnectionResult::DESTINATION_IP_UNKNOWN:
+                return YNCConnectionResultDestinationIpUnknown;
+            case dronecore::DroneCore::ConnectionResult::DEVICE_BUSY:
+                return YNCConnectionResultDeviceBusy;
+            case dronecore::DroneCore::ConnectionResult::DEVICE_NOT_CONNECTED:
+                return YNCConnectionResultDeviceNotConnected;
+            case dronecore::DroneCore::ConnectionResult::NOT_IMPLEMENTED:
+                return YNCConnectionResultNotImplemented;
+            case dronecore::DroneCore::ConnectionResult::SOCKET_CONNECTION_ERROR:
+                return YNCConnectionResultSocketError;
+            case dronecore::DroneCore::ConnectionResult::SOCKET_ERROR:
+                return YNCConnectionResultSocketError;
+            case dronecore::DroneCore::ConnectionResult::TIMEOUT:
+                return YNCConnectionResultTimeOut;
+            default:
+                return YNCConnectionResultUnknown;
+        }
     }
     
     dc->register_on_discover(&on_discover);
     dc->register_on_timeout(&on_timeout);
     
-    return true;
+    return YNCConnectionResultSuccess;
 }
 
 - (void)removeConnection {
