@@ -93,6 +93,12 @@ typedef NS_ENUM (NSInteger, YNCConnectionResult) {
 + (id)instance;
 
 /**
+ * Get connection result string
+ * @param connectionResultEnum the connection result Enum
+ */
++ (NSString*)getConnectionResultString:(YNCConnectionResult) connectionResultEnum;
+
+/**
  Initiates the connection over UDP to the drone.
  
  @return YNCConnectionResult. In case of error, check the log output for more info.

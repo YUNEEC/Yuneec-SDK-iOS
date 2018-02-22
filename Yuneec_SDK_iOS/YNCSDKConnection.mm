@@ -100,6 +100,37 @@ void on_timeout(uint64_t uuid) {
     _delegate = delegate;
 }
 
+//MARK: Get Camera Mode String
++ (NSString *)getConnectionResultString:(YNCConnectionResult)connectionResultEnum {
+    
+    switch(connectionResultEnum) {
+        case YNCConnectionResultSuccess:
+            return @"Success";
+        case YNCConnectionResultBindError:
+            return @"Bind Error";
+        case YNCConnectionResultCommandDenied:
+            return @"Command Denied";
+        case YNCConnectionResultSocketError:
+            return @"Socket Error";
+        case YNCConnectionResultNotImplemented:
+            return @"Not Implemented";
+        case YNCConnectionResultTimeOut:
+            return @"Timeout";
+        case YNCConnectionResultDeviceNotConnected:
+            return @"Device Not Connected";
+        case YNCConnectionResultDestinationIpUnknown:
+            return @"Destination Ip Unknown";
+        case YNCConnectionResultDeviceBusy:
+            return @"Device Busy";
+        case YNCConnectionResultConnectionsExhausted:
+            return @"Connections Exhausted";
+        case YNCConnectionResultSocketConnectionError:
+            return @"Socket Connection Error";
+        default:
+            return @"Unknown";
+    }
+}
+
 //MARK:Since China's National Bank iPhone requires users to allow App to access cellular data and WiFi connection to the network, add a network request to prompt the network for permission, to resolve the qustion of "no route to host"
 - (void)requestNetwork {
     NSURL *url = [NSURL URLWithString:@"https://192.168.42.1/"];
