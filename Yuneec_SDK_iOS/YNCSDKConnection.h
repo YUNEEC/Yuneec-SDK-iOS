@@ -10,6 +10,64 @@
 #import <Foundation/Foundation.h>
 
 /**
+ Data type for connection results.
+ */
+typedef NS_ENUM (NSInteger, YNCConnectionResult) {
+    /**
+     Success
+     */
+    YNCConnectionResultSuccess = 0,
+    /**
+     Timeout
+     */
+    YNCConnectionResultTimeOut,
+    /**
+     Socket Error
+     */
+    YNCConnectionResultSocketError,
+    /**
+     Socket Connection Error
+     */
+    YNCConnectionResultSocketConnectionError,
+    /**
+     Bind Error
+     */
+    YNCConnectionResultBindError,
+    /**
+     ConnectionError
+     */
+    YNCConnectionResultConnectionError,
+    /**
+     Not Implemented
+     */
+    YNCConnectionResultNotImplemented,
+    /**
+     Device Not Connected
+     */
+    YNCConnectionResultDeviceNotConnected,
+    /**
+     Device Busy
+     */
+    YNCConnectionResultDeviceBusy,
+    /**
+     Command Denied
+     */
+    YNCConnectionResultCommandDenied,
+    /**
+     Destination Ip Unknown
+     */
+    YNCConnectionResultDestinationIpUnknown,
+    /**
+     Connections Exhausted
+     */
+    YNCConnectionResultConnectionsExhausted,
+    /**
+     Unknown
+     */
+    YNCConnectionResultUnknown
+};
+
+/**
  This delegate provides notification of the connection status.
  */
 @protocol YNCSDKConnectionDelegate <NSObject>
@@ -35,11 +93,17 @@
 + (id)instance;
 
 /**
+ * Get connection result string
+ * @param connectionResultEnum the connection result Enum
+ */
++ (NSString*)getConnectionResultString:(YNCConnectionResult) connectionResultEnum;
+
+/**
  Initiates the connection over UDP to the drone.
  
- @return YES if successful, and NO if an error occurred. In case of error, check the log output for more info.
+ @return YNCConnectionResult. In case of error, check the log output for more info.
  */
-- (BOOL)connect;
+- (YNCConnectionResult)connect;
 
 /**
   * Remove connection to the drone.
