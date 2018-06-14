@@ -1,6 +1,9 @@
-# [![Yuneec](http://developer.yuneec.com/sites/default/files/ios-sdk/YuneecLogo.svg)](https://developer.yuneec.com)
+# NOTE: This Yuneec SDK for iOS will be deprecated.
 
-# Yuneec SDK for iOS
+We are moving the [Dronecode SDK](http://dronecore.io/), for iOS please checkout [Dronecode-SDK-Swift](https://github.com/dronecore/DroneCore-Swift).
+
+
+## Yuneec SDK for iOS
 
 [![Build Status](https://travis-ci.org/YUNEEC/Yuneec-SDK-iOS.svg?branch=master)](https://travis-ci.org/YUNEEC/Yuneec-SDK-iOS)
 
