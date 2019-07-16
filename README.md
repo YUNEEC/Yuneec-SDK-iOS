@@ -1,4 +1,4 @@
-# NOTE: This Yuneec SDK for iOS will be deprecated.
+# NOTE: This Yuneec SDK for iOS is deprecated.
 
 We are moving to [Dronecode SDK](http://dronecore.io/), for iOS please checkout [Dronecode-SDK-Swift](https://github.com/dronecore/DroneCore-Swift).
 
